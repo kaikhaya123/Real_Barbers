@@ -63,11 +63,11 @@ export default function QueuePage() {
               </li>
               <li className="flex items-start">
                 <span className="mr-2">3.</span>
-                <span>Get notified via SMS when it's almost your turn</span>
+                <span>Get notified via SMS when it&apos;s almost your turn</span>
               </li>
               <li className="flex items-start">
                 <span className="mr-2">4.</span>
-                <span>Arrive at the shop when you're near the front</span>
+                <span>Arrive at the shop when you&apos;re near the front</span>
               </li>
             </ul>
             <p className="mt-4 text-xs text-blue-700">

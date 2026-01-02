@@ -14,7 +14,7 @@ export default function ContactPage() {
               Get In Touch
             </h1>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              We're here to help. Visit us, call us, or send a message.
+              We&apos;re here to help. Visit us, call us, or send a message.
             </p>
           </div>
 
@@ -168,7 +168,7 @@ export default function ContactPage() {
             </h2>
             <p className="text-accent-100 mb-8 max-w-2xl mx-auto">
               Book your appointment online or join our walk-in queue. 
-              We're ready to serve you.
+              We&apos;re ready to serve you.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button

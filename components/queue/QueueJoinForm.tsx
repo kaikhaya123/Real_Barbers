@@ -117,7 +117,7 @@ export default function QueueJoinForm({ onJoin }: QueueJoinFormProps) {
           </div>
           {errors.phone && <p className="mt-1 text-sm text-red-600">{errors.phone}</p>}
           <p className="mt-1 text-xs text-gray-500">
-            We'll send you an SMS when it's almost your turn
+            We&apos;ll send you an SMS when it&apos;s almost your turn
           </p>
         </div>
 

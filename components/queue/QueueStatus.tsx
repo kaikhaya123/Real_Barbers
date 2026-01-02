@@ -71,7 +71,7 @@ export default function QueueStatus({ entry, onLeave }: QueueStatusProps) {
           <Users className="h-10 w-10 text-accent-600" />
         </div>
         <h2 className="text-2xl font-bold text-primary-900 mb-1">
-          You're in the Queue!
+          You&apos;re in the Queue!
         </h2>
         <p className="text-gray-600">
           Welcome back, {entry.clientName}
@@ -158,7 +158,7 @@ export default function QueueStatus({ entry, onLeave }: QueueStatusProps) {
         )}
         
         <p className="text-xs text-center text-gray-500">
-          We'll send you an SMS when it's almost your turn
+          We&apos;ll send you an SMS when it&apos;s almost your turn
         </p>
       </div>
 

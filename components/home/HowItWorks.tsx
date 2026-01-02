@@ -64,7 +64,7 @@ export default function HowItWorks() {
 
       <div className="mt-12 text-center">
         <p className="text-gray-600 max-w-3xl mx-auto">
-          <strong>Still prefer calling?</strong> That's fine too. We accept phone bookings during business hours. 
+          <strong>Still prefer calling?</strong> That&apos;s fine too. We accept phone bookings during business hours. 
           Our digital system helps us serve you better while keeping things flexible.
         </p>
       </div>

@@ -101,7 +101,7 @@ export default function BarbersPage() {
             </h2>
             <p className="text-gray-300 mb-6 max-w-2xl mx-auto">
               All our barbers are highly skilled professionals. 
-              Select "First Available" when booking for the fastest service.
+              Select &quot;First Available&quot; when booking for the fastest service.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button asLink href="/book" variant="primary" size="lg">
