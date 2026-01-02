@@ -52,14 +52,14 @@ export default function BookPage() {
   return (
     <Section background="gray" padding="lg">
       <div className="max-w-4xl mx-auto">
-        <div className="text-center mb-8">
-          <h1 className="text-3xl md:text-4xl font-heading font-bold text-primary-900 mb-3">
-            Book Your Appointment
-          </h1>
-          <p className="text-gray-600">
-            Choose your service, barber, and preferred time in just a few clicks
-          </p>
-        </div>
+      <div className="text-center mb-8">
+        <h1 className="text-3xl md:text-4xl font-heading font-bold text-primary-900 mb-3">
+        Book Your Appointment
+        </h1>
+        <p className="text-gray-600">
+        Choose your service, barber, and preferred time in just a few clicks
+        </p>
+      </div>
 
         {/* Progress Indicator */}
         {step < 5 && (

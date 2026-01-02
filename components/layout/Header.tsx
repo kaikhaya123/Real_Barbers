@@ -44,11 +44,11 @@ export default function Header() {
          : 'bg-transparent'
      }`}>
           <div className="mx-auto max-w-7xl">
-            <nav className={`flex items-center justify-between px-6 lg:px-8 transition-all duration-300 ${
+            <nav className={`flex items-center justify-between px-4 sm:px-6 lg:px-8 transition-all duration-300 ${
               isScrolled || !isHomePage ? 'py-3' : 'py-4'
             }`}>
-              {/* Logo/Brand */}
-              <div className="flex items-center">
+              {/* Logo/Brand - Fixed Position */}
+              <div className="flex items-center flex-shrink-0">
                 <Link href="/">
                   <Image
                     src="/logo/Real_barbersho_logo.png"
@@ -64,31 +64,34 @@ export default function Header() {
                   />
                 </Link>
               </div>
-          {/* Center Navigation */}
-          <div className="hidden md:flex items-center space-x-8 lg:space-x-12">
-            {navigation.map((item) => (
-              <Link
-                key={item.name}
-                href={item.href}
-                className={`text-sm font-medium tracking-wide transition-all duration-300 ${
-                  isActive(item.href)
-                    ? (isScrolled || !isHomePage ? 'text-gray-900' : 'text-white')
-                    : (isScrolled || !isHomePage 
-                        ? 'text-gray-600 hover:text-gray-900' 
-                        : 'text-white/90 hover:text-white')
-                }`}
-              >
-                {item.name}
-              </Link>
-            ))}
+
+          {/* Center Navigation - Better Spacing */}
+          <div className="hidden lg:flex items-center justify-center flex-1 mx-8">
+            <div className="flex items-center space-x-10 xl:space-x-12">
+              {navigation.map((item) => (
+                <Link
+                  key={item.name}
+                  href={item.href}
+                  className={`text-sm font-medium tracking-wider transition-all duration-300 hover:scale-105 ${
+                    isActive(item.href)
+                      ? (isScrolled || !isHomePage ? 'text-gray-900' : 'text-white')
+                      : (isScrolled || !isHomePage 
+                          ? 'text-gray-600 hover:text-gray-900' 
+                          : 'text-white/90 hover:text-white')
+                  }`}
+                >
+                  {item.name}
+                </Link>
+              ))}
+            </div>
           </div>
 
           {/* Right Side - CTA & Mobile Menu */}
-          <div className="flex items-center space-x-4">
+          <div className="flex items-center space-x-3">
             {/* Desktop CTA */}
             <Link
               href="/book"
-              className={`hidden md:inline-flex items-center space-x-2 px-6 py-2.5 rounded-full text-sm font-medium tracking-wide transition-all duration-300 ${
+              className={`hidden lg:inline-flex items-center space-x-2 px-6 py-2.5 rounded-full text-sm font-medium tracking-wide transition-all duration-300 hover:scale-105 ${
                 isScrolled || !isHomePage
                   ? 'border border-gray-900 text-gray-900 hover:bg-gray-900 hover:text-white'
                   : 'border border-white text-white hover:bg-white hover:text-gray-900'
@@ -100,10 +103,10 @@ export default function Header() {
               </svg>
             </Link>
 
-            {/* Mobile Menu Button */}
+            {/* Mobile Menu Button - Enhanced 3-line hamburger */}
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className={`md:hidden p-2 rounded-lg transition-all duration-300 ${
+              className={`lg:hidden p-3 rounded-lg transition-all duration-300 hover:scale-105 ${
                 isScrolled || !isHomePage
                   ? 'text-gray-900 hover:bg-gray-100'
                   : 'text-white hover:bg-white/10'
@@ -113,7 +116,17 @@ export default function Header() {
               {isMenuOpen ? (
                 <X className="h-6 w-6" />
               ) : (
-                <Menu className="h-6 w-6" />
+                <div className="flex flex-col space-y-1.5">
+                  <span className={`block h-0.5 w-6 rounded ${
+                    isScrolled || !isHomePage ? 'bg-gray-900' : 'bg-white'
+                  }`}></span>
+                  <span className={`block h-0.5 w-6 rounded ${
+                    isScrolled || !isHomePage ? 'bg-gray-900' : 'bg-white'
+                  }`}></span>
+                  <span className={`block h-0.5 w-6 rounded ${
+                    isScrolled || !isHomePage ? 'bg-gray-900' : 'bg-white'
+                  }`}></span>
+                </div>
               )}
             </button>
           </div>

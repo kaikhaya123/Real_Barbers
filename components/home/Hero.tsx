@@ -38,7 +38,7 @@ export default function Hero() {
         <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/40 to-black/20"></div>
         
         {/* Bottom Centered Text Overlay */}
-        <div className="absolute inset-0 flex flex-col justify-end items-center text-center text-white px-6 md:px-12 pb-16 md:pb-20">
+        <div className="absolute inset-0 flex flex-col justify-center items-center text-center text-white px-6 md:px-12 pb-8 md:pb-12 pt-16 md:pt-20">
           <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 lg:mb-6 leading-tight max-w-4xl">
             Built for your best look.
           </h1>

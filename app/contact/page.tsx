@@ -1,241 +1,195 @@
 import Section from '@/components/ui/Section'
-import Card from '@/components/ui/Card'
 import Button from '@/components/ui/Button'
-import { MapPin, Phone, Mail, Clock, MessageCircle } from 'lucide-react'
+import Image from 'next/image'
+import Link from 'next/link'
 import { BUSINESS_INFO } from '@/lib/constants'
 
 export default function ContactPage() {
   return (
     <>
+      {/* Hero Section with Logo and Title */}
+      <Section background="white" padding="lg">
+        <div className="max-w-6xl mx-auto text-center">
+          {/* Logo */}
+          <div className="mb-8">
+            <Image
+              src="/logo/Real_barbersho_logo.png"
+              alt="Real Barbershop Logo"
+              width={200}
+              height={80}
+              className="mx-auto h-16 md:h-20 w-auto"
+            />
+          </div>
+
+          {/* Main Heading */}
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-dark-800 mb-6 tracking-wide">
+            GET IN TOUCH WITH REAL BARBERS
+          </h1>
+
+          {/* Description */}
+          <p className="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto mb-12 leading-relaxed">
+            Do you have any questions or would you like to book an appointment?<br />
+            Please contact us.
+          </p>
+
+          {/* Contact Buttons */}
+          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16">
+            <Link href="/book">
+              <Button className="bg-gray-500 hover:bg-gray-600 text-white px-8 py-4 text-lg font-medium rounded-full">
+                BOOK APPOINTMENT
+              </Button>
+            </Link>
+            <Link href="/queue">
+              <Button className="bg-accent-600 hover:bg-accent-700 text-white px-8 py-4 text-lg font-medium rounded-full">
+                JOIN QUEUE
+              </Button>
+            </Link>
+          </div>
+        </div>
+      </Section>
+
+      {/* Contact Information Section */}
       <Section background="gray" padding="lg">
-        <div className="max-w-6xl mx-auto">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            {/* Barbershop Image */}
+            <div className="order-2 lg:order-1">
+              <div className="rounded-2xl overflow-hidden shadow-xl">
+                <Image
+                  src="/Images/barbershop-interior.jpg"
+                  alt="Real Barbershop Interior"
+                  width={600}
+                  height={400}
+                  className="w-full h-[400px] object-cover"
+                />
+              </div>
+            </div>
+
+            {/* Contact Details */}
+            <div className="order-1 lg:order-2 space-y-8">
+              <div>
+                <h2 className="text-3xl md:text-4xl font-bold text-dark-800 mb-8">
+                  REAL BARBERSHOP
+                </h2>
+
+                {/* Phone Number */}
+                <div className="mb-6">
+                  <h3 className="text-lg font-semibold text-dark-700 mb-2">Phone Number</h3>
+                  <a 
+                    href={`tel:${BUSINESS_INFO.phone}`}
+                    className="text-xl text-gray-600 hover:text-accent-600 transition-colors"
+                  >
+                    {BUSINESS_INFO.phone}
+                  </a>
+                </div>
+
+                {/* Email */}
+                <div className="mb-6">
+                  <h3 className="text-lg font-semibold text-dark-700 mb-2">Email</h3>
+                  <a 
+                    href={`mailto:${BUSINESS_INFO.email}`}
+                    className="text-xl text-gray-600 hover:text-accent-600 transition-colors"
+                  >
+                    {BUSINESS_INFO.email}
+                  </a>
+                </div>
+
+                {/* Address */}
+                <div className="mb-8">
+                  <h3 className="text-lg font-semibold text-dark-700 mb-2">Address</h3>
+                  <p className="text-xl text-gray-600 leading-relaxed">
+                    {BUSINESS_INFO.address}
+                  </p>
+                </div>
+
+                {/* Location Link */}
+                <div className="border-t border-gray-200 pt-6">
+                  <h3 className="text-2xl font-bold text-dark-800 mb-4">REAL BARBERS LOCATION</h3>
+                  <a
+                    href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(BUSINESS_INFO.address)}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center text-lg font-semibold text-accent-600 hover:text-accent-700 transition-colors"
+                  >
+                    Route description →
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </Section>
+
+      {/* Opening Hours & Additional Info */}
+      <Section background="white" padding="lg">
+        <div className="max-w-4xl mx-auto">
           <div className="text-center mb-12">
-            <h1 className="text-3xl md:text-4xl font-heading font-bold text-primary-900 mb-4">
-              Get In Touch
-            </h1>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              We&apos;re here to help. Visit us, call us, or send a message.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
-            {/* Contact Info */}
-            <div className="space-y-6">
-              <Card>
-                <div className="flex items-start space-x-4">
-                  <div className="flex-shrink-0 w-12 h-12 bg-accent-100 rounded-lg flex items-center justify-center">
-                    <MapPin className="h-6 w-6 text-accent-600" />
-                  </div>
-                  <div className="flex-1">
-                    <h3 className="text-lg font-bold text-primary-900 mb-2">
-                      Visit Our Shop
-                    </h3>
-                    <p className="text-gray-700 mb-3">
-                      {BUSINESS_INFO.address}
-                    </p>
-                    <a
-                      href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(BUSINESS_INFO.address)}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-accent-600 hover:text-accent-700 font-semibold text-sm"
-                    >
-                      Get Directions →
-                    </a>
-                  </div>
-                </div>
-              </Card>
-
-              <Card>
-                <div className="flex items-start space-x-4">
-                  <div className="flex-shrink-0 w-12 h-12 bg-accent-100 rounded-lg flex items-center justify-center">
-                    <Phone className="h-6 w-6 text-accent-600" />
-                  </div>
-                  <div className="flex-1">
-                    <h3 className="text-lg font-bold text-primary-900 mb-2">
-                      Call Us
-                    </h3>
-                    <p className="text-gray-700 mb-3">
-                      <a href={`tel:${BUSINESS_INFO.phone}`} className="hover:text-accent-600">
-                        {BUSINESS_INFO.phone}
-                      </a>
-                    </p>
-                    <p className="text-sm text-gray-600">
-                      For bookings, inquiries, and support
-                    </p>
-                  </div>
-                </div>
-              </Card>
-
-              <Card>
-                <div className="flex items-start space-x-4">
-                  <div className="flex-shrink-0 w-12 h-12 bg-accent-100 rounded-lg flex items-center justify-center">
-                    <MessageCircle className="h-6 w-6 text-accent-600" />
-                  </div>
-                  <div className="flex-1">
-                    <h3 className="text-lg font-bold text-primary-900 mb-2">
-                      WhatsApp
-                    </h3>
-                    <p className="text-gray-700 mb-3">
-                      <a href={`https://wa.me/${BUSINESS_INFO.whatsapp}`} className="hover:text-accent-600">
-                        {BUSINESS_INFO.whatsapp}
-                      </a>
-                    </p>
-                    <p className="text-sm text-gray-600">
-                      Quick messages and booking confirmations
-                    </p>
-                  </div>
-                </div>
-              </Card>
-
-              <Card>
-                <div className="flex items-start space-x-4">
-                  <div className="flex-shrink-0 w-12 h-12 bg-accent-100 rounded-lg flex items-center justify-center">
-                    <Mail className="h-6 w-6 text-accent-600" />
-                  </div>
-                  <div className="flex-1">
-                    <h3 className="text-lg font-bold text-primary-900 mb-2">
-                      Email
-                    </h3>
-                    <p className="text-gray-700 mb-3">
-                      <a href={`mailto:${BUSINESS_INFO.email}`} className="hover:text-accent-600">
-                        {BUSINESS_INFO.email}
-                      </a>
-                    </p>
-                    <p className="text-sm text-gray-600">
-                      For general inquiries and feedback
-                    </p>
-                  </div>
-                </div>
-              </Card>
-
-              <Card>
-                <div className="flex items-start space-x-4">
-                  <div className="flex-shrink-0 w-12 h-12 bg-accent-100 rounded-lg flex items-center justify-center">
-                    <Clock className="h-6 w-6 text-accent-600" />
-                  </div>
-                  <div className="flex-1">
-                    <h3 className="text-lg font-bold text-primary-900 mb-3">
-                      Opening Hours
-                    </h3>
-                    <div className="space-y-2 text-sm">
-                      <div className="flex justify-between">
-                        <span className="text-gray-600">Monday - Friday</span>
-                        <span className="font-semibold text-primary-900">
-                          {BUSINESS_INFO.hours.weekdays}
-                        </span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span className="text-gray-600">Saturday</span>
-                        <span className="font-semibold text-primary-900">
-                          {BUSINESS_INFO.hours.saturday}
-                        </span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span className="text-gray-600">Sunday</span>
-                        <span className="font-semibold text-primary-900">
-                          {BUSINESS_INFO.hours.sunday}
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </Card>
-            </div>
-
-            {/* Map */}
-            <div>
-              <Card className="h-full p-0 overflow-hidden">
-                <div className="aspect-square lg:h-full">
-                  <iframe
-                    src={`https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3459.6!2d${BUSINESS_INFO.coordinates.lng}!3d${BUSINESS_INFO.coordinates.lat}!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zM!5e0!3m2!1sen!2sza!4v1234567890`}
-                    width="100%"
-                    height="100%"
-                    style={{ border: 0 }}
-                    allowFullScreen
-                    loading="lazy"
-                    referrerPolicy="no-referrer-when-downgrade"
-                    title="Real Barbershop Location"
-                  />
-                </div>
-              </Card>
-            </div>
-          </div>
-
-          {/* CTA Section */}
-          <div className="bg-gradient-to-r from-accent-600 to-accent-700 rounded-xl p-8 md:p-12 text-center text-white">
-            <h2 className="text-2xl md:text-3xl font-heading font-bold mb-4">
-              Ready to Look Sharp?
+            <h2 className="text-3xl md:text-4xl font-bold text-dark-800 mb-6">
+              OPENING HOURS
             </h2>
-            <p className="text-accent-100 mb-8 max-w-2xl mx-auto">
-              Book your appointment online or join our walk-in queue. 
-              We&apos;re ready to serve you.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button
-                asLink
-                href="/book"
-                variant="secondary"
-                size="lg"
-              >
-                Book Appointment
-              </Button>
-              <Button
-                asLink
-                href="/queue"
-                variant="outline"
-                size="lg"
-                className="border-white text-white hover:bg-white hover:text-accent-600"
-              >
-                Join Walk-In Queue
-              </Button>
+            <div className="bg-gray-50 rounded-2xl p-8">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
+                <div>
+                  <h3 className="text-lg font-semibold text-dark-700 mb-2">Monday - Friday</h3>
+                  <p className="text-2xl font-bold text-accent-600">{BUSINESS_INFO.hours.weekdays}</p>
+                </div>
+                <div>
+                  <h3 className="text-lg font-semibold text-dark-700 mb-2">Saturday</h3>
+                  <p className="text-2xl font-bold text-accent-600">{BUSINESS_INFO.hours.saturday}</p>
+                </div>
+                <div>
+                  <h3 className="text-lg font-semibold text-dark-700 mb-2">Sunday</h3>
+                  <p className="text-2xl font-bold text-accent-600">{BUSINESS_INFO.hours.sunday}</p>
+                </div>
+              </div>
             </div>
           </div>
 
           {/* FAQ Section */}
-          <div className="mt-12">
-            <h2 className="text-2xl font-heading font-bold text-primary-900 mb-6 text-center">
-              Frequently Asked Questions
+          <div className="mt-16">
+            <h2 className="text-3xl md:text-4xl font-bold text-dark-800 mb-12 text-center">
+              FREQUENTLY ASKED QUESTIONS
             </h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <Card>
-                <h3 className="font-bold text-primary-900 mb-2">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <div className="bg-gray-50 rounded-2xl p-6">
+                <h3 className="text-xl font-bold text-dark-800 mb-4">
                   Do I need an appointment?
                 </h3>
-                <p className="text-gray-700 text-sm">
+                <p className="text-gray-600 leading-relaxed">
                   No! We welcome both appointments and walk-ins. Book online for guaranteed time slots, 
                   or join our digital walk-in queue when you arrive.
                 </p>
-              </Card>
+              </div>
 
-              <Card>
-                <h3 className="font-bold text-primary-900 mb-2">
+              <div className="bg-gray-50 rounded-2xl p-6">
+                <h3 className="text-xl font-bold text-dark-800 mb-4">
                   What payment methods do you accept?
                 </h3>
-                <p className="text-gray-700 text-sm">
+                <p className="text-gray-600 leading-relaxed">
                   We accept cash, card, and digital payments including SnapScan and Zapper. 
                   Payment is taken after your service.
                 </p>
-              </Card>
+              </div>
 
-              <Card>
-                <h3 className="font-bold text-primary-900 mb-2">
+              <div className="bg-gray-50 rounded-2xl p-6">
+                <h3 className="text-xl font-bold text-dark-800 mb-4">
                   Can I request a specific barber?
                 </h3>
-                <p className="text-gray-700 text-sm">
+                <p className="text-gray-600 leading-relaxed">
                   Yes! When booking online or joining the queue, you can select your preferred barber. 
                   This may affect wait times.
                 </p>
-              </Card>
+              </div>
 
-              <Card>
-                <h3 className="font-bold text-primary-900 mb-2">
+              <div className="bg-gray-50 rounded-2xl p-6">
+                <h3 className="text-xl font-bold text-dark-800 mb-4">
                   Is parking available?
                 </h3>
-                <p className="text-gray-700 text-sm">
-                  Yes, there is street parking available on Mbhele Street and nearby areas. 
-                  Please check local parking regulations.
+                <p className="text-gray-600 leading-relaxed">
+                  Yes, there is street parking available nearby. 
+                  Please check local parking regulations and time limits.
                 </p>
-              </Card>
+              </div>
             </div>
           </div>
         </div>
