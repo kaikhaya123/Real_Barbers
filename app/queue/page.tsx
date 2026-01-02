@@ -72,7 +72,7 @@ export default function QueuePage() {
             </ul>
             <p className="mt-4 text-xs text-blue-700">
               <strong>Note:</strong> You must be at the shop or nearby when your turn comes. 
-              If you miss your turn, you'll need to rejoin the queue.
+              If you miss your turn, you&apos;ll need to rejoin the queue.
             </p>
           </div>
         )}
