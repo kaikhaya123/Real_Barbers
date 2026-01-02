@@ -34,7 +34,7 @@ export default function DateTimeSelector({ service, barber, onSelect, onBack }: 
     if (!selectedDate) return
 
     const dayOfWeek = selectedDate.getDay()
-    const hours = OPERATING_HOURS[dayOfWeek]
+    const hours = OPERATING_HOURS[dayOfWeek as keyof typeof OPERATING_HOURS]
     
     // Filter slots based on operating hours
     const filtered = TIME_SLOTS.filter(slot => {
