@@ -11,7 +11,7 @@ export default function IntroSection() {
   // Array of community images with captions
   const communityImages = [
     {
-      src: '/Images/1767456426218.jpegg',
+      src: '/Images/1767456426218.jpeg',
       caption: 'Fresh Cuts, Fresh Confidence',
       alt: 'Community member enjoying fresh cut'
     },
@@ -154,17 +154,8 @@ export default function IntroSection() {
           transition={{ duration: 0.5 }}
           className="mt-24"
         >
-          <div className="text-center mb-12">
-            <h3 className="text-2xl md:text-3xl lg:text-4xl font-black text-dark-900 mb-4">
-              Real Community Impact
-            </h3>
-            <p className="text-lg text-dark-700 max-w-2xl mx-auto">
-              See how we&#39;ve transformed lives and built confidence in our community
-            </p>
-          </div>
-          
           <div className="flex justify-center">
-            <div className="relative aspect-[4/3] w-full max-w-2xl rounded-2xl overflow-hidden shadow-xl bg-gray-100 group">
+            <div className="relative aspect-[16/10] w-full max-w-4xl rounded-2xl overflow-hidden shadow-xl bg-gray-100 group">
               <Image
                 key={currentImageIndex}
                 src={communityImages[currentImageIndex].src}
@@ -181,25 +172,20 @@ export default function IntroSection() {
                 <p className="text-cream-50 font-bold text-xl md:text-2xl mb-2 drop-shadow-lg">
                   {communityImages[currentImageIndex].caption}
                 </p>
-                <div className="flex justify-between items-center">
-                  <div className="text-cream-50/80 text-sm">
-                    {currentImageIndex + 1} of {communityImages.length}
-                  </div>
-                  
-                  {/* Image indicators */}
-                  <div className="flex space-x-2">
-                    {communityImages.map((_, index) => (
-                      <button
-                        key={index}
-                        onClick={() => setCurrentImageIndex(index)}
-                        className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                          index === currentImageIndex 
-                            ? 'bg-cream-50 scale-110' 
-                            : 'bg-cream-50/50 hover:bg-cream-50/70'
-                        }`}
-                      />
-                    ))}
-                  </div>
+                
+                {/* Image indicators */}
+                <div className="flex justify-center space-x-2">
+                  {communityImages.map((_, index) => (
+                    <button
+                      key={index}
+                      onClick={() => setCurrentImageIndex(index)}
+                      className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                        index === currentImageIndex 
+                          ? 'bg-cream-50 scale-110' 
+                          : 'bg-cream-50/50 hover:bg-cream-50/70'
+                      }`}
+                    />
+                  ))}
                 </div>
               </div>
               
