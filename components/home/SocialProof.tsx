@@ -3,7 +3,7 @@
 import { Star, Quote } from 'lucide-react'
 import Section from '@/components/ui/Section'
 import Card from '@/components/ui/Card'
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 
 type StatCounterProps = {
   value: number;
@@ -14,8 +14,34 @@ type StatCounterProps = {
 
 function StatCounter({ value, suffix = "", label, decimals = 0 }: StatCounterProps) {
   const [count, setCount] = useState(0);
+  const [hasAnimated, setHasAnimated] = useState(false);
+  const ref = useRef<HTMLDivElement | null>(null);
 
+  // Observe when the stat enters the viewport
   useEffect(() => {
+    if (hasAnimated) return;
+    const el = ref.current;
+    if (!el || typeof IntersectionObserver === 'undefined') return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setHasAnimated(true);
+          }
+        });
+      },
+      { threshold: 0.4 }
+    );
+
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [hasAnimated]);
+
+  // Run the counting animation once visible
+  useEffect(() => {
+    if (!hasAnimated) return;
+
     let start = 0;
     const duration = 1200; // ms
     const increment = value / (duration / 16);
@@ -30,14 +56,17 @@ function StatCounter({ value, suffix = "", label, decimals = 0 }: StatCounterPro
         setCount(value);
       }
     }
+
     animate();
     return () => cancelAnimationFrame(raf);
-  }, [value, decimals]);
+  }, [hasAnimated, value, decimals]);
+
+  const display = typeof decimals === 'number' && decimals > 0 ? count.toFixed(decimals) : String(Math.round(count));
 
   return (
-    <div>
+    <div ref={ref}>
       <div className="text-4xl font-bold text-accent-600 mb-2">
-        {count}
+        {display}
         {suffix}
       </div>
       <div className="text-sm text-gray-600">{label}</div>
@@ -107,7 +136,7 @@ export default function SocialProof() {
         <StatCounter value={98} suffix="%" label="Client Satisfaction" />
         <StatCounter value={1000} suffix="+" label="Monthly Clients" />
         <StatCounter value={4.9} suffix="★" label="Average Rating" decimals={1} />
-        <StatCounter value={12} suffix="+" label="Years Trusted" />
+        <StatCounter value={5} suffix="+" label="Years Trusted" />
       </div>
     </div>
     </Section>
