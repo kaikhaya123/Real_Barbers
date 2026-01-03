@@ -3,10 +3,13 @@
 import Image from 'next/image'
 import Section from '@/components/ui/Section'
 import Button from '@/components/ui/Button'
-import { useState } from 'react'
+import { useState, useEffect, useRef } from 'react'
 
 export default function Services() {
   const [currentSlide, setCurrentSlide] = useState(0)
+  const [touchStart, setTouchStart] = useState<number | null>(null)
+  const [touchEnd, setTouchEnd] = useState<number | null>(null)
+  const containerRef = useRef(null)
   
   const services = [
     {
@@ -61,6 +64,46 @@ export default function Services() {
 
   const visibleServices = services.slice(currentSlide * 2, (currentSlide + 1) * 2)
 
+  // Touch swipe functionality
+  const minSwipeDistance = 50
+
+  interface TouchEventType extends React.TouchEvent<HTMLDivElement> {}
+
+  interface Service {
+    id: number;
+    name: string;
+    price: number;
+    duration: string;
+    image: string;
+    description: string;
+  }
+
+  const onTouchStart = (e: TouchEventType) => {
+    setTouchEnd(null)
+    setTouchStart(e.targetTouches[0].clientX)
+  }
+
+  interface OnTouchMoveEvent extends React.TouchEvent<HTMLDivElement> {}
+
+  const onTouchMove = (e: OnTouchMoveEvent) => {
+    setTouchEnd(e.targetTouches[0].clientX)
+  }
+
+  const onTouchEnd = () => {
+    if (!touchStart || !touchEnd) return
+    
+    const distance = touchStart - touchEnd
+    const isLeftSwipe = distance > minSwipeDistance
+    const isRightSwipe = distance < -minSwipeDistance
+    
+    if (isLeftSwipe) {
+      nextSlide()
+    }
+    if (isRightSwipe) {
+      prevSlide()
+    }
+  }
+
   return (
     <Section background="white" padding="lg">
       <div className="max-w-7xl mx-auto">
@@ -86,36 +129,6 @@ export default function Services() {
                 </h3>
               </div>
               
-              {/* Navigation Controls */}
-              <div className="flex items-center space-x-4 mb-6">
-                <Button 
-                  onClick={prevSlide}
-                  variant="outline" 
-                  size="sm"
-                  className="border-dark-200 text-dark-700 hover:bg-dark-900 hover:text-white hover:border-dark-900"
-                >
-                  ←
-                </Button>
-                <Button 
-                  onClick={nextSlide}
-                  variant="outline" 
-                  size="sm"
-                  className="border-dark-200 text-dark-700 hover:bg-dark-900 hover:text-white hover:border-dark-900"
-                >
-                  →
-                </Button>
-                <div className="flex space-x-2">
-                  {Array.from({ length: Math.ceil(services.length / 2) }).map((_, index) => (
-                    <div
-                      key={index}
-                      className={`w-8 h-2 rounded-full transition-colors ${
-                        index === currentSlide ? 'bg-dark-900' : 'bg-gray-300'
-                      }`}
-                    ></div>
-                  ))}
-                </div>
-              </div>
-
               <Button 
                 asLink 
                 href="/book" 
@@ -130,7 +143,13 @@ export default function Services() {
 
           {/* Right Side - Swipeable Service Cards */}
           <div className="relative">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 transition-all duration-500">
+            <div 
+              ref={containerRef}
+              className="grid grid-cols-1 md:grid-cols-2 gap-8 transition-all duration-500"
+              onTouchStart={onTouchStart}
+              onTouchMove={onTouchMove}
+              onTouchEnd={onTouchEnd}
+            >
               {visibleServices.map((service, index) => (
                 <div key={service.id} className="group cursor-pointer">
                   <div className="bg-white shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden h-[400px] w-full rounded-lg">
@@ -157,6 +176,36 @@ export default function Services() {
                   </div>
                 </div>
               ))}
+            </div>
+            
+            {/* Navigation Controls - Below Images */}
+            <div className="flex items-center justify-center space-x-4 mt-8">
+              <Button 
+                onClick={prevSlide}
+                variant="outline" 
+                size="sm"
+                className="border-dark-200 text-dark-700 hover:bg-dark-900 hover:text-white hover:border-dark-900"
+              >
+                ←
+              </Button>
+              <div className="flex space-x-2">
+                {Array.from({ length: Math.ceil(services.length / 2) }).map((_, index) => (
+                  <div
+                    key={index}
+                    className={`w-8 h-2 rounded-full transition-colors ${
+                      index === currentSlide ? 'bg-dark-900' : 'bg-gray-300'
+                    }`}
+                  ></div>
+                ))}
+              </div>
+              <Button 
+                onClick={nextSlide}
+                variant="outline" 
+                size="sm"
+                className="border-dark-200 text-dark-700 hover:bg-dark-900 hover:text-white hover:border-dark-900"
+              >
+                →
+              </Button>
             </div>
           </div>
         </div>
