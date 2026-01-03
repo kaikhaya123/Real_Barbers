@@ -21,9 +21,9 @@ export default function IntroSection() {
             className="space-y-12 py-8"
           >
             <div className="space-y-6">
-              <h2 id="intro-heading" className="text-5xl md:text-7xl lg:text-8xl xl:text-9xl font-black text-dark-900 leading-tight font-sans">
+              <h2 id="intro-heading" className="text-7xl md:text-8xl lg:text-9xl xl:text-9xl font-black text-dark-900 leading-tight font-sans">
                 More than a haircut.
-                <span className="block text-dark-600 text-4xl md:text-6xl lg:text-7xl xl:text-8xl font-black font-sans">It&#39;s a culture.</span>
+                <span className="block text-dark-600 text-6xl md:text-7xl lg:text-8xl xl:text-8xl font-black font-sans">It&#39;s a culture.</span>
               </h2>
               <p className="text-lg md:text-xl text-dark-700 leading-relaxed max-w-lg font-sans">
                Real Barbershop delivers sharp haircuts and styling  in the heart of Lamontville. Built on skill, precision, and modern style.
@@ -84,7 +84,7 @@ export default function IntroSection() {
             {/* Main Image */}
             <div className="relative h-[500px] md:h-[650px] lg:h-[750px] rounded-3xl overflow-hidden shadow-2xl">
               <Image
-                src="/Images/clinton-dube-84lpzy66IZk-unsplash.jpg"
+                src="/Images/70 New Black Men Haircuts And Hairstyles In 2025.jpg"
                 alt="Professional barber cutting client's hair at Real Barbershop ZA"
                 fill
                 className="object-cover"

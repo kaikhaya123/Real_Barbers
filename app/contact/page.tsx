@@ -25,7 +25,6 @@ export default function ContactPage() {
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-dark-800 mb-6 tracking-wide">
             GET IN TOUCH WITH REAL BARBERS
           </h1>
-
           {/* Description */}
           <p className="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto mb-12 leading-relaxed">
             Do you have any questions or would you like to book an appointment?<br />
