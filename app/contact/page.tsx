@@ -55,7 +55,7 @@ export default function ContactPage() {
             <div className="order-2 lg:order-1">
               <div className="rounded-2xl overflow-hidden shadow-xl">
                 <Image
-                  src="/Images/barbershop-interior.jpg"
+                  src="/Images/real_barbershop_za_1767437611547.png"
                   alt="Real Barbershop Interior"
                   width={600}
                   height={400}
