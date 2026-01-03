@@ -1,10 +1,10 @@
 // Business information
 export const BUSINESS_INFO = {
   name: 'Real Barbershop ™️',
-  tagline: 'Premium Grooming in the Heart of Durban',
-  address: 'Mbhele Street, Durban, KwaZulu Natal 4092',
-  phone: '+27 31 XXX XXXX',
-  whatsapp: '+27 XX XXX XXXX',
+  tagline: 'Premium Haircuts in the Heart of Durban',
+  address: 'Mbhele Street, Durban, KwaZulu Natal, South Africa',
+  phone: '+27 75 00 91591',
+  whatsapp: '+27 +27 75 00 91591',
   email: 'info@realbarbershop.co.za',
   hours: {
     weekdays: '9:00 AM - 7:00 PM',
@@ -20,46 +20,39 @@ export const BUSINESS_INFO = {
 // Services offered
 export const SERVICES = [
   {
-    id: 'haircut',
-    name: 'Signature Haircut',
-    description: 'Professional cut with wash and style',
+    id: 'high-fade-dye',
+    name: 'HIGH FADE & DYE',
+    description: 'Traditional haircut with modern finishing touches',
     duration: 45,
     price: 150,
   },
   {
-    id: 'beard-trim',
-    name: 'Beard Trim & Shape',
-    description: 'Precision beard grooming and styling',
+    id: 'taper-fade-dye',
+    name: 'TAPER FADE & DYE',
+    description: 'Precision fade with personalized styling',
+    duration: 60,
+    price: 150,
+  },
+  {
+    id: 'kiddies-cut-style',
+    name: 'KIDDIES CUT & STYLE',
+    description: 'Haircut and style for children',
     duration: 30,
     price: 80,
   },
   {
-    id: 'haircut-beard',
-    name: 'Haircut + Beard Combo',
-    description: 'Complete grooming package',
-    duration: 60,
-    price: 200,
-  },
-  {
-    id: 'hot-towel-shave',
-    name: 'Hot Towel Shave',
-    description: 'Traditional straight razor shave',
+    id: 'plain-fade',
+    name: 'PLAIN FADE',
+    description: 'Clean, classic fade',
     duration: 45,
-    price: 120,
-  },
-  {
-    id: 'kids-cut',
-    name: 'Kids Haircut (Under 12)',
-    description: 'Haircut for children',
-    duration: 30,
-    price: 100,
-  },
-  {
-    id: 'line-up',
-    name: 'Edge Up / Line Up',
-    description: 'Crisp edge and line definition',
-    duration: 20,
     price: 60,
+  },
+  {
+    id: 'chiskop',
+    name: 'CHISKOP',
+    description: 'Deep cleanse with premium products',
+    duration: 20,
+    price: 50,
   },
 ]
 
