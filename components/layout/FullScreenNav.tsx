@@ -53,6 +53,21 @@ export default function FullScreenNav({ isOpen, onClose, navigation }: FullScree
     return pathname === href
   }
 
+  const getSubtitle = (name: string) => {
+    switch (name.toLowerCase()) {
+      case 'services':
+        return 'What We Offer'
+      case 'about':
+        return 'Our Story'
+      case 'barbers':
+        return 'Meet The Team'
+      case 'contact':
+        return 'Get In Touch'
+      default:
+        return 'Discover More'
+    }
+  }
+
   return (
     <>
       {isOpen && (
@@ -64,83 +79,54 @@ export default function FullScreenNav({ isOpen, onClose, navigation }: FullScree
           {/* Content */}
           <div className="relative w-full h-full flex flex-col bg-white overflow-hidden">
             
-            {/* Header */}
-            <div className="w-full p-6 md:p-8 lg:p-12 bg-white relative">
+            {/* Header (logo removed) */}
+            <div className="w-full p-4 md:p-6 lg:p-8 bg-white relative">
               <button
                 onClick={onClose}
                 aria-label="Close menu"
-                className="absolute top-4 left-4 md:top-6 md:left-6 flex items-center justify-center p-2 rounded-md text-gray-900 hover:text-gray-700 transition-colors duration-300"
+                className="absolute top-4 left-4 md:top-6 md:left-6 flex items-center justify-center p-3 rounded-full text-gray-900 hover:text-gray-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-amber-400"
               >
                 <X className="h-6 w-6 md:h-8 md:w-8" />
               </button>
 
-              <div className="flex justify-center">
-                <Image
-                  src="/logo/Real_barbersho_logo.png"
-                  alt="Real Barbershop"
-                  width={140}
-                  height={140}
-                  className="h-12 md:h-16 lg:h-20 w-auto object-contain"
-                />
-              </div>
+              <span className="sr-only">Real Barbershop</span>
             </div>
 
             {/* Main Navigation */}
             <div className="flex-1 flex items-center justify-center bg-white w-full h-full">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8 lg:gap-10 max-w-4xl mx-auto px-6 w-full">
-                {navigation.map((item, index) => {
-                  // Default subtitles for navigation items
-                  const getSubtitle = (name: string) => {
-                    switch (name.toLowerCase()) {
-                      case 'services': return 'What We Offer'
-                      case 'about': return 'Our Story'
-                      case 'barbers': return 'Meet The Team'
-                      case 'contact': return 'Get In Touch'
-                      default: return 'Discover More'
-                    }
-                  }
+              <nav aria-label="Main navigation" className="w-full max-w-4xl mx-auto px-6">
+                <ul className="flex flex-col md:flex-row md:flex-wrap items-stretch justify-center gap-6 md:gap-10">
+                  {navigation.map((item) => (
+                    <li key={item.name} className="w-full md:w-1/2 flex items-center">
+                      <Link
+                        href={item.href}
+                        onClick={onClose}
+                        className={`group block w-full text-center md:text-left transition-transform duration-300 hover:scale-105 ${isActive(item.href) ? 'text-amber-600' : 'text-gray-900 hover:text-amber-600'}`}
+                      >
+                        <div className="py-6 md:py-8 px-4">
+                          <h2 className="text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold tracking-wider mb-1 md:mb-2">
+                            {item.name}
+                          </h2>
+                          <p className="text-xs md:text-sm lg:text-base text-gray-600 group-hover:text-gray-800 transition-colors duration-300 tracking-wide">
+                            {getSubtitle(item.name)}
+                          </p>
+                          <div className="mt-4 h-0.5 bg-gradient-to-r from-amber-500 to-orange-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                        </div>
+                      </Link>
+                    </li>
+                  ))}
 
-                  return (
+                  <li className="w-full flex justify-center md:justify-end mt-4 md:w-full md:mt-0">
                     <Link
-                      key={item.name}
-                      href={item.href}
+                      href="/book"
                       onClick={onClose}
-                      className={`group block text-center md:text-left transition-all duration-500 hover:scale-105 ${isActive(item.href) ? 'text-amber-600' : 'text-gray-900 hover:text-amber-600'}`}
+                      className="inline-flex items-center justify-center px-6 py-3 rounded-lg bg-black text-white font-semibold hover:bg-amber-700 transition-colors duration-200"
                     >
-                      <div className="relative">
-                        <h2 className="text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold tracking-wider mb-1 md:mb-2">
-                          {item.name}
-                        </h2>
-                        <p className="text-xs md:text-sm lg:text-base text-gray-600 group-hover:text-gray-800 transition-colors duration-300 tracking-wide">
-                          {getSubtitle(item.name)}
-                        </p>
-                        
-                        {/* Animated underline */}
-                        <div className="absolute bottom-0 left-0 md:left-0 right-0 h-0.5 bg-gradient-to-r from-amber-500 to-orange-600 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
-                      </div>
-                    </Link>
-                  )
-                })}
-                
-                {/* Add Book Now as additional menu item for mobile */}
-                <Link
-                  href="/book"
-                  onClick={onClose}
-                  className="group block text-center md:text-left transition-all duration-500 hover:scale-105 text-gray-900 hover:text-amber-600 md:col-span-2 mt-6"
-                >
-                  <div className="relative">
-                    <h2 className="text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold tracking-wider mb-1 md:mb-2">
                       BOOK NOW
-                    </h2>
-                    <p className="text-xs md:text-sm lg:text-base text-gray-600 group-hover:text-gray-800 transition-colors duration-300 tracking-wide">
-                      Reserve Your Spot
-                    </p>
-                    
-                    {/* Animated underline */}
-                    <div className="absolute bottom-0 left-0 md:left-0 right-0 h-0.5 bg-gradient-to-r from-amber-500 to-orange-600 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
-                  </div>
-                </Link>
-              </div>
+                    </Link>
+                  </li>
+                </ul>
+              </nav>
             </div>
 
 
