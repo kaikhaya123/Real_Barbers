@@ -154,15 +154,15 @@ export default function IntroSection() {
           transition={{ duration: 0.5 }}
           className="mt-24"
         >
-          <div className="flex justify-center">
-            <div className="relative aspect-[16/10] w-full max-w-4xl rounded-2xl overflow-hidden shadow-xl bg-gray-100 group">
+          <div className="flex flex-col items-center">
+            <div className="relative aspect-[10/16] w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg rounded-2xl overflow-hidden shadow-xl bg-gray-100 group">
               <Image
                 key={currentImageIndex}
                 src={communityImages[currentImageIndex].src}
                 alt={communityImages[currentImageIndex].alt}
                 fill
                 className="object-cover transition-all duration-700 ease-in-out"
-                sizes="(max-width: 768px) 95vw, (max-width: 1024px) 80vw, 50vw"
+                sizes="(max-width: 768px) 95vw, (max-width: 1024px) 80vw, 30vw"
                 priority
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
@@ -192,20 +192,20 @@ export default function IntroSection() {
               {/* Navigation arrows */}
               <button
                 onClick={() => setCurrentImageIndex((prev) => prev === 0 ? communityImages.length - 1 : prev - 1)}
-                className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-2 rounded-full transition-all duration-300 opacity-0 group-hover:opacity-100"
+                className="absolute top-4 left-1/2 -translate-x-1/2 bg-black/50 hover:bg-black/70 text-white p-2 rounded-full transition-all duration-300 opacity-0 group-hover:opacity-100"
                 aria-label="Previous image"
               >
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-6 h-6 rotate-90" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
                 </svg>
               </button>
               
               <button
                 onClick={() => setCurrentImageIndex((prev) => (prev + 1) % communityImages.length)}
-                className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-2 rounded-full transition-all duration-300 opacity-0 group-hover:opacity-100"
+                className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-black/50 hover:bg-black/70 text-white p-2 rounded-full transition-all duration-300 opacity-0 group-hover:opacity-100"
                 aria-label="Next image"
               >
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-6 h-6 -rotate-90" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                 </svg>
               </button>
