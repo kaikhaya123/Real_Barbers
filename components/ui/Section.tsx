@@ -1,20 +1,23 @@
 interface SectionProps {
   children: React.ReactNode
   className?: string
-  background?: 'white' | 'gray' | 'primary'
+  background?: 'white' | 'gray' | 'primary' | 'cream'
   padding?: 'sm' | 'md' | 'lg'
+  id?: string
 }
 
 export default function Section({ 
   children, 
   className = '', 
   background = 'white',
-  padding = 'lg'
+  padding = 'lg',
+  id
 }: SectionProps) {
   const backgrounds = {
     white: 'bg-white',
     gray: 'bg-gray-50',
     primary: 'bg-primary-50',
+    cream: 'bg-cream-50',
   }
   
   const paddings = {
@@ -24,7 +27,7 @@ export default function Section({
   }
 
   return (
-    <section className={`${backgrounds[background]} ${paddings[padding]} ${className}`}>
+    <section id={id} className={`${backgrounds[background]} ${paddings[padding]} ${className}`}>
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {children}
       </div>

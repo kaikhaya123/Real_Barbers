@@ -45,6 +45,14 @@ export default function Button({
     )
   }
 
+  if (href && !asLink) {
+    return (
+      <Link href={href} className={classes}>
+        {children}
+      </Link>
+    )
+  }
+
   return (
     <button className={classes} {...props}>
       {children}

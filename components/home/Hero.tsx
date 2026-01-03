@@ -39,21 +39,12 @@ export default function Hero() {
         
         {/* Bottom Centered Text Overlay */}
         <div className="absolute inset-0 flex flex-col justify-center items-center text-center text-white px-6 md:px-12 pb-8 md:pb-12 pt-16 md:pt-20">
-          <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 lg:mb-6 leading-tight max-w-4xl">
+          <h1 className="text-3xl md:text-5xl lg:text-6xl font-black mb-4 lg:mb-6 leading-[0.9] max-w-4xl tracking-tight text-center">
             Built for your best look.
           </h1>
           <p className="text-base md:text-lg lg:text-xl mb-8 lg:mb-10 max-w-2xl opacity-90 leading-relaxed">
             Clean fades. Sharp lines. Every time.
           </p>
-          
-          {/* CTA */}
-          <Link
-            href="/book"
-            className="inline-flex items-center justify-center px-8 py-4 rounded-xl bg-white text-dark-900 font-semibold text-base hover:bg-white/90 transition-all duration-200 shadow-lg"
-          >
-            Book Appointment
-            <ArrowRight className="ml-2 h-5 w-5" />
-          </Link>
         </div>
       </div>
     </section>

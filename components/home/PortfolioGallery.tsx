@@ -5,10 +5,12 @@ import { useRef } from "react"
 
 const PortfolioGallery = () => {
   return (
-    <div className="bg-cream-50">
-      <div className="flex h-32 items-center justify-center">
-        <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-dark-800 tracking-wide text-center">
-          OUR WORK
+    <div className="bg-black mt-24 md:mt-32 lg:mt-40">
+      <div className="flex h-32 items-center justify-center px-4 py-8 pb-6">
+        <h2 className="text-6xl md:text-8xl lg:text-9xl font-black text-white tracking-wide text-center leading-tight transform hover:scale-105 transition-all duration-300 drop-shadow-2xl" style={{
+          textShadow: '4px 4px 0px rgba(255,255,255,0.1), 8px 8px 0px rgba(255,255,255,0.05)'
+        }}>
+          OUR WORK 
         </h2>
       </div>
       <HorizontalScrollCarousel />
@@ -25,12 +27,11 @@ const HorizontalScrollCarousel = () => {
   const x = useTransform(scrollYProgress, [0, 1], ["1%", "-85%"])
 
   return (
-    <section ref={targetRef} className="relative h-[250vh] bg-cream-50">
+    <section ref={targetRef} className="relative h-[250vh] bg-black -mt-8">
       {/* Background decorative elements */}
-      <div className="absolute inset-0 opacity-10">
-        <div className="absolute top-20 left-10 text-6xl font-bold text-dark-800 transform -rotate-12">FRESH</div>
-        <div className="absolute top-80 right-20 text-4xl font-bold text-accent-600 transform rotate-12">CUTS</div>
-        <div className="absolute bottom-40 left-20 text-5xl font-bold text-accent-500 transform -rotate-6">STYLE</div>
+      <div className="absolute inset-0 opacity-5">
+        <div className="absolute top-80 right-20 text-4xl font-bold text-white transform rotate-12">CUTS</div>
+        <div className="absolute bottom-40 left-20 text-5xl font-bold text-white transform -rotate-6">STYLE</div>
       </div>
       
       <div className="sticky top-0 flex h-screen items-center overflow-hidden">
