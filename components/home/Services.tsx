@@ -55,14 +55,14 @@ export default function Services() {
   ]
 
   const nextSlide = () => {
-    setCurrentSlide((prev) => (prev + 1) % Math.ceil(services.length / 2))
+    setCurrentSlide((prev) => (prev + 1) % services.length)
   }
 
   const prevSlide = () => {
-    setCurrentSlide((prev) => (prev - 1 + Math.ceil(services.length / 2)) % Math.ceil(services.length / 2))
+    setCurrentSlide((prev) => (prev - 1 + services.length) % services.length)
   }
 
-  const visibleServices = services.slice(currentSlide * 2, (currentSlide + 1) * 2)
+  const visibleServices = [services[currentSlide]]
 
   // Touch swipe functionality
   const minSwipeDistance = 50
@@ -145,13 +145,13 @@ export default function Services() {
           <div className="relative">
             <div 
               ref={containerRef}
-              className="grid grid-cols-1 md:grid-cols-2 gap-8 transition-all duration-500"
+              className="flex justify-center transition-all duration-500"
               onTouchStart={onTouchStart}
               onTouchMove={onTouchMove}
               onTouchEnd={onTouchEnd}
             >
               {visibleServices.map((service, index) => (
-                <div key={service.id} className="group cursor-pointer">
+                <div key={service.id} className="group cursor-pointer w-full max-w-[350px]">
                   <div className="bg-white shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden h-[400px] w-full rounded-lg">
                     {/* Service Image */}
                     <div className="relative h-[400px] overflow-hidden">
@@ -189,7 +189,7 @@ export default function Services() {
                 ←
               </Button>
               <div className="flex space-x-2">
-                {Array.from({ length: Math.ceil(services.length / 2) }).map((_, index) => (
+                {services.map((_, index) => (
                   <div
                     key={index}
                     className={`w-8 h-2 rounded-full transition-colors ${

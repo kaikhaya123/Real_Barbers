@@ -94,7 +94,7 @@ export default function IntroSection() {
           >
             <div className="relative h-[520px] md:h-[650px] rounded-3xl overflow-hidden shadow-2xl">
               <Image
-                src="/Images/70 New Black Men Haircuts And Hairstyles In 2025.jpg"
+                src="/Images/real_barbershop_za_1767437611547.png"
                 alt="Barber performing a clean fade haircut"
                 fill
                 priority
