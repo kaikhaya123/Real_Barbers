@@ -8,11 +8,11 @@ const PortfolioGallery = () => {
     <div className="bg-black mt-24 md:mt-32 lg:mt-40">
       <div className="flex min-h-32 sm:min-h-40 md:min-h-48 lg:min-h-56 xl:min-h-64 items-center justify-center px-4 py-8 md:py-12 lg:py-16">
         <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-black tracking-wide text-center leading-tight transform hover:scale-105 transition-all duration-300 drop-shadow-2xl">
-          <span className="text-black">
-            OUR
-          </span>{" "}
+            <span className="text-white">
+            VIEW 
+            </span>{" "}
           <span className="text-white">
-            REAL_BARBERSHOP HAIRCUTS
+       OUR WORK
           </span>
         </h2>
       </div>

@@ -1,6 +1,49 @@
+'use client'
+
 import { Star, Quote } from 'lucide-react'
 import Section from '@/components/ui/Section'
 import Card from '@/components/ui/Card'
+import { useEffect, useState } from "react";
+
+type StatCounterProps = {
+  value: number;
+  suffix?: string;
+  label: string;
+  decimals?: number;
+};
+
+function StatCounter({ value, suffix = "", label, decimals = 0 }: StatCounterProps) {
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    let start = 0;
+    const duration = 1200; // ms
+    const increment = value / (duration / 16);
+    let raf: number;
+
+    function animate() {
+      start += increment;
+      if (start < value) {
+        setCount(Number(start.toFixed(decimals)));
+        raf = requestAnimationFrame(animate);
+      } else {
+        setCount(value);
+      }
+    }
+    animate();
+    return () => cancelAnimationFrame(raf);
+  }, [value, decimals]);
+
+  return (
+    <div>
+      <div className="text-4xl font-bold text-accent-600 mb-2">
+        {count}
+        {suffix}
+      </div>
+      <div className="text-sm text-gray-600">{label}</div>
+    </div>
+  );
+}
 
 export default function SocialProof() {
   const testimonials = [
@@ -56,29 +99,17 @@ export default function SocialProof() {
             </div>
           </Card>
         ))}
-      </div>
+    </div> {/* end testimonials grid */}
 
-      {/* Stats Bar */}
-      <div className="mt-16 bg-white rounded-xl shadow-lg p-8">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-          <div>
-            <div className="text-4xl font-bold text-accent-600 mb-2">98%</div>
-            <div className="text-sm text-gray-600">Client Satisfaction</div>
-          </div>
-          <div>
-            <div className="text-4xl font-bold text-accent-600 mb-2">1000+</div>
-            <div className="text-sm text-gray-600">Monthly Clients</div>
-          </div>
-          <div>
-            <div className="text-4xl font-bold text-accent-600 mb-2">4.9★</div>
-            <div className="text-sm text-gray-600">Average Rating</div>
-          </div>
-          <div>
-            <div className="text-4xl font-bold text-accent-600 mb-2">12+</div>
-            <div className="text-sm text-gray-600">Years Trusted</div>
-          </div>
-        </div>
+    {/* Stats Bar */}
+    <div className="mt-16 bg-white rounded-xl shadow-lg p-8 max-w-6xl mx-auto">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+        <StatCounter value={98} suffix="%" label="Client Satisfaction" />
+        <StatCounter value={1000} suffix="+" label="Monthly Clients" />
+        <StatCounter value={4.9} suffix="★" label="Average Rating" decimals={1} />
+        <StatCounter value={12} suffix="+" label="Years Trusted" />
       </div>
+    </div>
     </Section>
   )
 }
