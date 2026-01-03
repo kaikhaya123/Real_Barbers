@@ -66,23 +66,23 @@ export const SERVICES = [
 // Barber profiles
 export const BARBERS = [
   {
-    id: 'thabo',
-    name: 'Thabo Mkhize',
+    id: 'Mfanafuthi',
+    name: 'Mfanafuthi Ngcobo',
     title: 'Master Barber',
-    experience: '12 years',
+    experience: '7 years',
     specialties: ['Fades', 'Beard Sculpting', 'Traditional Cuts'],
-    bio: 'Thabo has been perfecting his craft for over a decade. Known for his precision fades and attention to detail.',
-    image: '/images/barber-thabo.jpg',
+    bio: 'Mfanafuthu has been perfecting his craft for his years of experience. Known for his precision fades and attention to detail.',
+    image: '/Images/1767460998971.jpeg',
     available: true,
   },
   {
-    id: 'sipho',
-    name: 'Sipho Ndlovu',
+    id: 'Sbonga',
+    name: 'Sbonga',
     title: 'Senior Barber',
-    experience: '8 years',
+    experience: ' 2 years',
     specialties: ['Modern Styles', 'Hair Designs', 'Color'],
-    bio: 'Sipho stays on top of the latest trends and brings creative energy to every cut.',
-    image: '/images/barber-sipho.jpg',
+    bio: 'Sbonga stays on top of the latest trends and brings creative energy to every cut as a young barber.',
+    image: 'public/Images/542329797_17898477192272317_2627203249755889965_n.png',
     available: true,
   },
   {

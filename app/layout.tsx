@@ -23,11 +23,11 @@ const rethinkSans = localFont({
 
 export const metadata: Metadata = {
   title: 'Real Barbershop ™️ | Premium Barber Services in Durban',
-  description: 'Experience professional grooming at Real Barbershop in Durban, KZN. Book your appointment online or join our walk-in queue for premium barber services.',
+  description: 'Experience professional haircuts at Real Barbershop in Durban, KZN. Book your appointment online or join our walk-in queue for premium barber services.',
   keywords: 'barbershop, Durban, KZN, grooming, haircut, beard trim, barber services',
   openGraph: {
     title: 'Real Barbershop ™️ | Premium Barber Services in Durban',
-    description: 'Experience professional grooming at Real Barbershop in Durban, KZN.',
+    description: 'Experience professional haircuts at Real Barbershop in Durban, KZN.',
     type: 'website',
   },
 }
