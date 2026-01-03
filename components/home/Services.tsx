@@ -14,7 +14,7 @@ export default function Services() {
   const services = [
     {
       id: 1,
-      name: 'High Fade & Dye',
+      name: 'HIGH FADE & DYE',
       price: 150,
       duration: '45 min',
       image: '/Images/1767342932205.jpeg',
@@ -22,7 +22,7 @@ export default function Services() {
     },
     {
       id: 2,
-      name: 'Taper Fade & Dye',
+      name: 'TAPER FADE & DYE',
       price: 150,
       duration: '60 min', 
       image: '/Images/1767374000777.jpeg',
@@ -30,7 +30,7 @@ export default function Services() {
     },
     {
       id: 3,
-      name: 'Kiddies haircut & Style',
+      name: 'KIDDIES CUT & STYLE',
       price: 80,
       duration: '30 min',
       image: '/Images/1767445437127.jpeg',
@@ -38,7 +38,7 @@ export default function Services() {
     },
     {
       id: 4,
-      name: 'Plain Fade',
+      name: 'PLAIN FADE',
       price: 60,
       duration: '45 min',
       image: '/Images/1767446038566.jpeg',
@@ -46,7 +46,7 @@ export default function Services() {
     },
     {
       id: 5,
-      name: 'Chiskop',
+      name: 'CHISKOP',
       price: 50,
       duration: '20 min',
       image: '/Images/1767447027320.jpeg',
