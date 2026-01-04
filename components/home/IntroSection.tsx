@@ -3,17 +3,11 @@
 import { motion } from 'framer-motion'
 import Image from 'next/image'
 import Button from '@/components/ui/Button'
-import { useEffect } from 'react'
 
 export default function IntroSection() {
-  useEffect(() => {
-    // debug: confirm this client component mounts
-    console.log('IntroSection mounted')
-  }, [])
-
   return (
     <section
-      className="bg-cream-50 py-20 md:py-28 font-sans outline-dashed outline-2 outline-red-300"
+      className="bg-cream-50 py-20 md:py-28 font-sans"
       role="region"
       aria-labelledby="intro-heading"
     >
@@ -25,7 +19,8 @@ export default function IntroSection() {
           {/* Left Content */}
           <motion.div
             initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
             transition={{ duration: 0.5 }}
             className="space-y-10"
           >
@@ -92,7 +87,8 @@ export default function IntroSection() {
           {/* Right Visual */}
           <motion.div
             initial={{ opacity: 0, x: 16 }}
-            animate={{ opacity: 1, x: 0 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
             transition={{ duration: 0.5 }}
             className="relative"
           >

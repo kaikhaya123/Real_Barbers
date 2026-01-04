@@ -6,7 +6,7 @@ import { useRef, useState, useEffect } from 'react'
 const BARBERS = [
   { name: 'MFANAFUTHI', img: '/Images/1767460998971.jpeg', href: '/barbers/mfanafuthi' },
   { name: 'SBONGA', img: '/Images/542329797_17898477192272317_2627203249755889965_n.png', href: '/barbers/abdel' },
-  { name: 'OZ', img: '/Images/Photo_1.png', href: '/barbers/oz' },
+  { name: 'OZ', img: '/Images/oz.jpeg', href: '/barbers/oz' },
 ]
 
 export default function BarbersSection() {

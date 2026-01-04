@@ -5,8 +5,6 @@ import PortfolioGallery from '@/components/home/PortfolioGallery'
 import HowItWorks from '@/components/home/HowItWorks'
 import Services from '@/components/home/Services'
 import BarberSection from '@/components/home/BarbersSection'
-import dynamic from 'next/dynamic'
-const CurvedGallery = dynamic(() => import('@/components/gallery/CurvedGallery'), { ssr: false, loading: () => null })
 import SocialProof from '@/components/home/SocialProof'
 import LocationHours from '@/components/home/LocationHours'
 
@@ -19,7 +17,6 @@ export default function HomePage() {
       <HowItWorks />
       <Services />
       <BarberSection />
-      <CurvedGallery />
       <SocialProof />
       <LocationHours />
       <Header />
