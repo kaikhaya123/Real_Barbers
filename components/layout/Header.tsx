@@ -30,28 +30,6 @@ export default function Header() {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
-  // Recover from transient chunk load failures by reloading once
-  useEffect(() => {
-    let reloaded = false
-    function onError(e: any) {
-      const msg = e?.error?.message || e?.message || ''
-      if (!reloaded && (msg.includes('Loading chunk') || msg.includes('ChunkLoadError'))) {
-        reloaded = true
-        // Unregister service workers (if any) then reload to avoid cached broken chunks
-        if ('serviceWorker' in navigator) {
-          navigator.serviceWorker.getRegistrations().then((regs) => {
-            regs.forEach((r) => r.unregister())
-            setTimeout(() => window.location.reload(), 200)
-          }).catch(() => window.location.reload())
-        } else {
-          window.location.reload()
-        }
-      }
-    }
-    window.addEventListener('error', onError)
-    return () => window.removeEventListener('error', onError)
-  }, [])
-
   const isActive = (href: string) => {
     if (href.startsWith('/#')) return false
     return pathname === href
