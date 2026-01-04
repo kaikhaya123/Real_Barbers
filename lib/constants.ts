@@ -1,15 +1,15 @@
 // Business information
 export const BUSINESS_INFO = {
-  name: 'Real Barbershop ™️',
+  name: 'Real Barbershop ',
   tagline: 'Premium Haircuts in the Heart of Durban',
   address: 'Mbhele Street, Durban, KwaZulu Natal, South Africa',
   phone: '+27 75 00 91591',
-  whatsapp: '+27 +27 75 00 91591',
+  whatsapp: '+27 75 00 91591',
   email: 'info@realbarbershop.co.za',
   hours: {
     weekdays: '9:00 AM - 7:00 PM',
     saturday: '8:00 AM - 6:00 PM',
-    sunday: '9:00 AM - 3:00 PM',
+    sunday: '9:00 AM - 1:00 PM',
   },
   coordinates: {
     lat: -29.8587,
