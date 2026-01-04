@@ -3,11 +3,17 @@
 import { motion } from 'framer-motion'
 import Image from 'next/image'
 import Button from '@/components/ui/Button'
+import { useEffect } from 'react'
 
 export default function IntroSection() {
+  useEffect(() => {
+    // debug: confirm this client component mounts
+    console.log('IntroSection mounted')
+  }, [])
+
   return (
     <section
-      className="bg-cream-50 py-20 md:py-28 font-sans"
+      className="bg-cream-50 py-20 md:py-28 font-sans outline-dashed outline-2 outline-red-300"
       role="region"
       aria-labelledby="intro-heading"
     >
