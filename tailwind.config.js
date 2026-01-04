@@ -36,19 +36,7 @@ module.exports = {
       fontFamily: {
         sans: ['var(--font-rethink-sans)', 'system-ui', 'sans-serif'],
       },
-      perspective: {
-        1000: '1000px',
-      },
     },
-  plugins: [
-    function ({ addUtilities, theme }) {
-      const newUtilities = {
-        '.perspective-1000': { perspective: theme('perspective.1000') },
-        '.preserve-3d': { transformStyle: 'preserve-3d' },
-      }
-      addUtilities(newUtilities, ['responsive'])
-    },
-  ],
   },
   plugins: [],
 }
