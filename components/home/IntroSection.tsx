@@ -25,7 +25,8 @@ export default function IntroSection() {
           {/* Left Content */}
           <motion.div
             initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
             transition={{ duration: 0.5 }}
             className="space-y-10"
           >
@@ -92,7 +93,8 @@ export default function IntroSection() {
           {/* Right Visual */}
           <motion.div
             initial={{ opacity: 0, x: 16 }}
-            animate={{ opacity: 1, x: 0 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
             transition={{ duration: 0.5 }}
             className="relative"
           >
