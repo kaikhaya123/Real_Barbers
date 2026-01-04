@@ -88,7 +88,12 @@ export default function CurvedGallery() {
                 onClick={() => setActive(src)}
               >
                 {isVideo ? (
-                  <video src={src} muted autoPlay loop playsInline className="w-full h-full object-cover" />
+                  // Render a lightweight placeholder for video tiles to avoid loading video until user opens lightbox
+                  <div className="w-full h-full bg-black flex items-center justify-center text-white">
+                    <svg width="64" height="64" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden>
+                      <path d="M8 5v14l11-7L8 5z" fill="currentColor" />
+                    </svg>
+                  </div>
                 ) : (
                   <Image
                     src={src}
@@ -96,6 +101,7 @@ export default function CurvedGallery() {
                     fill
                     className="object-cover"
                     sizes="(max-width: 640px) 220px, (max-width: 1024px) 320px, 352px"
+                    priority={false}
                   />
                 )}
               </motion.div>
