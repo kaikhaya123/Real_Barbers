@@ -3,6 +3,7 @@ import localFont from 'next/font/local'
 import './globals.css'
 import Header from '@/components/layout/Header'
 import Footer from '@/components/layout/Footer'
+import WhatsAppFloatingButton from '@/components/ui/WhatsAppFloatingButton'
 
 const rethinkSans = localFont({
   src: [
@@ -45,6 +46,7 @@ export default function RootLayout({
           {children}
         </main>
         <Footer />
+        <WhatsAppFloatingButton />
       </body>
     </html>
   )

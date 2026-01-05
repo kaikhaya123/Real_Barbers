@@ -210,12 +210,12 @@ export default function BookingForm({ service, barber, date, time, onSubmit, onB
 
         <div className="pt-4">
           <Button type="submit" variant="primary" size="lg" fullWidth>
-            Confirm Booking
+            Contact via WhatsApp
           </Button>
         </div>
 
         <p className="text-xs text-center text-gray-500">
-          By confirming, you agree to receive booking reminders via SMS or WhatsApp
+          By contacting us, you agree to continue the booking via WhatsApp
         </p>
       </form>
     </div>

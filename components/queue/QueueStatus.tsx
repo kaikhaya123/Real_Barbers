@@ -30,12 +30,12 @@ export default function QueueStatus({ entry, onLeave }: QueueStatusProps) {
 
   const getStatusMessage = () => {
     if (entry.position === 1) {
-      return "You're next! Please be at the shop."
+      return "You&apos;re next! Please be at the shop."
     }
     if (entry.position === 2) {
       return 'Almost your turn! Head to the shop now.'
     }
-    return "Please wait, we'll notify you when it's close to your turn."
+    return "Please wait, we&apos;ll notify you when it&apos;s close to your turn."
   }
 
   const statusColors = {

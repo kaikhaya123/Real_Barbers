@@ -8,6 +8,8 @@ import { BUSINESS_INFO } from '@/lib/constants'
 import Image from 'next/image'
 import Script from 'next/script'
 import { useEffect, useRef, useState } from 'react'
+import { usePathname } from 'next/navigation'
+import { trackEvent } from '@/lib/analytics'
 
 interface BookingConfirmationProps {
   bookingId: string
@@ -15,6 +17,7 @@ interface BookingConfirmationProps {
   barber: Barber
   date: Date
   time: string
+  whatsappLink?: string | null
   onStartOver: () => void
 }
 
@@ -24,10 +27,12 @@ export default function BookingConfirmation({
   barber,
   date,
   time,
+  whatsappLink = null,
   onStartOver,
 }: BookingConfirmationProps) {
   const lottieRef = useRef<HTMLDivElement | null>(null)
   const [lottieLoaded, setLottieLoaded] = useState(false)
+  const pathname = usePathname()
 
   useEffect(() => {
     const refCurrent = lottieRef.current;
@@ -97,19 +102,19 @@ export default function BookingConfirmation({
           <div ref={lottieRef} className="h-12 w-12" />
         </div>
         <h2 className="text-3xl font-bold text-primary-900 mb-2">
-          Booking Confirmed!
+          WhatsApp Request Sent!
         </h2>
         <p className="text-gray-600">
-          Your appointment has been successfully scheduled
+          We&apos;ve opened WhatsApp with your request — please continue the chat to confirm your appointment.
         </p>
       </div>
 
-      {/* Booking ID */}
+      {/* Booking ID / WhatsApp */}
       <div className="bg-accent-50 rounded-lg p-4 mb-6">
-        <p className="text-sm text-gray-600 mb-1">Booking Reference</p>
-        <p className="text-2xl font-bold text-accent-600">{bookingId}</p>
+        <p className="text-sm text-gray-600 mb-1">Status</p>
+        <p className="text-2xl font-bold text-accent-600">{bookingId === 'WHATSAPP' ? 'Sent via WhatsApp' : bookingId}</p>
         <p className="text-xs text-gray-500 mt-2">
-          Save this reference number for your records
+          We didn&apos;t store an in-app booking — please keep the WhatsApp chat for confirmation.
         </p>
       </div>
 
@@ -164,8 +169,8 @@ export default function BookingConfirmation({
           What&apos;s Next?
         </h4>
         <ul className="text-sm text-blue-800 space-y-1">
-          <li>• You&apos;ll receive a confirmation SMS shortly</li>
-          <li>• We&apos;ll send a reminder 24 hours before your appointment</li>
+          <li>• We&apos;ll reply via WhatsApp to confirm availability</li>
+          <li>• We may send a reminder 24 hours before your appointment via WhatsApp</li>
           <li>• Please arrive 5 minutes early</li>
           <li>• Need to reschedule? Call us at {BUSINESS_INFO.phone}</li>
         </ul>
@@ -177,9 +182,22 @@ export default function BookingConfirmation({
           variant="primary"
           size="lg"
           fullWidth
+          onClick={() => {
+            const link = whatsappLink || (window as any).__WHATSAPP_LINK || ("https://wa.me/" + (BUSINESS_INFO.whatsapp || ''))
+            try { trackEvent('whatsapp_cta_click', { location: 'booking_confirmation', path: pathname || '/' }) } catch (e) {}
+            window.open(link, '_blank')
+          }}
+        >
+          Open WhatsApp Chat
+        </Button>
+
+        <Button
+          variant="outline"
+          size="lg"
+          fullWidth
           onClick={onStartOver}
         >
-          Book Another Appointment
+          Book Another Request
         </Button>
 
         <Button

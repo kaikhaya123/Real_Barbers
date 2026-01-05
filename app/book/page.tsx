@@ -8,6 +8,10 @@ import DateTimeSelector from '@/components/booking/DateTimeSelector'
 import BookingForm from '@/components/booking/BookingForm'
 import BookingConfirmation from '@/components/booking/BookingConfirmation'
 import { Service, Barber } from '@/lib/types'
+import { format } from 'date-fns'
+import { buildWhatsAppLink, buildBookingMessage } from '@/lib/whatsapp'
+import { trackEvent } from '@/lib/analytics'
+import { BUSINESS_INFO } from '@/lib/constants'
 
 export default function BookPage() {
   const [step, setStep] = useState(1)
@@ -16,6 +20,7 @@ export default function BookPage() {
   const [selectedDate, setSelectedDate] = useState<Date | null>(null)
   const [selectedTime, setSelectedTime] = useState<string | null>(null)
   const [bookingId, setBookingId] = useState<string | null>(null)
+  const [whatsappLink, setWhatsappLink] = useState<string | null>(null)
 
   const handleServiceSelect = (service: Service) => {
     setSelectedService(service)
@@ -34,9 +39,46 @@ export default function BookPage() {
   }
 
   const handleBookingSubmit = (formData: any) => {
-    // In production, this would call an API
-    const newBookingId = `BK-${Date.now()}`
-    setBookingId(newBookingId)
+    // Build a WhatsApp message instead of creating an in-app booking
+    if (!selectedService || !selectedBarber || !selectedDate || !selectedTime) return
+
+    const { name, phone, email, notes } = formData
+    const prettyDate = format(selectedDate, 'EEEE, MMMM d, yyyy')
+
+    const message = buildBookingMessage({
+      serviceName: selectedService.name,
+      barberName: selectedBarber.name,
+      name,
+      dateTime: `${prettyDate} at ${selectedTime}`,
+      notes,
+    })
+
+    const link = buildWhatsAppLink(BUSINESS_INFO.whatsapp, message)
+
+    // Track booking request source
+    try {
+      trackEvent('whatsapp_booking_request', {
+        source: 'booking_form',
+        serviceId: selectedService.id,
+        barberId: selectedBarber.id,
+      })
+    } catch (e) {}
+
+    // Open WhatsApp in a new tab (web) or app (mobile)
+    try {
+      window.open(link, '_blank')
+    } catch (e) {
+      // Fallback: set the link and show confirmation so user can click
+    }
+
+    // Save link in state and on window so the confirmation can re-open it
+    setWhatsappLink(link)
+    try {
+      ;(window as any).__WHATSAPP_LINK = link
+    } catch (e) {}
+
+    // Show confirmation UI (we don't store bookings server-side while using WhatsApp)
+    setBookingId('WHATSAPP')
     setStep(5)
   }
 
@@ -134,6 +176,7 @@ export default function BookPage() {
               barber={selectedBarber}
               date={selectedDate}
               time={selectedTime}
+              whatsappLink={whatsappLink ?? null}
               onStartOver={handleStartOver}
             />
           )}

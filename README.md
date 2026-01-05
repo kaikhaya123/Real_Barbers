@@ -5,7 +5,7 @@ A premium, production-ready barbershop website built for Real Barbershop in Durb
 ## 🎯 Purpose
 
 This website solves real operational problems for a high-demand barbershop:
-- **Online Booking System**: Clients can book appointments in advance
+- **Appointment requests via WhatsApp**: Clients request appointments via WhatsApp (temporary flow)
 - **Digital Walk-In Queue**: Walk-ins can join a virtual queue and track their position
 - **Reduced Wait Times**: Better time management for both staff and clients
 - **Hybrid Model**: Supports both online bookings and traditional walk-ins
@@ -13,7 +13,7 @@ This website solves real operational problems for a high-demand barbershop:
 ## 🚀 Features
 
 ### For Clients
-- **Book Appointments Online**: Choose service, barber, date, and time
+- **Request Appointments via WhatsApp**: Choose service, barber, date, and time and send a pre-filled WhatsApp message to request the booking
 - **Join Walk-In Queue**: Get a queue position without physically waiting
 - **Live Queue Updates**: Track position and estimated wait time in real-time
 - **Mobile-First Design**: Optimized for use on smartphones
