@@ -1,9 +1,11 @@
 export interface Service {
   id: string
   name: string
-  description: string
-  duration: number // in minutes
-  price: number // in ZAR
+  description?: string
+  price?: number | null
+  duration?: number
+  category?: string    // added
+  image?: string       // added (url/path to image)
 }
 
 export interface Barber {
