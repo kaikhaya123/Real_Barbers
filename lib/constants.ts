@@ -25,6 +25,7 @@ export const SERVICES = [
     description: 'Traditional haircut with modern finishing touches',
     duration: 45,
     price: 150,
+    image: '/Images/1767460998971.jpeg',
   },
   {
     id: 'taper-fade-dye',
@@ -32,6 +33,7 @@ export const SERVICES = [
     description: 'Precision fade with personalized styling',
     duration: 60,
     price: 150,
+    image: '/Images/1767460172187.webp',
   },
   {
     id: 'kiddies-cut-style',
@@ -39,6 +41,7 @@ export const SERVICES = [
     description: 'Haircut and style for children',
     duration: 30,
     price: 80,
+    image: '/Images/1767330787427.jpeg',
   },
   {
     id: 'plain-fade',
@@ -46,6 +49,7 @@ export const SERVICES = [
     description: 'Clean, classic fade',
     duration: 45,
     price: 60,
+    image: '/Images/1767460172187.webp',
   },
   {
     id: 'chiskop',
@@ -53,6 +57,7 @@ export const SERVICES = [
     description: 'Deep cleanse with premium products',
     duration: 20,
     price: 50,
+    image: '/Images/1767460998971.jpeg',
   },
 ]
 
