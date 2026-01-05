@@ -115,7 +115,7 @@ export default function BookingForm({ service, barber, date, time, onSubmit, onB
           </label>
           <div className="relative">
             <Image
-              src="/Icons/user.svg"
+              src="/Icons/user.png"
               alt="User"
               className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 object-contain"
               width={20}
