@@ -94,7 +94,7 @@ export default function BarberSelector({ service, onSelect, onBack }: BarberSele
       </AnimatePresence>
 
       {/* Barber Grid */}
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+      <div className="mx-auto max-w-6xl grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 justify-center">
         {availableBarbers.map(barber => {
           const isSelected = selectedBarber?.id === barber.id
 
@@ -104,7 +104,7 @@ export default function BarberSelector({ service, onSelect, onBack }: BarberSele
               onClick={() => handleSelect(barber)}
               whileHover={{ y: -6 }}
               transition={{ duration: 0.3 }}
-              className={`relative rounded-2xl overflow-hidden text-left bg-gray-100 shadow-md focus:outline-none ${
+              className={`relative rounded-none overflow-hidden text-left bg-gray-100 shadow-md focus:outline-none ${
                 isSelected ? 'ring-4 ring-accent-500' : ''
               }`}
             >
