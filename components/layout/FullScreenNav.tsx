@@ -10,11 +10,13 @@ interface FullScreenNavProps {
   isOpen: boolean
   onClose: () => void
   navigation: { name: string; href: string }[]
+  /** Optional background image path (public folder) */
+  bg?: string
 }
 
-export default function FullScreenNav({ isOpen, onClose, navigation }: FullScreenNavProps) {
+export default function FullScreenNav({ isOpen, onClose, navigation, bg = '/images/navbar-bg.jpg' }: FullScreenNavProps) {
   const pathname = usePathname()
-
+ 
   // Prevent body scroll when menu is open
   useEffect(() => {
     if (isOpen) {
@@ -72,19 +74,26 @@ export default function FullScreenNav({ isOpen, onClose, navigation }: FullScree
     <>
       {isOpen && (
         <div
-          className="fixed inset-0 w-screen h-screen bg-white z-[99999] overflow-y-auto"
+          className="fixed inset-0 w-screen h-screen z-[99999] overflow-y-auto"
           role="dialog"
           aria-modal="true"
         >
-          {/* Content */}
-          <div className="relative w-full h-full flex flex-col bg-white overflow-hidden">
+          {/* background image */}
+          <div className="absolute inset-0 -z-10">
+            <Image src="/Images/salah-regouane-rM_ev_MroKA-unsplash.jpg" alt="Menu background" fill className="object-cover" priority />
+            {/* stronger black overlay + subtle blur for contrast */}
+            <div className="absolute inset-0 bg-black/60 backdrop-blur-sm pointer-events-none" aria-hidden />
+          </div>
+
+          {/* Content (foreground) */}
+          <div className="relative w-full h-full flex flex-col overflow-hidden">
             
             {/* Header (logo removed) */}
-            <div className="w-full p-4 md:p-6 lg:p-8 bg-white relative">
+            <div className="w-full p-4 md:p-6 lg:p-8 bg-transparent relative">
               <button
                 onClick={onClose}
                 aria-label="Close menu"
-                className="absolute top-4 left-4 md:top-6 md:left-6 flex items-center justify-center p-3 rounded-full text-gray-900 hover:text-gray-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-amber-400"
+                className="absolute top-4 left-4 md:top-6 md:left-6 flex items-center justify-center p-3 rounded-full text-white hover:text-gray-200 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-amber-400"
               >
                 <X className="h-6 w-6 md:h-8 md:w-8" />
               </button>
@@ -93,7 +102,7 @@ export default function FullScreenNav({ isOpen, onClose, navigation }: FullScree
             </div>
 
             {/* Main Navigation */}
-            <div className="flex-1 flex items-center justify-center bg-white w-full h-full">
+            <div className="flex-1 flex items-center justify-center w-full h-full text-white">
               <nav aria-label="Main navigation" className="w-full max-w-4xl mx-auto px-6">
                 <ul className="flex flex-col md:flex-row md:flex-wrap items-stretch justify-center gap-6 md:gap-10">
                   {navigation.map((item) => (
@@ -101,13 +110,13 @@ export default function FullScreenNav({ isOpen, onClose, navigation }: FullScree
                       <Link
                         href={item.href}
                         onClick={onClose}
-                        className={`group block w-full text-center md:text-left transition-transform duration-300 hover:scale-105 ${isActive(item.href) ? 'text-amber-600' : 'text-gray-900 hover:text-amber-600'}`}
+                        className={`group block w-full text-center md:text-left transition-transform duration-300 hover:scale-105 ${isActive(item.href) ? 'text-amber-400' : 'text-white hover:text-amber-400'}`}
                       >
                         <div className="py-6 md:py-8 px-4">
                           <h2 className="text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold tracking-wider mb-1 md:mb-2">
                             {item.name}
                           </h2>
-                          <p className="text-xs md:text-sm lg:text-base text-gray-600 group-hover:text-gray-800 transition-colors duration-300 tracking-wide">
+                          <p className="text-xs md:text-sm lg:text-base text-gray-200 group-hover:text-white transition-colors duration-300 tracking-wide">
                             {getSubtitle(item.name)}
                           </p>
                           <div className="mt-4 h-0.5 bg-gradient-to-r from-amber-500 to-orange-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
