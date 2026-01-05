@@ -37,7 +37,7 @@ export default function BarberSelector({ service, onSelect, onBack }: BarberSele
 
         <div className="min-h-[120px] flex flex-col items-center justify-center">
           <h2 className="text-3xl md:text-4xl font-black text-primary-900 text-center">
-            Choose your barber
+            CHOOSE YOUR BARBER
           </h2>
 
           <p className="text-gray-600 mt-2 text-center">
@@ -46,75 +46,73 @@ export default function BarberSelector({ service, onSelect, onBack }: BarberSele
         </div>
       </div>
 
-      {/* Featured Barber */}
-      <AnimatePresence>
+      {/* Featured + Grid Container (merged, centered) */}
+      <div className="min-h-[60vh] flex flex-col items-center justify-center gap-8">
         {selectedBarber && (
-          <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.4 }}
-            className="relative rounded-3xl overflow-hidden bg-black shadow-2xl"
-          >
-            <div className="relative h-[420px]">
-              <Image
-                src={
-                  imgErrorIds[selectedBarber.id]
-                    ? '/Images/1767460172187.webp'
-                    : selectedBarber.image
-                }
-                alt={selectedBarber.name}
-                fill
-                className="object-cover"
-                onError={() =>
-                  setImgErrorIds(prev => ({ ...prev, [selectedBarber.id]: true }))
-                }
-              />
+          <div className="w-full mx-auto max-w-7xl px-6">
+            <AnimatePresence>
+              <motion.div
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.35 }}
+                className="relative rounded-3xl overflow-hidden bg-black shadow-2xl"
+              >
+                <div className="relative h-[420px] md:h-[520px]">
+                  <Image
+                    src={
+                      imgErrorIds[selectedBarber.id]
+                        ? '/Images/1767460172187.webp'
+                        : selectedBarber.image
+                    }
+                    alt={selectedBarber.name}
+                    fill
+                    className="object-cover"
+                    onError={() =>
+                      setImgErrorIds(prev => ({ ...prev, [selectedBarber.id]: true }))
+                    }
+                  />
 
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
 
-              <div className="absolute bottom-8 left-8">
-                <p className="text-cream-200 text-sm tracking-wide mb-2">
-                  SELECTED BARBER
-                </p>
-                <h3 className="text-4xl font-black text-white">
-                  {selectedBarber.name}
-                </h3>
-                <p className="text-cream-200 mt-1">
-                  {selectedBarber.title} · {selectedBarber.experience}
-                </p>
-              </div>
+                  <div className="absolute bottom-6 left-6">
+                    <p className="text-cream-200 text-sm tracking-wide mb-2">SELECTED BARBER</p>
+                    <h3 className="text-3xl md:text-4xl font-black text-white">{selectedBarber.name}</h3>
+                    <p className="text-cream-200 mt-1">{selectedBarber.title}</p>
+                  </div>
 
-              <div className="absolute top-6 right-6 bg-white rounded-full p-2 text-accent-600 shadow-lg">
-                <CheckCircle className="w-6 h-6" />
-              </div>
-            </div>
-          </motion.div>
+                  <div className="absolute top-6 right-6 bg-white rounded-full p-2 text-accent-600 shadow-lg">
+                    <CheckCircle className="w-6 h-6" />
+                  </div>
+                </div>
+              </motion.div>
+            </AnimatePresence>
+          </div>
         )}
-      </AnimatePresence>
 
-      {/* Barber Grid */}
-      <div className="mx-auto max-w-6xl grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 justify-center">
-        {availableBarbers.map(barber => {
+        <div className="w-full mx-auto max-w-7xl px-6">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-10 justify-center place-items-center">
+            {availableBarbers.map(barber => {
           const isSelected = selectedBarber?.id === barber.id
 
           return (
             <motion.button
               key={barber.id}
               onClick={() => handleSelect(barber)}
-              whileHover={{ y: -6 }}
+              whileHover={{ y: -6, scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
               transition={{ duration: 0.3 }}
-              className={`relative rounded-none overflow-hidden text-left bg-gray-100 shadow-md focus:outline-none ${
+              className={`relative rounded-none overflow-hidden text-left bg-gray-100 shadow-md focus:outline-none group hover:shadow-2xl transition-shadow duration-200 ${
                 isSelected ? 'ring-4 ring-accent-500' : ''
               }`}
             >
-              <div className="relative aspect-[3/4]">
+              <div className="relative aspect-[3/4] w-[220px] md:w-[280px] lg:w-[320px]">
                 {!imgErrorIds[barber.id] ? (
                   <Image
                     src={encodeURI(barber.image)}
                     alt={barber.name}
                     fill
-                    className="object-cover"
+                    className="object-cover transition-transform duration-300 group-hover:scale-105"
                     onError={() =>
                       setImgErrorIds(prev => ({ ...prev, [barber.id]: true }))
                     }
@@ -144,7 +142,9 @@ export default function BarberSelector({ service, onSelect, onBack }: BarberSele
               </div>
             </motion.button>
           )
-        })}
+            })}
+          </div>
+        </div>
       </div>
     </div>
   )
