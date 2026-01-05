@@ -50,7 +50,21 @@ export default function BookingConfirmation({
       mountedEl.setAttribute('style', 'width:48px;height:48px');
       mountedEl.setAttribute('loop', '');
       mountedEl.setAttribute('autoplay', '');
+      // Ensure autoplay isn't blocked by browsers: set muted and call play()
+      mountedEl.setAttribute('muted', '');
       refCurrent!.appendChild(mountedEl);
+      // Some browsers/register may require an explicit play call
+      try {
+        ;(mountedEl as any).play?.()
+      } catch (e) {
+        // ignore play errors; mount will still be present
+      }
+      // Also try a brief retry after append
+      setTimeout(() => {
+        try {
+          ;(mountedEl as any).play?.()
+        } catch (e) {}
+      }, 100)
       return true;
     };
 
