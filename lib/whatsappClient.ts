@@ -19,6 +19,11 @@ function saveOutgoing(provider: string, to: string, body: string) {
     fs.writeFileSync(OUTGOING_FILE, JSON.stringify(arr, null, 2))
   } catch (e) {
     // ignore write errors — best-effort logging for local testing
+    try {
+      console.error('saveOutgoing: failed to write outgoing message', { provider, to, err: (e as Error).message || e })
+    } catch (err) {
+      // swallow secondary logging errors
+    }
   }
 }
 

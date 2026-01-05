@@ -86,13 +86,14 @@ barbers/
 ```
 
 ### Phase 2: API Routes
-Create in `/app/api/` (note: for now the public booking flow uses WhatsApp; API routes are planned for later):
-- `/api/bookings/create` - Create new booking (planned, *disabled while using WhatsApp flow*)
-- `/api/bookings/[id]` - Get/update/delete booking
-- `/api/queue/join` - Join queue
-- `/api/queue/status` - Get queue position
-- `/api/queue/[id]` - Leave queue
-- `/api/availability` - Check time slot availability
+Create in `/app/api/` (note: API routes are planned/available):
+- `/api/bookings/create` - Create new booking (POST)
+- `/api/bookings/check` - Check availability (GET `?barber=...&date=YYYY-MM-DD&time=HH:MM`)
+- `/api/bookings/[id]` - Get/update/delete booking (planned)
+- `/api/queue/join` - Join queue (planned)
+- `/api/queue/status` - Get queue position (planned)
+- `/api/queue/[id]` - Leave queue (planned)
+- `/api/availability` - Check time slot availability (planned)
 
 ### Phase 3: Real-time Updates
 - Implement WebSocket or Firebase Realtime Database
@@ -171,6 +172,9 @@ When you add backend:
 # Database
 DATABASE_URL=
 
+# Local SQLite (dev):
+DB_PATH=./data/bookings.db
+
 # SMS/WhatsApp
 AFRICASTALKING_API_KEY=
 AFRICASTALKING_USERNAME=
@@ -186,23 +190,7 @@ ADMIN_PASSWORD_HASH=
 NEXT_PUBLIC_APP_URL=https://realbarbershop.co.za
 ```
 
-### WhatsApp / Webhook environment variables
-
-If you want the automated webhook endpoints included in this repo to reply to incoming WhatsApp messages, add these variables as appropriate for the provider you use.
-
-- Twilio (WhatsApp via Twilio):
-  - `TWILIO_ACCOUNT_SID=`
-  - `TWILIO_AUTH_TOKEN=`
-  - `TWILIO_FROM=`  # e.g. `whatsapp:+1415XXXXXXX`
-
-- Meta / WhatsApp Cloud API:
-  - `WHATSAPP_META_TOKEN=`
-  - `WHATSAPP_META_PHONE_NUMBER_ID=`
-
-Notes:
-- Local dev: run `npm run dev` and expose with ngrok to receive real webhook calls.
-- Incoming messages are parsed for `Service`, `Name`, `Date`, and `Barber` fields.
-- Received booking requests are saved to `data/bookings.json` and the webhook replies with a booking reference.
+<!-- WhatsApp webhook integration removed. The floating WhatsApp button UI is retained. -->
 
 
 ## 📊 Analytics Setup

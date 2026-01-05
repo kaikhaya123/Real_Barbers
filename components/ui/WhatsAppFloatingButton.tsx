@@ -10,6 +10,9 @@ import { trackEvent } from '@/lib/analytics'
 export default function WhatsAppFloatingButton() {
   const [visible, setVisible] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
+  // Show the text for a short time when the button first appears, then collapse to icon-only
+  const [showText, setShowText] = useState(true)
+  const hideTimerRef = useRef<number | null>(null)
   const menuRef = useRef<HTMLDivElement | null>(null)
   const pathname = usePathname()
 
@@ -18,13 +21,30 @@ export default function WhatsAppFloatingButton() {
       // Show button once the user has scrolled past ~60% of the hero viewport
       const shouldShow = window.scrollY > window.innerHeight * 0.6
       setVisible(shouldShow)
+
+      // When the button becomes visible, show text for a short time then collapse
+      if (shouldShow) {
+        setShowText(true)
+        if (hideTimerRef.current) window.clearTimeout(hideTimerRef.current)
+        hideTimerRef.current = window.setTimeout(() => setShowText(false), 5000)
+      } else {
+        // If not visible, ensure the text is shown next time
+        setShowText(true)
+        if (hideTimerRef.current) {
+          window.clearTimeout(hideTimerRef.current)
+          hideTimerRef.current = null
+        }
+      }
     }
 
     // Initial check
     onScroll()
 
     window.addEventListener('scroll', onScroll, { passive: true })
-    return () => window.removeEventListener('scroll', onScroll)
+    return () => {
+      window.removeEventListener('scroll', onScroll)
+      if (hideTimerRef.current) window.clearTimeout(hideTimerRef.current)
+    }
   }, [])
 
   useEffect(() => {
@@ -115,13 +135,23 @@ export default function WhatsAppFloatingButton() {
         <div className="flex items-center gap-2">
           <button
             onClick={openWhatsAppGeneric}
+            onMouseEnter={() => {
+              // keep text visible while hovered
+              setShowText(true)
+              if (hideTimerRef.current) window.clearTimeout(hideTimerRef.current)
+            }}
+            onMouseLeave={() => {
+              // hide after brief delay when hover ends
+              if (hideTimerRef.current) window.clearTimeout(hideTimerRef.current)
+              hideTimerRef.current = window.setTimeout(() => setShowText(false), 1500)
+            }}
             aria-label="Chat with Real Barbershop on WhatsApp"
             className="flex items-center gap-3 bg-gradient-to-br from-green-600 to-green-500 text-white py-3 px-4 rounded-full shadow-2xl hover:scale-105 transform transition-all focus:outline-none focus:ring-2 focus:ring-green-400"
           >
             <div className="relative w-6 h-6 flex-shrink-0">
               <Image src="/Icons/whatsapp.png" alt="WhatsApp" fill className="object-contain" />
             </div>
-            <span className="hidden md:inline-block font-semibold">Chat on WhatsApp</span>
+            {showText && <span className="hidden md:inline-block font-semibold">Chat on WhatsApp</span>}
             <span className="ml-1 w-2 h-2 bg-white/30 rounded-full animate-pulse" />
           </button>
 

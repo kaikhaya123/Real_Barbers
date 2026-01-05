@@ -21,44 +21,24 @@ export function buildWhatsAppLink(phone: string, text: string) {
   return `https://wa.me/${num}?text=${encoded}`
 }
 
-import { SERVICES } from './constants'
-
-export function getServiceNames() {
-  return SERVICES.map(s => s.name)
-}
-
-export function buildBookingMessage(opts: {
-  serviceName?: string | null
-  barberName?: string | null
-  name?: string | null
-  dateTime?: string | null
-  notes?: string | null
-}) {
-  const { serviceName, barberName, name, dateTime, notes } = opts
+// Keep helpers minimal for the UI button: build a simple default message
+export function buildBookingMessage(opts: { barberName?: string | null; name?: string | null; serviceName?: string | null; dateTime?: string | null; notes?: string | null }) {
+  const { barberName, name, serviceName, dateTime, notes } = opts || {}
   const lines: string[] = []
-
-  if (serviceName) {
-    lines.push(`Hi ${name || ''}, thanks — we received your request for: ${serviceName}`)
-  } else {
-    const sample = getServiceNames().slice(0, 3).join(', ')
-    lines.push('Hi, welcome to Real Barbershop 👋')
-    lines.push(`Which haircut or service would you like to book? e.g. ${sample}`)
-  }
-
-  lines.push('', `Name: ${name || ''}`)
-  lines.push(`Preferred Date & Time: ${dateTime || ''}`)
+  lines.push(`Hi${name ? ' ' + name : ''} — I'd like to book an appointment${serviceName ? ' for ' + serviceName : ''}.`)
   if (barberName) lines.push(`Preferred barber: ${barberName}`)
-  if (notes) lines.push(`Notes: ${notes}`)
-
-  lines.push('', 'Reply 1 to Confirm, 2 to Change, 3 to Cancel.')
+  if (dateTime) lines.push(`Preferred time: ${dateTime}`)
+  if (notes) {
+    lines.push('', 'Notes:', notes)
+  }
+  lines.push('', 'Please let me know available slots. Thanks!')
   return lines.join('\n')
 }
 
-export function buildAckMessage(opts: { name?: string | null; serviceName: string; dateTime?: string | null; barberName?: string | null; ref?: string }) {
-  const { name, serviceName, dateTime, barberName, ref } = opts
-  const lines = [
-    `Thanks ${name || ''} — we received your request for ${serviceName}.`,
-  ]
+export function buildAckMessage(opts: { name?: string | null; serviceName?: string | null; dateTime?: string | null; barberName?: string | null; ref?: string | null }) {
+  const { name, serviceName, dateTime, barberName, ref } = opts || {}
+  const lines: string[] = []
+  lines.push(`Thanks${name ? ' ' + name : ''} — we received your request for ${serviceName || 'your selected service'}.`)
   if (dateTime) lines.push(`When: ${dateTime}`)
   if (barberName) lines.push(`Barber: ${barberName}`)
   if (ref) lines.push(`Booking ref: ${ref}`)
