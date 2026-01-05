@@ -30,28 +30,29 @@ export default function BookingConfirmation({
   const [lottieLoaded, setLottieLoaded] = useState(false)
 
   useEffect(() => {
-    if (!lottieRef.current) return
-    lottieRef.current.innerHTML = ''
+    const refCurrent = lottieRef.current;
+    if (!refCurrent) return;
+    refCurrent.innerHTML = '';
 
-    let mountedEl: HTMLElement | null = null
-    let pollId: number | null = null
+    let mountedEl: HTMLElement | null = null;
+    let pollId: number | null = null;
 
     const mountLottie = () => {
-      if (typeof window === 'undefined') return false
-      const ce = (window as any).customElements
-      if (!ce || !ce.get) return false
-      if (!ce.get('lottie-player')) return false
+      if (typeof window === 'undefined') return false;
+      const ce = (window as any).customElements;
+      if (!ce || !ce.get) return false;
+      if (!ce.get('lottie-player')) return false;
 
-      mountedEl = document.createElement('lottie-player')
-      mountedEl.setAttribute('src', encodeURI('/lottie/Success Tick.lottie'))
-      mountedEl.setAttribute('background', 'transparent')
-      mountedEl.setAttribute('speed', '1')
-      mountedEl.setAttribute('style', 'width:48px;height:48px')
-      mountedEl.setAttribute('loop', '')
-      mountedEl.setAttribute('autoplay', '')
-      lottieRef.current!.appendChild(mountedEl)
-      return true
-    }
+      mountedEl = document.createElement('lottie-player');
+      mountedEl.setAttribute('src', encodeURI('/lottie/Success Tick.lottie'));
+      mountedEl.setAttribute('background', 'transparent');
+      mountedEl.setAttribute('speed', '1');
+      mountedEl.setAttribute('style', 'width:48px;height:48px');
+      mountedEl.setAttribute('loop', '');
+      mountedEl.setAttribute('autoplay', '');
+      refCurrent!.appendChild(mountedEl);
+      return true;
+    };
 
     // If script already loaded, try mount immediately
     if (lottieLoaded) {
@@ -59,20 +60,20 @@ export default function BookingConfirmation({
         // poll briefly for registration
         pollId = window.setInterval(() => {
           if (mountLottie() && pollId) {
-            window.clearInterval(pollId)
-            pollId = null
+            window.clearInterval(pollId);
+            pollId = null;
           }
-        }, 100)
+        }, 100);
       }
     }
 
     return () => {
-      if (mountedEl && lottieRef.current && lottieRef.current.contains(mountedEl)) {
-        lottieRef.current.removeChild(mountedEl)
+      if (mountedEl && refCurrent && refCurrent.contains(mountedEl)) {
+        refCurrent.removeChild(mountedEl);
       }
-      if (pollId) window.clearInterval(pollId)
-    }
-  }, [lottieLoaded])
+      if (pollId) window.clearInterval(pollId);
+    };
+  }, [lottieLoaded]);
 
   return (
     <div className="text-center">
@@ -115,7 +116,7 @@ export default function BookingConfirmation({
           </div>
 
           <div className="flex items-start space-x-3">
-            <Image src="/Icons/user.png" alt="Barber" width={20} height={20} className="h-5 w-5 mt-0.5 flex-shrink-0 object-contain" />
+            <Image src="/Icons/hairdresser.png" alt="Barber" width={20} height={20} className="h-5 w-5 mt-0.5 flex-shrink-0 object-contain" />
             <div>
               <p className="text-sm text-gray-600">Barber</p>
               <p className="font-semibold text-primary-900">{barber.name}</p>
