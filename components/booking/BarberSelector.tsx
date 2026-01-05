@@ -134,9 +134,6 @@ export default function BarberSelector({ service, onSelect, onBack }: BarberSele
                   <h4 className="text-white font-bold text-lg leading-tight">
                     {barber.name}
                   </h4>
-                  <p className="text-white/80 text-sm">
-                    {barber.experience}
-                  </p>
                 </div>
 
                 {isSelected && (
