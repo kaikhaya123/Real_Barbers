@@ -4,7 +4,10 @@ import { useState } from 'react'
 import { Service, Barber } from '@/lib/types'
 import Button from '@/components/ui/Button'
 import { format } from 'date-fns'
-import { User, Phone, Mail } from 'lucide-react'
+import Image from 'next/image'
+// Custom icon placeholders: put your SVGs in `/public/Icons/` and reference
+// them using an <img> tag as shown below.
+// Example: <img src="/Icons/user.svg" alt="User" className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 object-contain" />
 
 interface BookingFormProps {
   service: Service
@@ -111,7 +114,14 @@ export default function BookingForm({ service, barber, date, time, onSubmit, onB
             Full Name *
           </label>
           <div className="relative">
-            <User className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
+            <Image
+              src="/Icons/user.svg"
+              alt="User"
+              className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 object-contain"
+              width={20}
+              height={20}
+              priority
+            />
             <input
               type="text"
               id="name"
@@ -132,7 +142,14 @@ export default function BookingForm({ service, barber, date, time, onSubmit, onB
             Phone Number *
           </label>
           <div className="relative">
-            <Phone className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
+            <Image
+              src="/Icons/phone-call.png"
+              alt="Phone"
+              className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 object-contain"
+              width={20}
+              height={20}
+              priority
+            />
             <input
               type="tel"
               id="phone"
@@ -153,7 +170,14 @@ export default function BookingForm({ service, barber, date, time, onSubmit, onB
             Email Address (Optional)
           </label>
           <div className="relative">
-            <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
+            <Image
+              src="/Icons/mail.png"
+              alt="Email"
+              className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 object-contain"
+              width={20}
+              height={20}
+              priority
+            />
             <input
               type="email"
               id="email"

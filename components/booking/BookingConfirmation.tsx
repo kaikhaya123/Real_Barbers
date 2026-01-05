@@ -1,8 +1,13 @@
+ 'use client'
 import { Service, Barber } from '@/lib/types'
 import Button from '@/components/ui/Button'
 import { format } from 'date-fns'
-import { CheckCircle, Calendar, User, Clock, MapPin, Phone } from 'lucide-react'
+// Icon placeholders: put custom SVGs in `/public/Icons/` and reference them via <img>
+// Example: <img src="/Icons/calendar.svg" alt="Calendar" className="h-5 w-5" />
 import { BUSINESS_INFO } from '@/lib/constants'
+import Image from 'next/image'
+import Script from 'next/script'
+import { useEffect, useRef } from 'react'
 
 interface BookingConfirmationProps {
   bookingId: string
@@ -21,11 +26,35 @@ export default function BookingConfirmation({
   time,
   onStartOver,
 }: BookingConfirmationProps) {
+  const lottieRef = useRef<HTMLDivElement | null>(null)
+
+  useEffect(() => {
+    if (!lottieRef.current) return
+    lottieRef.current.innerHTML = ''
+
+    // Mount lottie-player only if the web component is registered; otherwise leave empty.
+    if (typeof window !== 'undefined' && (window as any).customElements && (window as any).customElements.get && (window as any).customElements.get('lottie-player')) {
+      const el = document.createElement('lottie-player')
+      el.setAttribute('src', encodeURI('/lottie/Success Tick.lottie'))
+      el.setAttribute('background', 'transparent')
+      el.setAttribute('speed', '1')
+      el.setAttribute('style', 'width:48px;height:48px')
+      el.setAttribute('loop', '')
+      el.setAttribute('autoplay', '')
+      lottieRef.current.appendChild(el)
+      return () => {
+        if (lottieRef.current && lottieRef.current.contains(el)) lottieRef.current.removeChild(el)
+      }
+    }
+    return () => {}
+  }, [])
+
   return (
     <div className="text-center">
       <div className="mb-6">
         <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-          <CheckCircle className="h-12 w-12 text-green-600" />
+          <Script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js" strategy="afterInteractive" />
+          <div ref={lottieRef} className="h-12 w-12" />
         </div>
         <h2 className="text-3xl font-bold text-primary-900 mb-2">
           Booking Confirmed!
@@ -50,7 +79,7 @@ export default function BookingConfirmation({
         
         <div className="space-y-4">
           <div className="flex items-start space-x-3">
-            <Calendar className="h-5 w-5 text-accent-600 mt-0.5 flex-shrink-0" />
+            <Image src="/Icons/calendar (1).png" alt="Date" width={20} height={20} className="h-5 w-5 mt-0.5 flex-shrink-0 object-contain" />
             <div>
               <p className="text-sm text-gray-600">Date & Time</p>
               <p className="font-semibold text-primary-900">
@@ -61,7 +90,7 @@ export default function BookingConfirmation({
           </div>
 
           <div className="flex items-start space-x-3">
-            <User className="h-5 w-5 text-accent-600 mt-0.5 flex-shrink-0" />
+            <Image src="/Icons/user.png" alt="Barber" width={20} height={20} className="h-5 w-5 mt-0.5 flex-shrink-0 object-contain" />
             <div>
               <p className="text-sm text-gray-600">Barber</p>
               <p className="font-semibold text-primary-900">{barber.name}</p>
@@ -70,7 +99,7 @@ export default function BookingConfirmation({
           </div>
 
           <div className="flex items-start space-x-3">
-            <Clock className="h-5 w-5 text-accent-600 mt-0.5 flex-shrink-0" />
+            <Image src="/Icons/clock.png" alt="Service time" width={20} height={20} className="h-5 w-5 mt-0.5 flex-shrink-0 object-contain" />
             <div>
               <p className="text-sm text-gray-600">Service</p>
               <p className="font-semibold text-primary-900">{service.name}</p>
@@ -79,7 +108,7 @@ export default function BookingConfirmation({
           </div>
 
           <div className="flex items-start space-x-3">
-            <MapPin className="h-5 w-5 text-accent-600 mt-0.5 flex-shrink-0" />
+            <Image src="/Icons/location.png" alt="Location" width={20} height={20} className="h-5 w-5 mt-0.5 flex-shrink-0 object-contain" />
             <div>
               <p className="text-sm text-gray-600">Location</p>
               <p className="font-semibold text-primary-900">{BUSINESS_INFO.address}</p>
@@ -129,7 +158,7 @@ export default function BookingConfirmation({
             href={`tel:${BUSINESS_INFO.phone}`}
             className="flex items-center space-x-2 text-accent-600 hover:text-accent-700"
           >
-            <Phone className="h-4 w-4" />
+            <Image src="/Icons/phone-call(1).png" alt="Call" width={16} height={16} className="h-4 w-4 object-contain" />
             <span className="text-sm font-medium">Call</span>
           </a>
           <span className="text-gray-300">|</span>
@@ -137,7 +166,7 @@ export default function BookingConfirmation({
             href={`https://wa.me/${BUSINESS_INFO.whatsapp}`}
             className="flex items-center space-x-2 text-accent-600 hover:text-accent-700"
           >
-            <Phone className="h-4 w-4" />
+            <Image src="/Icons/whatsapp.png" alt="WhatsApp" width={16} height={16} className="h-4 w-4 object-contain" />
             <span className="text-sm font-medium">WhatsApp</span>
           </a>
         </div>
