@@ -5,7 +5,7 @@ import { useRef, useState, useEffect } from 'react'
 
 const BARBERS = [
   { name: 'MFANAFUTHI', img: '/Images/1767460998971.jpeg', href: '/barbers/mfanafuthi' },
-  { name: 'SBONGA', img: '/Images/542329797_17898477192272317_2627203249755889965_n.png', href: '/barbers/abdel' },
+  { name: 'SBONGA', img: '/Images/1767460172187.webp', href: '/barbers/abdel' },
   { name: 'OZ', img: '/Images/1767330787427.jpeg', href: '/barbers/oz' },
 ]
 
