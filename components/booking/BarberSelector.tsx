@@ -46,51 +46,54 @@ export default function BarberSelector({ service, onSelect, onBack }: BarberSele
         </div>
       </div>
 
-      {/* Featured + Grid Container (merged, centered) */}
-      <div className="min-h-[60vh] flex flex-col items-center justify-center gap-8">
-        {selectedBarber && (
-          <div className="w-full mx-auto max-w-7xl px-6">
-            <AnimatePresence>
-              <motion.div
-                initial={{ opacity: 0, y: 8 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.35 }}
-                className="relative rounded-3xl overflow-hidden bg-black shadow-2xl"
-              >
-                <div className="relative h-[420px] md:h-[520px]">
-                  <Image
-                    src={
-                      imgErrorIds[selectedBarber.id]
-                        ? '/Images/1767460172187.webp'
-                        : selectedBarber.image
-                    }
-                    alt={selectedBarber.name}
-                    fill
-                    className="object-cover"
-                    onError={() =>
-                      setImgErrorIds(prev => ({ ...prev, [selectedBarber.id]: true }))
-                    }
-                  />
+      {/* Featured Section */}
+      {selectedBarber && (
+        <section className="w-full mx-auto max-w-7xl px-6 mb-10">
+          <AnimatePresence>
+            <motion.div
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.35 }}
+              className="relative rounded-3xl overflow-hidden bg-black shadow-2xl"
+            >
+              <div className="relative h-[420px] md:h-[520px]">
+                <Image
+                  src={
+                    imgErrorIds[selectedBarber.id]
+                      ? '/Images/1767460172187.webp'
+                      : selectedBarber.image
+                  }
+                  alt={selectedBarber.name}
+                  fill
+                  className="object-cover"
+                  onError={() =>
+                    setImgErrorIds(prev => ({ ...prev, [selectedBarber.id]: true }))
+                  }
+                />
 
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
 
-                  <div className="absolute bottom-6 left-6">
-                    <p className="text-cream-200 text-sm tracking-wide mb-2">SELECTED BARBER</p>
-                    <h3 className="text-3xl md:text-4xl font-black text-white">{selectedBarber.name}</h3>
-                    <p className="text-cream-200 mt-1">{selectedBarber.title}</p>
-                  </div>
-
-                  <div className="absolute top-6 right-6 bg-white rounded-full p-2 text-accent-600 shadow-lg">
-                    <CheckCircle className="w-6 h-6" />
-                  </div>
+                <div className="absolute bottom-6 left-6">
+                  <p className="text-cream-200 text-sm tracking-wide mb-2">SELECTED BARBER</p>
+                  <h3 className="text-3xl md:text-4xl font-black text-white">{selectedBarber.name}</h3>
+                  <p className="text-cream-200 mt-1">{selectedBarber.title}</p>
                 </div>
-              </motion.div>
-            </AnimatePresence>
-          </div>
-        )}
 
-        <div className="w-full mx-auto max-w-7xl px-6">
+                <div className="absolute top-6 right-6 bg-white rounded-full p-2 text-accent-600 shadow-lg">
+                  <CheckCircle className="w-6 h-6" />
+                </div>
+              </div>
+            </motion.div>
+          </AnimatePresence>
+        </section>
+      )}
+
+      {/* Available barbers */}
+      <section className="w-full mx-auto max-w-7xl px-6">
+        <h3 className="text-lg md:text-xl font-semibold text-primary-900 mb-6 text-center">Available barbers</h3>
+
+        <div className="min-h-[40vh] flex items-center justify-center">
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-10 justify-center place-items-center">
             {availableBarbers.map(barber => {
           const isSelected = selectedBarber?.id === barber.id
@@ -145,7 +148,7 @@ export default function BarberSelector({ service, onSelect, onBack }: BarberSele
             })}
           </div>
         </div>
-      </div>
+      </section>
     </div>
   )
 }
