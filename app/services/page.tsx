@@ -31,8 +31,8 @@ export default function ServicesPage() {
                   </div>
 
                   <div className="flex-shrink-0 flex items-center">
-                    <div className="bg-accent-600 text-white rounded-full px-5 py-3 text-lg md:text-xl font-extrabold text-center shadow-md">
-                      {currencyFormatter.format(service.price)}
+                    <div className="bg-accent-600 text-white rounded-full px-5 py-3 text-lg md:text-xl font-extrabold text-center shadow-md" data-testid={`price-${service.id}`} aria-label={`Price ${service.name}`}>
+                      {service.price != null ? currencyFormatter.format(service.price) : '—'}
                     </div>
                   </div>
                 </div>
