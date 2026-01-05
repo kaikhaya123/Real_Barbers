@@ -158,8 +158,11 @@ export default function BookingConfirmation({
       </div>
 
       {/* Important Info */}
-      <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6 text-left">
-        <h4 className="font-semibold text-blue-900 mb-2">📱 What&apos;s Next?</h4>
+      <div className="bg-white-50 border border-white-200 rounded-lg p-4 mb-6 text-left">
+        <h4 className="font-semibold text-black-900 mb-2 flex items-center gap-2">
+          <Image src="/Icons/chatting.png" alt="Phone" width={20} height={20} className="h-5 w-5 object-contain" />
+          What&apos;s Next?
+        </h4>
         <ul className="text-sm text-blue-800 space-y-1">
           <li>• You&apos;ll receive a confirmation SMS shortly</li>
           <li>• We&apos;ll send a reminder 24 hours before your appointment</li>
