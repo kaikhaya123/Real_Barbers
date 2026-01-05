@@ -27,21 +27,23 @@ export default function BarberSelector({ service, onSelect, onBack }: BarberSele
     <div className="space-y-12">
       
       {/* Header */}
-      <div>
+      <div className="relative">
         <button
           onClick={onBack}
-          className="text-accent-600 hover:text-accent-700 text-sm mb-4"
+          className="text-accent-600 hover:text-accent-700 text-sm absolute left-0 top-0"
         >
           ← Back to services
         </button>
 
-        <h2 className="text-3xl md:text-4xl font-black text-primary-900">
-          Choose your barber
-        </h2>
+        <div className="min-h-[120px] flex flex-col items-center justify-center">
+          <h2 className="text-3xl md:text-4xl font-black text-primary-900 text-center">
+            Choose your barber
+          </h2>
 
-        <p className="text-gray-600 mt-2">
-          Selected service: <span className="font-semibold">{service.name}</span>
-        </p>
+          <p className="text-gray-600 mt-2 text-center">
+            Selected service: <span className="font-semibold">{service.name}</span>
+          </p>
+        </div>
       </div>
 
       {/* Featured Barber */}
