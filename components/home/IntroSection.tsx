@@ -11,7 +11,7 @@ export default function IntroSection() {
   // Array of community images with captions
   const communityImages = [
     {
-      src: '/Images/1767456426218.jpegg',
+      src: '/Images/1767456426218.jpeg',
       caption: 'Fresh Cuts, Fresh Confidence',
       alt: 'Community member enjoying fresh cut'
     },
@@ -134,7 +134,7 @@ export default function IntroSection() {
           >
             <div className="relative h-[520px] md:h-[650px] rounded-3xl overflow-hidden shadow-2xl">
               <Image
-                src="/Images/real_barbershop_za_1767437611547.png"
+                src="/Images/clinton-dube-84lpzy66IZk-unsplash.jpg"
                 alt="Barber performing a clean fade haircut"
                 fill
                 priority
