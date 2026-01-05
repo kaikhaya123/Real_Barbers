@@ -7,7 +7,7 @@ import { format } from 'date-fns'
 import { BUSINESS_INFO } from '@/lib/constants'
 import Image from 'next/image'
 import Script from 'next/script'
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 interface BookingConfirmationProps {
   bookingId: string
@@ -27,33 +27,58 @@ export default function BookingConfirmation({
   onStartOver,
 }: BookingConfirmationProps) {
   const lottieRef = useRef<HTMLDivElement | null>(null)
+  const [lottieLoaded, setLottieLoaded] = useState(false)
 
   useEffect(() => {
     if (!lottieRef.current) return
     lottieRef.current.innerHTML = ''
 
-    // Mount lottie-player only if the web component is registered; otherwise leave empty.
-    if (typeof window !== 'undefined' && (window as any).customElements && (window as any).customElements.get && (window as any).customElements.get('lottie-player')) {
-      const el = document.createElement('lottie-player')
-      el.setAttribute('src', encodeURI('/lottie/Success Tick.lottie'))
-      el.setAttribute('background', 'transparent')
-      el.setAttribute('speed', '1')
-      el.setAttribute('style', 'width:48px;height:48px')
-      el.setAttribute('loop', '')
-      el.setAttribute('autoplay', '')
-      lottieRef.current.appendChild(el)
-      return () => {
-        if (lottieRef.current && lottieRef.current.contains(el)) lottieRef.current.removeChild(el)
+    let mountedEl: HTMLElement | null = null
+    let pollId: number | null = null
+
+    const mountLottie = () => {
+      if (typeof window === 'undefined') return false
+      const ce = (window as any).customElements
+      if (!ce || !ce.get) return false
+      if (!ce.get('lottie-player')) return false
+
+      mountedEl = document.createElement('lottie-player')
+      mountedEl.setAttribute('src', encodeURI('/lottie/Success Tick.lottie'))
+      mountedEl.setAttribute('background', 'transparent')
+      mountedEl.setAttribute('speed', '1')
+      mountedEl.setAttribute('style', 'width:48px;height:48px')
+      mountedEl.setAttribute('loop', '')
+      mountedEl.setAttribute('autoplay', '')
+      lottieRef.current!.appendChild(mountedEl)
+      return true
+    }
+
+    // If script already loaded, try mount immediately
+    if (lottieLoaded) {
+      if (!mountLottie()) {
+        // poll briefly for registration
+        pollId = window.setInterval(() => {
+          if (mountLottie() && pollId) {
+            window.clearInterval(pollId)
+            pollId = null
+          }
+        }, 100)
       }
     }
-    return () => {}
-  }, [])
+
+    return () => {
+      if (mountedEl && lottieRef.current && lottieRef.current.contains(mountedEl)) {
+        lottieRef.current.removeChild(mountedEl)
+      }
+      if (pollId) window.clearInterval(pollId)
+    }
+  }, [lottieLoaded])
 
   return (
     <div className="text-center">
       <div className="mb-6">
         <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-          <Script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js" strategy="afterInteractive" />
+          <Script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js" strategy="afterInteractive" onLoad={() => setLottieLoaded(true)} />
           <div ref={lottieRef} className="h-12 w-12" />
         </div>
         <h2 className="text-3xl font-bold text-primary-900 mb-2">
