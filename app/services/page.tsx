@@ -14,7 +14,7 @@ export default function ServicesPage() {
     <Section background="white" padding="lg">
       <div className="text-center max-w-3xl mx-auto">
         <h1 className="text-4xl md:text-5xl font-black text-primary-900">Our Services & Prices</h1>
-        <p className="text-gray-600 mt-3 max-w-2xl mx-auto">Choose from our selection of professional haircuts and grooming services. All prices are listed in ZAR.</p>
+        <p className="text-gray-600 mt-3 max-w-2xl mx-auto">Choose from our selection of professional haircuts and grooming services.</p>
         <div className="mt-6 h-1 w-28 bg-accent-600 rounded mx-auto" />
       </div>
 
