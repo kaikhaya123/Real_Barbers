@@ -13,8 +13,7 @@ export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
   const navigation = [
-    { name: 'SERVICES', href: '/#services' },
-    { name: 'ABOUT', href: '/#about' },
+    { name: 'SERVICES', href: '/services' },
     { name: 'BARBERS', href: '/barbers' },
     { name: 'CONTACT', href: '/contact' },
   ]
