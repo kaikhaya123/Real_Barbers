@@ -1,10 +1,11 @@
+'use client'
+
 import { BARBERS } from '@/lib/constants'
 import { Service, Barber } from '@/lib/types'
-import Card from '@/components/ui/Card'
-import Button from '@/components/ui/Button'
-import { Award, CheckCircle } from 'lucide-react'
+import { motion, AnimatePresence } from 'framer-motion'
 import Image from 'next/image'
-import { useState } from 'react' 
+import { useState } from 'react'
+import { CheckCircle } from 'lucide-react'
 
 interface BarberSelectorProps {
   service: Service
@@ -14,127 +15,137 @@ interface BarberSelectorProps {
 
 export default function BarberSelector({ service, onSelect, onBack }: BarberSelectorProps) {
   const availableBarbers = BARBERS.filter(b => b.available)
-  const [selectedBarberId, setSelectedBarberId] = useState<string | null>(null)
+  const [selectedBarber, setSelectedBarber] = useState<Barber | null>(null)
   const [imgErrorIds, setImgErrorIds] = useState<Record<string, boolean>>({})
 
   const handleSelect = (barber: Barber) => {
-    setSelectedBarberId(barber.id)
+    setSelectedBarber(barber)
     onSelect(barber)
   }
 
-  const selectedBarber = BARBERS.find(b => b.id === selectedBarberId) 
-
   return (
-    <div>
-      <div className="mb-6">
-        <button onClick={onBack} className="text-accent-600 hover:text-accent-700 mb-3">
+    <div className="space-y-12">
+      
+      {/* Header */}
+      <div>
+        <button
+          onClick={onBack}
+          className="text-accent-600 hover:text-accent-700 text-sm mb-4"
+        >
           ← Back to services
         </button>
-        <h2 className="text-2xl font-bold text-primary-900">
-          Choose Your Barber
+
+        <h2 className="text-3xl md:text-4xl font-black text-primary-900">
+          Choose your barber
         </h2>
-        <p className="text-gray-600 mt-1">
+
+        <p className="text-gray-600 mt-2">
           Selected service: <span className="font-semibold">{service.name}</span>
         </p>
-        {selectedBarber && (
-          <div className="mt-3 flex items-center space-x-4">
-            <div className="w-14 h-14 rounded-full overflow-hidden flex-shrink-0 ring-2 ring-accent-500">
-              <Image
-                src={imgErrorIds[selectedBarber.id] ? '/Images/real_barbershop_za_1767437746758.jpeg' : selectedBarber.image}
-                alt={selectedBarber.name}
-                width={56}
-                height={56}
-                className="object-cover w-full h-full"
-                onError={() => setImgErrorIds(prev => ({ ...prev, [selectedBarber.id]: true }))}
-              />
-            </div>
-            <div>
-              <div className="text-base font-semibold text-primary-900">{selectedBarber.name}</div>
-              <div className="text-sm text-gray-500">{selectedBarber.title}</div>
-            </div>
-          </div>
-        )} 
       </div>
 
-      <div className="grid grid-cols-1 gap-6">
-        {/* Any Available Barber Option */}
-        <Card className="cursor-pointer transition-transform duration-150 transform hover:scale-105 hover:shadow-md hover:border-accent-600" hover>
-          <button onClick={() => availableBarbers[0] && handleSelect(availableBarbers[0])} className="w-full text-left">
-            <div className="flex items-start space-x-4">
-              <div className="w-24 h-24 bg-gradient-to-br from-accent-500 to-accent-600 rounded-full flex items-center justify-center flex-shrink-0">
-                <Award className="h-12 w-12 text-white" />
-              </div>
-              <div className="flex-1">
-                <h3 className="text-xl font-bold text-primary-900 mb-2">
-                  First Available Barber
-                </h3>
-                <p className="text-gray-600 text-sm">
-                  Get the next available slot with any of our professional barbers
+      {/* Featured Barber */}
+      <AnimatePresence>
+        {selectedBarber && (
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.4 }}
+            className="relative rounded-3xl overflow-hidden bg-black shadow-2xl"
+          >
+            <div className="relative h-[420px]">
+              <Image
+                src={
+                  imgErrorIds[selectedBarber.id]
+                    ? '/Images/1767460172187.webp'
+                    : selectedBarber.image
+                }
+                alt={selectedBarber.name}
+                fill
+                className="object-cover"
+                onError={() =>
+                  setImgErrorIds(prev => ({ ...prev, [selectedBarber.id]: true }))
+                }
+              />
+
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
+
+              <div className="absolute bottom-8 left-8">
+                <p className="text-cream-200 text-sm tracking-wide mb-2">
+                  SELECTED BARBER
                 </p>
-                <div className="mt-3 inline-flex items-center space-x-2 text-sm text-green-600">
-                  <CheckCircle className="h-4 w-4" />
-                  <span>Fastest booking option</span>
-                </div>
+                <h3 className="text-4xl font-black text-white">
+                  {selectedBarber.name}
+                </h3>
+                <p className="text-cream-200 mt-1">
+                  {selectedBarber.title} · {selectedBarber.experience}
+                </p>
+              </div>
+
+              <div className="absolute top-6 right-6 bg-white rounded-full p-2 text-accent-600 shadow-lg">
+                <CheckCircle className="w-6 h-6" />
               </div>
             </div>
-          </button>
-        </Card>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
-        {/* Individual Barbers */}
-        {availableBarbers.map((barber) => (
-          <Card
-            key={barber.id}
-            className={`cursor-pointer transition-transform duration-150 transform hover:scale-105 ${selectedBarberId === barber.id ? 'ring-4 ring-offset-2 ring-accent-500/60 shadow-lg bg-accent-50' : 'hover:border-2 hover:border-accent-600'}`}
-            hover
-          >
-            <button onClick={() => handleSelect(barber)} className="w-full text-left">
-              <div className="flex items-start space-x-4">
-                <div className={`w-24 h-24 rounded-full flex items-center justify-center flex-shrink-0 overflow-hidden relative transition-shadow ${selectedBarberId === barber.id ? 'ring-4 ring-accent-500/80 shadow-xl' : 'ring-0'}`}>
-                  {!imgErrorIds[barber.id] ? (
-                    <Image
-                      src={barber.image}
-                      alt={barber.name}
-                      width={96}
-                      height={96}
-                      className="object-cover w-full h-full"
-                      onError={() => setImgErrorIds(prev => ({ ...prev, [barber.id]: true }))}
-                    />
-                  ) : (
-                    <div className="w-full h-full bg-gradient-to-br from-primary-600 to-primary-700 flex items-center justify-center text-white text-2xl font-bold">
-                      {barber.name.split(' ').map(n => n[0]).join('')}
-                    </div>
-                  )}
-                  {selectedBarberId === barber.id && (
-                    <span className="absolute top-2 right-2 bg-white rounded-full p-1.5 text-accent-600 shadow-sm">
-                      <CheckCircle className="h-4 w-4" />
-                    </span>
-                  )}
-                </div>
-                <div className="flex-1">
-                  <h3 className="text-xl font-bold text-primary-900 mb-1">
-                    {barber.name}
-                  </h3>
-                  <p className="text-accent-600 font-semibold text-sm mb-2">
-                    {barber.title} • {barber.experience}
-                  </p>
-                  <p className="text-gray-600 text-sm mb-3">
-                    {barber.bio}
-                  </p>
-                  <div className="flex flex-wrap gap-2">
-                    {barber.specialties.map((specialty, index) => (
-                      <span
-                        key={index}
-                        className="inline-block bg-primary-100 text-primary-700 text-xs px-3 py-1 rounded-full"
-                      >
-                        {specialty}
-                      </span>
-                    ))}
+      {/* Barber Grid */}
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+        {availableBarbers.map(barber => {
+          const isSelected = selectedBarber?.id === barber.id
+
+          return (
+            <motion.button
+              key={barber.id}
+              onClick={() => handleSelect(barber)}
+              whileHover={{ y: -6 }}
+              transition={{ duration: 0.3 }}
+              className={`relative rounded-2xl overflow-hidden text-left bg-gray-100 shadow-md focus:outline-none ${
+                isSelected ? 'ring-4 ring-accent-500' : ''
+              }`}
+            >
+              <div className="relative aspect-[3/4]">
+                {!imgErrorIds[barber.id] ? (
+                  <Image
+                    src={encodeURI(barber.image)}
+                    alt={barber.name}
+                    fill
+                    className="object-cover"
+                    onError={() =>
+                      setImgErrorIds(prev => ({ ...prev, [barber.id]: true }))
+                    }
+                  />
+                ) : (
+                  <div className="w-full h-full bg-primary-700 flex items-center justify-center text-white text-3xl font-black">
+                    {barber.name
+                      .split(' ')
+                      .map(n => n[0])
+                      .join('')}
                   </div>
+                )}
+
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+
+                <div className="absolute bottom-4 left-4 right-4">
+                  <h4 className="text-white font-bold text-lg leading-tight">
+                    {barber.name}
+                  </h4>
+                  <p className="text-white/80 text-sm">
+                    {barber.experience}
+                  </p>
                 </div>
+
+                {isSelected && (
+                  <div className="absolute top-3 right-3 bg-white rounded-full p-1.5 text-accent-600 shadow">
+                    <CheckCircle className="w-4 h-4" />
+                  </div>
+                )}
               </div>
-            </button>
-          </Card>
-        ))}
+            </motion.button>
+          )
+        })}
       </div>
     </div>
   )

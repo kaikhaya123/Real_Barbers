@@ -3,8 +3,48 @@
 import { motion } from 'framer-motion'
 import Image from 'next/image'
 import Button from '@/components/ui/Button'
+import { useState, useEffect } from 'react'
 
 export default function IntroSection() {
+  const [currentImageIndex, setCurrentImageIndex] = useState(0)
+  
+  // Array of community images with captions
+  const communityImages = [
+    {
+      src: '/Images/1767456426218.jpeg',
+      caption: 'Fresh Cuts, Fresh Confidence',
+      alt: 'Community member enjoying fresh cut'
+    },
+    {
+      src: '/Images/1767456420453.jpeg', 
+      caption: 'Professional Excellence',
+      alt: 'Professional grooming service'
+    },
+    {
+      src: '/Images/1767374000777.jpeg',
+      caption: 'Building Community Bonds', 
+      alt: 'Community gathering at barbershop'
+    },
+    {
+      src: '/Images/1767457177038.jpeg',
+      caption: 'Transforming Lives',
+      alt: 'Another community transformation'
+    },
+    {
+      src: '/Images/1767457235355.jpeg',
+      caption: 'Style & Confidence',
+      alt: 'Stylish haircut showcase'
+    }
+  ]
+
+  // Auto-cycle through images every 3 seconds
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentImageIndex((prev) => (prev + 1) % communityImages.length)
+    }, 3000)
+    
+    return () => clearInterval(interval)
+  }, [communityImages.length])
   return (
     <section
       className="bg-cream-50 py-20 md:py-28 font-sans"
@@ -106,7 +146,86 @@ export default function IntroSection() {
           </motion.div>
         </div>
 
-        {/* Community Impact Gallery removed for now */}
+        {/* Community Impact Gallery */}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+          className="mt-24"
+        >
+          <div className="text-center mb-12">
+            <h3 className="text-2xl md:text-3xl lg:text-4xl font-black text-dark-900 mb-4">
+              Real Community Impact
+            </h3>
+            <p className="text-lg text-dark-700 max-w-2xl mx-auto">
+              See how we&#39;ve transformed lives and built confidence in our community
+            </p>
+          </div>
+          
+          <div className="flex justify-center">
+            <div className="relative aspect-[4/3] w-full max-w-2xl rounded-2xl overflow-hidden shadow-xl bg-gray-100 group">
+              <Image
+                key={currentImageIndex}
+                src={communityImages[currentImageIndex].src}
+                alt={communityImages[currentImageIndex].alt}
+                fill
+                className="object-cover transition-all duration-700 ease-in-out"
+                sizes="(max-width: 768px) 95vw, (max-width: 1024px) 80vw, 50vw"
+                priority
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
+              
+              {/* Caption with better positioning */}
+              <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/80 to-transparent">
+                <p className="text-cream-50 font-bold text-xl md:text-2xl mb-2 drop-shadow-lg">
+                  {communityImages[currentImageIndex].caption}
+                </p>
+                <div className="flex justify-between items-center">
+                  <div className="text-cream-50/80 text-sm">
+                    {currentImageIndex + 1} of {communityImages.length}
+                  </div>
+                  
+                  {/* Image indicators */}
+                  <div className="flex space-x-2">
+                    {communityImages.map((_, index) => (
+                      <button
+                        key={index}
+                        onClick={() => setCurrentImageIndex(index)}
+                        className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                          index === currentImageIndex 
+                            ? 'bg-cream-50 scale-110' 
+                            : 'bg-cream-50/50 hover:bg-cream-50/70'
+                        }`}
+                      />
+                    ))}
+                  </div>
+                </div>
+              </div>
+              
+              {/* Navigation arrows */}
+              <button
+                onClick={() => setCurrentImageIndex((prev) => prev === 0 ? communityImages.length - 1 : prev - 1)}
+                className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-2 rounded-full transition-all duration-300 opacity-0 group-hover:opacity-100"
+                aria-label="Previous image"
+              >
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                </svg>
+              </button>
+              
+              <button
+                onClick={() => setCurrentImageIndex((prev) => (prev + 1) % communityImages.length)}
+                className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-2 rounded-full transition-all duration-300 opacity-0 group-hover:opacity-100"
+                aria-label="Next image"
+              >
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </svg>
+              </button>
+            </div>
+          </div>
+        </motion.div>
 
       </div>
     </section>

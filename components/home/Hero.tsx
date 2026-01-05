@@ -13,7 +13,7 @@ export default function Hero() {
         {/* Left Image */}
         <div className="relative w-full md:w-1/2 h-1/2 md:h-full">
           <Image
-            src="/Images/Daniel Mitchel (Charlie's Older Half-Brother).jpg"
+            src={encodeURI("/Images/daniel-mitchel.jpg")}
             alt="Real Barbershop"
             fill
             className="object-cover object-center brightness-90 contrast-110"
@@ -25,7 +25,7 @@ export default function Hero() {
         {/* Right Image */}
         <div className="relative w-full md:w-1/2 h-1/2 md:h-full">
           <Image
-            src="/Images/From KlickPin CF Pin by Queenk on Black Lady Hairstyles _ Short thin hair Black natural hairstyles Super short hair.jpg"
+            src={encodeURI("/Images/short-hair-queenk.jpg")}
             alt="Short Haircut for Women"
             fill
             className="object-cover object-center md:object-left brightness-90 contrast-110"

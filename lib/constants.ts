@@ -75,7 +75,7 @@ export const BARBERS = [
     experience: ' 2 years',
     specialties: ['Modern Styles', 'Hair Designs', 'Color'],
     bio: 'Sbonga stays on top of the latest trends and brings creative energy to every cut as a young barber.',
-    image: 'public/Images/542329797_17898477192272317_2627203249755889965_n.png',
+    image: '/Images/1767460172187.webp',
     available: true,
   },
   {
@@ -85,7 +85,7 @@ export const BARBERS = [
     experience: '5 years',
     specialties: ['Classic Cuts', 'Hot Towel Shaves', 'Grooming'],
     bio: 'John specializes in traditional barbering techniques and provides a relaxing experience.',
-    image: '/images/barber-john.jpg',
+    image: '/Images/1767330787427.jpeg',
     available: true,
   },
 ]
