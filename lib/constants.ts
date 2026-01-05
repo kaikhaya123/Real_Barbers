@@ -26,6 +26,7 @@ export const SERVICES = [
     duration: 45,
     price: 150,
     image: '/Images/1767460998971.jpeg',
+    category: 'Adults',
   },
   {
     id: 'taper-fade-dye',
@@ -34,6 +35,7 @@ export const SERVICES = [
     duration: 60,
     price: 150,
     image: '/Images/1767460172187.webp',
+    category: 'Adults',
   },
   {
     id: 'kiddies-cut-style',
@@ -42,6 +44,7 @@ export const SERVICES = [
     duration: 30,
     price: 80,
     image: '/Images/1767330787427.jpeg',
+    category: 'Kids',
   },
   {
     id: 'plain-fade',
@@ -50,6 +53,7 @@ export const SERVICES = [
     duration: 45,
     price: 60,
     image: '/Images/1767460172187.webp',
+    category: 'Adults',
   },
   {
     id: 'chiskop',
@@ -58,6 +62,7 @@ export const SERVICES = [
     duration: 20,
     price: 50,
     image: '/Images/1767460998971.jpeg',
+    category: 'Treatment',
   },
 ]
 
