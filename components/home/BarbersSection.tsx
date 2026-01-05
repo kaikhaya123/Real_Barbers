@@ -50,7 +50,7 @@ export default function BarbersSection() {
               onClick={() => scroll('left')}
               aria-label="Scroll barbers left"
               className={`h-9 w-9 rounded-full flex items-center justify-center transition ${
-                canScrollLeft ? 'bg-emerald-800 text-white' : 'bg-emerald-800/30 text-white/60 pointer-events-none'
+                canScrollLeft ? 'bg-black text-white' : 'bg-black/30 text-white/60 pointer-events-none'
               }`}
             >
               <svg className="w-4 h-4 rotate-180" viewBox="0 0 24 24" fill="none" stroke="currentColor">
@@ -62,7 +62,7 @@ export default function BarbersSection() {
               onClick={() => scroll('right')}
               aria-label="Scroll barbers right"
               className={`h-9 w-9 rounded-full flex items-center justify-center transition ${
-                canScrollRight ? 'bg-emerald-800 text-white' : 'bg-emerald-800/30 text-white/60 pointer-events-none'
+                canScrollRight ? 'bg-black text-white' : 'bg-black/30 text-white/60 pointer-events-none'
               }`}
             >
               <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor">
