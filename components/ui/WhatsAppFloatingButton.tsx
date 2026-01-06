@@ -3,17 +3,15 @@
 import { useEffect, useRef, useState } from 'react'
 import Image from 'next/image'
 import { usePathname } from 'next/navigation'
-import { BUSINESS_INFO, BARBERS } from '@/lib/constants'
+import { BUSINESS_INFO } from '@/lib/constants'
 import { buildWhatsAppLink, buildBookingMessage } from '@/lib/whatsapp'
 import { trackEvent } from '@/lib/analytics'
 
 export default function WhatsAppFloatingButton() {
   const [visible, setVisible] = useState(false)
-  const [menuOpen, setMenuOpen] = useState(false)
   // Show the text for a short time when the button first appears, then collapse to icon-only
   const [showText, setShowText] = useState(true)
   const hideTimerRef = useRef<number | null>(null)
-  const menuRef = useRef<HTMLDivElement | null>(null)
   const pathname = usePathname()
 
   useEffect(() => {
@@ -47,19 +45,7 @@ export default function WhatsAppFloatingButton() {
     }
   }, [])
 
-  useEffect(() => {
-    const onDocClick = (e: MouseEvent) => {
-      if (!menuRef.current) return
-      if (!menuRef.current.contains(e.target as Node)) {
-        setMenuOpen(false)
-      }
-    }
 
-    if (menuOpen) {
-      document.addEventListener('click', onDocClick)
-      return () => document.removeEventListener('click', onDocClick)
-    }
-  }, [menuOpen])
 
   const openWhatsAppGeneric = () => {
     const message = buildBookingMessage({})
@@ -77,22 +63,7 @@ export default function WhatsAppFloatingButton() {
     }
   }
 
-  const openWhatsAppWithBarber = (barberId: string, barberName: string) => {
-    const message = buildBookingMessage({ barberName })
-    const link = buildWhatsAppLink(BUSINESS_INFO.whatsapp, message)
 
-    try {
-      trackEvent('whatsapp_cta_click', { location: 'floating_button', path: pathname, barber: barberId })
-    } catch (e) {}
-
-    try {
-      window.open(link, '_blank')
-    } catch (e) {
-      window.location.href = link
-    }
-
-    setMenuOpen(false)
-  }
 
   return (
     <div
@@ -101,36 +72,8 @@ export default function WhatsAppFloatingButton() {
         visible ? 'opacity-100 translate-y-0 pointer-events-auto' : 'opacity-0 translate-y-6 pointer-events-none'
       }`}
     >
-      <div className="relative" ref={menuRef}>
-        {/* Menu (appears above the button) */}
-        {menuOpen && (
-          <div className="absolute bottom-16 right-0 w-64 bg-white border rounded-lg shadow-lg overflow-hidden text-left">
-            <div className="px-3 py-2 border-b">
-              <p className="text-sm font-semibold">Book with a barber</p>
-            </div>
-            <ul className="max-h-56 overflow-auto">
-              <li>
-                <button
-                  onClick={() => openWhatsAppGeneric()}
-                  className="w-full text-left px-3 py-2 hover:bg-gray-50"
-                >
-                  Any available barber
-                </button>
-              </li>
-              {BARBERS.map((b) => (
-                <li key={b.id}>
-                  <button
-                    onClick={() => openWhatsAppWithBarber(b.id, b.name)}
-                    className="w-full text-left px-3 py-2 hover:bg-gray-50 flex items-center gap-2"
-                  >
-                    <span className="flex-1">{b.name}</span>
-                    <span className="text-xs text-gray-400">{b.title}</span>
-                  </button>
-                </li>
-              ))}
-            </ul>
-          </div>
-        )}
+      <div className="relative">
+
 
         <div className="flex items-center gap-2">
           <button
@@ -155,17 +98,7 @@ export default function WhatsAppFloatingButton() {
             <span className="ml-1 w-2 h-2 bg-white/30 rounded-full animate-pulse" />
           </button>
 
-          {/* Toggle menu button */}
-          <button
-            onClick={() => setMenuOpen((s) => !s)}
-            aria-expanded={menuOpen}
-            aria-label="Choose a barber to book with"
-            className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white border shadow-sm text-gray-700 hover:bg-gray-50 focus:outline-none"
-          >
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-4 w-4">
-              <path d="M6 9l6 6 6-6" />
-            </svg>
-          </button>
+
         </div>
       </div>
     </div>
