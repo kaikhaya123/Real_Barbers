@@ -1,13 +1,11 @@
 'use client'
 
 import Image from 'next/image'
+import Link from 'next/link'
 import { useRef, useState, useEffect } from 'react'
+import { BARBERS as SITE_BARBERS } from '../../lib/constants'
 
-const BARBERS = [
-  { name: 'MFANAFUTHI', img: '/Images/1767460998971.jpeg', href: '/barbers/mfanafuthi' },
-  { name: 'SBONGA', img: '/Images/1767460172187.webp', href: '/barbers/abdel' },
-  { name: 'OZ', img: '/Images/1767330787427.jpeg', href: '/barbers/oz' },
-]
+const PREVIEW = SITE_BARBERS.slice(0, 3)
 
 export default function BarbersSection() {
   const scrollerRef = useRef<HTMLDivElement | null>(null)
@@ -41,11 +39,13 @@ export default function BarbersSection() {
     <section className="py-16 lg:py-20">
       <div className="container mx-auto px-6 lg:px-8 max-w-7xl">
         <div className="flex items-start justify-between">
-          <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black tracking-tight text-dark-900">
-            MEET OUR REAL BARBERS
-          </h2>
+          <Link href="/barbers" className="hover:underline">
+            <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black tracking-tight text-dark-900">
+              MEET OUR REAL BARBERS
+            </h2>
+          </Link>
 
-          <div className="flex gap-3">
+          <div className="flex gap-3 items-start">
             <button
               onClick={() => scroll('left')}
               aria-label="Scroll barbers left"
@@ -77,15 +77,15 @@ export default function BarbersSection() {
           className="mt-8 flex gap-6 overflow-x-auto pb-6 scroll-smooth no-scrollbar"
           aria-label="List of barbers"
         >
-          {BARBERS.map((b) => (
-            <a
-              key={b.name}
-              href={b.href}
+          {PREVIEW.map((b) => (
+            <Link
+              key={b.id}
+              href={`/barbers#${String(b.id).toLowerCase()}`}
               className="group relative min-w-[220px] sm:min-w-[260px] md:min-w-[300px] lg:min-w-[320px] rounded-2xl overflow-hidden shadow-2xl"
             >
               <div className="relative w-full aspect-[4/5] bg-gray-100">
                 <Image
-                  src={b.img}
+                  src={b.image}
                   alt={`${b.name} barber`}
                   fill
                   className="object-cover transition-transform duration-500 group-hover:scale-105"
@@ -104,7 +104,7 @@ export default function BarbersSection() {
                   </div>
                 </div>
               </div>
-            </a>
+            </Link>
           ))}
         </div>
       </div>

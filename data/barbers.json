@@ -1,0 +1,30 @@
+[
+  {
+    "id": 1,
+    "name": "Daniel Mitchell",
+    "role": "Master Barber",
+    "bio": "Specialises in fades, beard sculpting and classic cuts with a modern twist.",
+    "image": "/Images/daniel-mitchel.jpg"
+  },
+  {
+    "id": 2,
+    "name": "Salah Regouane",
+    "role": "Senior Stylist",
+    "bio": "Creative cuts and textured styles, loves working with curly hair.",
+    "image": "/Images/salah-regouane-rM_ev_MroKA-unsplash.jpg"
+  },
+  {
+    "id": 3,
+    "name": "Clinton Dube",
+    "role": "Clipper Specialist",
+    "bio": "Precision fades and quick, consistent service for busy clients.",
+    "image": "/Images/clinton-dube-84lpzy66IZk-unsplash.jpg"
+  },
+  {
+    "id": 4,
+    "name": "Lerato Ngcobo",
+    "role": "Barber & Stylist",
+    "bio": "Friendly and meticulous — expert in modern short cuts and grooming.",
+    "image": "/Images/mfanafuthi_ngcobo_1767438249198.jpeg"
+  }
+]
