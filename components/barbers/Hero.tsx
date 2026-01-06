@@ -3,7 +3,7 @@ export default function HeroBarbers() {
     <header className="relative bg-gray-900 text-white">
       <div
         className="h-72 sm:h-96 bg-cover bg-center"
-        style={{ backgroundImage: "url('/Images/real_barbershop_za_1767431370893.jpeg')" }}
+        style={{ backgroundImage: "url('/Images/1142.jpg')" }}
       >
         <div className="h-full w-full bg-black/50 flex items-center">
           <div className="container mx-auto px-6 sm:px-8 lg:px-16">
