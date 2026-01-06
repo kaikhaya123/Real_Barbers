@@ -14,7 +14,7 @@ interface BarberSelectorProps {
 }
 
 export default function BarberSelector({ service, onSelect, onBack }: BarberSelectorProps) {
-  const availableBarbers = BARBERS.filter(b => b.available)
+  const availableBarbers = BARBERS
   const [selectedBarber, setSelectedBarber] = useState<Barber | null>(null)
   const [imgErrorIds, setImgErrorIds] = useState<Record<string, boolean>>({})
 
