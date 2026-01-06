@@ -16,7 +16,6 @@ export interface Barber {
   specialties: string[]
   bio: string
   image: string
-  available: boolean
 }
 
 export interface TimeSlot {

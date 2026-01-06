@@ -135,7 +135,7 @@ export default function QueueJoinForm({ onJoin }: QueueJoinFormProps) {
               className="w-full pl-11 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent-500 focus:border-accent-500 outline-none appearance-none bg-white"
             >
               <option value="">No preference (faster service)</option>
-              {BARBERS.filter(b => b.available).map(barber => (
+              {BARBERS.map(barber => (
                 <option key={barber.id} value={barber.id}>
                   {barber.name}
                 </option>

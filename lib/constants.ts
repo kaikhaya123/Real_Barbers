@@ -76,7 +76,6 @@ export const BARBERS = [
     specialties: ['Fades', 'Beard Sculpting', 'Traditional Cuts'],
     bio: 'Mfanafuthi has been perfecting his craft for his years of experience. Known for his precision fades and attention to detail.',
     image: '/Images/1767460998971.jpeg',
-    available: true,
   },
   {
     id: 'Sbonga',
@@ -86,7 +85,6 @@ export const BARBERS = [
     specialties: ['Modern Styles', 'Hair Designs', 'Color'],
     bio: 'Sbonga stays on top of the latest trends and brings creative energy to every cut as a young barber.',
     image: '/Images/1767460172187.webp',
-    available: true,
   },
   {
     id: 'john',
@@ -96,7 +94,6 @@ export const BARBERS = [
     specialties: ['Classic Cuts', 'Hot Towel Shaves', 'Grooming'],
     bio: 'John specializes in traditional barbering techniques and provides a relaxing experience.',
     image: '/Images/1767330787427.jpeg',
-    available: true,
   },
 ]
 
