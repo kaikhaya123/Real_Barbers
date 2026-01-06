@@ -37,12 +37,6 @@ export default function BarberCard({ barber }: { barber: Barber }) {
               <h3 className="text-3xl md:text-4xl font-extrabold text-gray-900 uppercase tracking-tight">{name}</h3>
               <p className="mt-2 text-sm text-gray-500">{title}{experience ? ` • ${experience}` : ''}</p>
             </div>
-
-            <div className="text-right">
-              <span className={`px-3 py-1 rounded-full text-sm ${available ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-600'}`}>
-                {available ? 'Available' : 'Unavailable'}
-              </span>
-            </div>
           </div>
 
           <div className="mt-2 flex flex-wrap gap-2">
@@ -53,9 +47,7 @@ export default function BarberCard({ barber }: { barber: Barber }) {
 
           <p className="mt-4 text-base text-gray-700 leading-relaxed max-w-4xl">{bio}</p>
 
-          <div className="mt-6">
-            <a href="/book" className="inline-flex items-center gap-2 bg-black text-white px-5 py-3 rounded-md font-semibold shadow hover:bg-zinc-900">Book Now</a>
-          </div>
+
         </div>
       </div>
     </article>
