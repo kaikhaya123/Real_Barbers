@@ -7,21 +7,21 @@ import Section from "@/components/ui/Section"
 const steps = [
   {
     number: "01",
-    iconImage: "/Icons/calendar (1).png", // Replace with your calendar icon
-    title: "Book your slot",
-    description: "Choose a time that fits your day.",
+    iconImage: "/Icons/booking.png",
+    title: "Tap Book Now",
+    description: "WhatsApp opens instantly with an automated greeting to start your booking.",
   },
   {
     number: "02",
-    iconImage: "/Icons/shop (1).png", // Replace with your scissors icon
-    title: "Show up sharp",
-    description: "Arrive on time. We handle the rest.",
+    iconImage: "/Icons/calendar (2).png",
+    title: "Choose service & time",
+    description: "Reply with your service and preferred time (or follow guided prompts).",
   },
   {
     number: "03",
-    iconImage: "/Icons/ok.png", // Replace with your checkmark icon
-    title: "Leave fresh",
-    description: "Clean fades. Precise beard work. Real confidence.",
+    iconImage: "/Icons/check-mark.png",
+    title: "Confirm & secure",
+    description: "We confirm your slot or offer the next available time — reply to lock your booking.",
   },
 ]
 
@@ -34,7 +34,7 @@ export default function HowItWorks() {
           HOW IT WORKS
         </h2>
         <p className="text-lg md:text-xl text-dark-600 leading-relaxed font-sans">
-          From booking to fresh cut. Simple and smooth.
+          Book quickly via WhatsApp — tap &quot;Book Now&quot;, choose your service and time, and get a confirmed slot in moments.
         </p>
       </div>
 
