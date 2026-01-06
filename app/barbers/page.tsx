@@ -7,14 +7,6 @@ export default function BarbersPage() {
     <main>
       <Hero />
 
-      {/* Debug block to surface BARBERS content during diagnosis */}
-      <div className="container mx-auto px-6 mt-6">
-        <div className="bg-yellow-50 border border-yellow-200 p-4 rounded text-sm text-yellow-800">
-          <strong>Debug:</strong> BARBERS count: {BARBERS ? BARBERS.length : 0}
-          <pre className="mt-2 text-xs whitespace-pre-wrap">{JSON.stringify(BARBERS, null, 2)}</pre>
-        </div>
-      </div>
-
       <section id="barbers" className="container mx-auto px-6 py-16">
         <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
           <h2 className="col-span-1 text-4xl md:text-5xl font-black tracking-tight text-dark-900">MEET OUR BARBERS</h2>
