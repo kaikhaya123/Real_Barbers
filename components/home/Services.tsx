@@ -129,15 +129,27 @@ export default function Services() {
                 </h3>
               </div>
               
-              <Button 
-                asLink 
-                href="/book" 
-                variant="primary" 
-                size="lg"
-                className="bg-accent-600 hover:bg-accent-700"
-              >
-                Book Your Service →
-              </Button>
+              <div className="flex items-center gap-2 sm:gap-4 flex-nowrap whitespace-nowrap overflow-x-auto">
+                <Button 
+                  asLink 
+                  href="/book" 
+                  variant="primary" 
+                  size="md"
+                  className="bg-accent-600 hover:bg-accent-700 whitespace-nowrap"
+                >
+                  Book Your Service →
+                </Button>
+
+                <Button
+                  asLink
+                  href="/services"
+                  variant="outline"
+                  size="md"
+                  className="border-dark-200 text-dark-700 hover:bg-dark-900 hover:text-white hover:border-dark-900 whitespace-nowrap"
+                >
+                  View All Styles
+                </Button>
+              </div>
             </div>
           </div>
 
