@@ -2,11 +2,14 @@
 
 import Image from 'next/image'
 import Link from 'next/link'
+import { useState } from 'react'
 import { BARBERS as SITE_BARBERS } from '../../lib/constants'
 
 const PREVIEW = SITE_BARBERS
 
 export default function BarbersSection() {
+  const [imgError, setImgError] = useState<Record<string, boolean>>({})
+
   return (
     <section className="py-16 lg:py-20">
       <div className="container mx-auto px-6 lg:px-8 max-w-7xl">
@@ -24,14 +27,27 @@ export default function BarbersSection() {
               className="group relative w-full sm:w-[300px] md:w-[360px] rounded-2xl overflow-hidden shadow-2xl"
             >
               <div className="relative w-full aspect-[4/5] bg-gray-100">
-                <Image
-                  src={b.image}
-                  alt={`${b.name} barber`}
-                  fill
-                  className="object-cover transition-transform duration-500 group-hover:scale-105"
-                  sizes="(max-width: 768px) 100vw, 40vw"
-                  priority
-                />
+                {!imgError[b.id] ? (
+                  <Image
+                    src="/Images/Fuze Ngcobo.jpeg"
+                    alt={`${b.name} barber`}
+                    fill
+                    className="object-cover transition-transform duration-500 group-hover:scale-105"
+                    sizes="(max-width: 768px) 100vw, 40vw"
+                    priority
+                    onError={() => setImgError(prev => ({ ...prev, [b.id]: true }))}
+                  />
+                ) : (
+                  <div className="w-full h-full bg-gradient-to-br from-accent-500 to-accent-700 flex flex-col items-center justify-center text-white">
+                    <div className="text-5xl font-black mb-4">
+                      {b.name
+                        .split(' ')
+                        .map(n => n[0])
+                        .join('')}
+                    </div>
+                    <div className="text-sm font-semibold text-center px-4">{b.name}</div>
+                  </div>
+                )}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />
                 <div className="absolute left-4 bottom-4">
                   <h3 className="text-2xl font-extrabold text-cream-50 drop-shadow-lg">{b.name}</h3>

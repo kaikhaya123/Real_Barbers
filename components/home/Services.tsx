@@ -14,7 +14,7 @@ export default function Services() {
   const services = [
     {
       id: 1,
-      name: 'HIGH FADE & DYE',
+      name: 'DROP FADE & DYE',
       price: 150,
       duration: '45 min',
       image: '/Images/1767772041818.jpeg',
@@ -30,6 +30,14 @@ export default function Services() {
     },
     {
       id: 3,
+      name: 'FADE & DYE',
+      price: 150,
+      duration: '60 min', 
+      image: '/Images/Dye cut .jpeg',
+      description: 'Precision fade with personalized styling'
+    },
+    {
+      id: 4,
       name: 'KIDDIES CUT & STYLE',
       price: 80,
       duration: '30 min',
@@ -37,7 +45,15 @@ export default function Services() {
       description: 'Professional beard shaping and grooming'
     },
     {
-      id: 4,
+      id: 5,
+      name: 'KIDDIES FADE & DYE',
+      price: 150,
+      duration: '45 min',
+      image: '/Images/1767770857424.jpeg',
+      description: 'Traditional wet shave with hot towel treatment'
+    },
+    {
+      id: 6,
       name: 'PLAIN FADE',
       price: 60,
       duration: '45 min',
@@ -45,13 +61,13 @@ export default function Services() {
       description: 'Traditional wet shave with hot towel treatment'
     },
     {
-      id: 5,
-      name: 'CHISKOP',
-      price: 50,
-      duration: '20 min',
-      image: '/Images/50 Haircut Options and Best Hairstyles for Balding Men.jpg',
-      description: 'Deep cleanse with premium products'
-    }
+      id: 7,
+      name: 'FADE DYE WITH DESIGNS',
+      price: 200,
+      duration: '45 min',
+      image: '/Images/WhatsApp Image 2026-01-07 at 10.20.34.jpeg',
+      description: 'Traditional haircut with modern finishing touches'
+    },
   ]
 
   const nextSlide = () => {

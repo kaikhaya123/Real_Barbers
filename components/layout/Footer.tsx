@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import Image from 'next/image'
-import { MapPin, Phone, Mail, Clock, Instagram } from 'lucide-react'
+import { MapPin, Phone, Mail, Clock } from 'lucide-react'
 import { BUSINESS_INFO } from '@/lib/constants'
 
 export default function Footer() {
@@ -23,6 +23,37 @@ export default function Footer() {
               Premium Haircut services in the heart of Durban. 
               Experience professional cuts, traditional shaves, and expert styling.
             </p>
+            
+            {/* Social Media Links */}
+            <div className="flex items-center gap-4 mt-6">
+              <a href={`https://instagram.com/${BUSINESS_INFO.instagram.replace(/^@/, '')}`} target="_blank" rel="noreferrer" className="hover:opacity-80 transition-opacity" aria-label="Instagram">
+                <Image 
+                  src="/Icons/instagram (1).png" 
+                  alt="Instagram" 
+                  width={24} 
+                  height={24} 
+                  className="h-6 w-6"
+                />
+              </a>
+              <a href="#" target="_blank" rel="noreferrer" className="hover:opacity-80 transition-opacity" aria-label="Facebook">
+                <Image 
+                  src="/Icons/social-media (1).png" 
+                  alt="Facebook" 
+                  width={24} 
+                  height={24} 
+                  className="h-6 w-6"
+                />
+              </a>
+              <a href="#" target="_blank" rel="noreferrer" className="hover:opacity-80 transition-opacity" aria-label="TikTok">
+                <Image 
+                  src="/Icons/tik-tok (2).png" 
+                  alt="TikTok" 
+                  width={24} 
+                  height={24} 
+                  className="h-6 w-6"
+                />
+              </a>
+            </div>
           </div>
 
           {/* Quick Links */}
@@ -70,18 +101,6 @@ export default function Footer() {
                 <Mail className="h-5 w-5 text-accent-600 flex-shrink-0" />
                 <a href={`mailto:${BUSINESS_INFO.email}`} className="text-dark-600 hover:text-accent-600 text-sm">
                   {BUSINESS_INFO.email}
-                </a>
-              </li>
-              <li className="flex items-center space-x-2">
-                <Instagram className="h-5 w-5 text-accent-600 flex-shrink-0" />
-                <a href={`https://instagram.com/${BUSINESS_INFO.instagram.replace(/^@/, '')}`} target="_blank" rel="noreferrer" className="text-dark-600 hover:text-accent-600 text-sm">
-                  {BUSINESS_INFO.instagram} • {BUSINESS_INFO.instagramStats.posts} posts • {BUSINESS_INFO.instagramStats.followers} followers
-                </a>
-              </li>
-              <li className="flex items-center space-x-2">
-                <Instagram className="h-5 w-5 text-accent-600 flex-shrink-0" />
-                <a href={`https://instagram.com/${BUSINESS_INFO.instagram.replace(/^@/, '')}`} target="_blank" rel="noreferrer" className="text-dark-600 hover:text-accent-600 text-sm">
-                  {BUSINESS_INFO.instagram} • {BUSINESS_INFO.instagramStats.posts} posts • {BUSINESS_INFO.instagramStats.followers} followers
                 </a>
               </li>
               <li className="flex items-start space-x-2">
