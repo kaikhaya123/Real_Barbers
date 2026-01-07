@@ -103,7 +103,7 @@ export default function SocialProof() {
           Trusted by Durban
         </h2>
         <p className="text-lg text-dark-600 max-w-2xl mx-auto">
-          Real reviews from real clients
+          Reviews from our clients
         </p>
       </div>
 

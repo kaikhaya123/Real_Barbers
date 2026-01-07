@@ -1,6 +1,6 @@
-# Real Barbershop ™️ - Official Website
+# Pro Barber Shop ZA - Official Website
 
-A premium, production-ready barbershop website built for Real Barbershop in Durban, KwaZulu Natal, South Africa.
+A premium, production-ready barbershop website built for Pro Barber Shop ZA in Durban, KwaZulu Natal, South Africa.
 
 ## 🎯 Purpose
 
@@ -233,8 +233,8 @@ This is a custom business website. For modifications:
 
 ## 📄 License
 
-© 2026 Real Barbershop ™️. All rights reserved.
+© 2026 Pro Barber Shop ZA. All rights reserved.
 
 ---
 
-**Built with ❤️ for Real Barbershop, Durban, KZN**
+**Built with ❤️ for Pro Barber Shop ZA, Durban, KZN**

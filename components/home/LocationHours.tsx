@@ -73,7 +73,7 @@ export default function LocationHours() {
               allowFullScreen
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
-              title="Real Barbershop Location"
+              title="Pro Barber Shop ZA Location"
             />
           </div>
         </div>

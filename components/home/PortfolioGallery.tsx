@@ -12,7 +12,7 @@ const PortfolioGallery = () => {
             OUR
           </span>{" "}
           <span className="text-white">
-            REAL BARBERSHOP HAIRCUTS
+            PRO BARBER SHOP HAIRCUTS
           </span>
         </h2>
       </div>
@@ -77,63 +77,63 @@ export default PortfolioGallery
 
 const portfolioCards: CardType[] = [
   {
-    url: "/Images/Photo_1.png",
+    url: "/Images/1767770754149.jpeg",
     title: "#1",
     service: "Classic Fade",
     description: "Perfect blend, smooth finish",
     id: 1,
   },
   {
-    url: "/Images/1767330787427.jpeg",
+    url: "/Images/1767770724602.jpeg",
     title: "#2",
     service: "Beard Trim",
     description: "Precision grooming artistry",
     id: 2,
   },
   {
-    url: "/Images/1767330865876.jpeg",
+    url: "/Images/1767770814779.jpeg",
     title: "#3",
     service: "Full Service",
     description: "Complete style transformation",
     id: 3,
   },
   {
-    url: "/Images/1767331692043.jpeg",
+    url: "/Images/1767770899302.jpeg",
     title: "#4",
     service: "Modern Cut",
     description: "Contemporary edge styling",
     id: 4,
   },
   {
-    url: "/Images/1767331960061.jpeg",
+    url: "/Images/1767770830465.jpeg",
     title: "#5",
     service: "Hot Towel",
     description: "Premium relaxation experience",
     id: 5,
   },
   {
-    url: "/Images/1767331758884.jpeg",
+    url: "/Images/1767770936409.jpeg",
     title: "#6",
     service: "Straight Razor",
     description: "Traditional craftsmanship",
     id: 6,
   },
   {
-    url: "/Images/1767332093257.jpeg",
+    url: "/Images/1767771103496.jpeg",
     title: "#7",
     service: "Styling Finish",
     description: "Perfect final touches",
     id: 7,
   },
   {
-    url: "/Images/1767332431682.jpeg",
+    url: "/Images/1767770857424.jpeg",
     title: "#8",
     service: "Premium Cut",
     description: "Luxury barbering experience",
     id: 8,
   },
   {
-    url: "/Images/1767374000777.jpeg",
+    url: "/Images/1767771187352.jpeg",
     title: "#9",
     service: "Classic Style",
     description: "Timeless elegance redefined",

@@ -22,7 +22,7 @@
 ### Style Requirements:
 - Warm lighting
 - Shallow depth of field
-- Real barbershop environment (not studio)
+- Pro Barber Shop ZA environment (not studio)
 - Focus on hands, precision, tools
 
 ## Required Image Assets

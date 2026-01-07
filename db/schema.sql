@@ -1,4 +1,4 @@
--- SQLite schema for Real Barbershop bookings
+-- SQLite schema for Pro Barber Shop ZA bookings
 
 PRAGMA foreign_keys = ON;
 

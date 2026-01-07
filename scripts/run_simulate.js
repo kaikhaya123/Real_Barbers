@@ -31,7 +31,7 @@ function parseBooking(text) {
   }
 }
 
-const from = '+27682770367'
+const from = '+27682188679'
 const body = 'Service: PLAIN FADE\nName: Thabo\nDate: 2026-01-10 15:00'
 
 const parsed = parseBooking(body)

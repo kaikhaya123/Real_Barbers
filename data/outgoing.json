@@ -1,8 +1,8 @@
 [
   {
     "provider": "twilio-dry",
-    "to": "27682770367",
-    "body": "Thanks Thabo — we received your request for PLAIN FADE.\nWhen: 2026-01-10 15:00\nBooking ref: RB-mk1c7lmj-8nwk7i\n\nReply 1 to Confirm, 2 to Change, 3 to Cancel.",
+    "to": "27682188679",
+    "body": "Thanks Thabo — we received your request for PROFESSIONAL HAIRCUT.\nWhen: 2026-01-10 15:00\nBooking ref: RB-mk1c7lmj-8nwk7i\n\nReply 1 to Confirm, 2 to Change, 3 to Cancel.",
     "createdAt": "2026-01-05T15:50:33.029Z"
   }
 ]

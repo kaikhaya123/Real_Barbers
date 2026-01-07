@@ -17,7 +17,7 @@ export default function Services() {
       name: 'HIGH FADE & DYE',
       price: 150,
       duration: '45 min',
-      image: '/Images/1767342932205.jpeg',
+      image: '/Images/1767772041818.jpeg',
       description: 'Traditional haircut with modern finishing touches'
     },
     {
@@ -25,7 +25,7 @@ export default function Services() {
       name: 'TAPER FADE & DYE',
       price: 150,
       duration: '60 min', 
-      image: '/Images/1767374000777.jpeg',
+      image: '/Images/1767771187352.jpeg',
       description: 'Precision fade with personalized styling'
     },
     {
@@ -33,7 +33,7 @@ export default function Services() {
       name: 'KIDDIES CUT & STYLE',
       price: 80,
       duration: '30 min',
-      image: '/Images/1767445437127.jpeg',
+      image: '/Images/1767771103496.jpeg',
       description: 'Professional beard shaping and grooming'
     },
     {
@@ -41,7 +41,7 @@ export default function Services() {
       name: 'PLAIN FADE',
       price: 60,
       duration: '45 min',
-      image: '/Images/1767446038566.jpeg',
+      image: '/Images/1767770790764.jpeg',
       description: 'Traditional wet shave with hot towel treatment'
     },
     {
@@ -49,7 +49,7 @@ export default function Services() {
       name: 'CHISKOP',
       price: 50,
       duration: '20 min',
-      image: '/Images/1767447027320.jpeg',
+      image: '/Images/50 Haircut Options and Best Hairstyles for Balding Men.jpg',
       description: 'Deep cleanse with premium products'
     }
   ]

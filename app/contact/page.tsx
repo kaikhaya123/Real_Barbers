@@ -45,14 +45,14 @@ export default function ContactPage() {
         <div className="max-w-6xl mx-auto text-center">
           <Image
             src="/logo/Real_barbersho_logo.png"
-            alt="Real Barbershop Logo"
+            alt="Pro Barber Shop ZA Logo"
             width={200}
             height={80}
             className="mx-auto h-16 md:h-20 w-auto mb-8"
           />
 
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-dark-800 mb-6 tracking-wide">
-            GET IN TOUCH WITH REAL BARBERS
+            GET IN TOUCH WITH PRO BARBER SHOP ZA
           </h1>
 
           <p className="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto mb-12">
@@ -82,7 +82,7 @@ export default function ContactPage() {
         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <div className="rounded-2xl overflow-hidden shadow-xl">
             <Image
-              src="/Images/real_barbershop_za_1767437611547.png"
+              src="/Images/1767771728086.jpeg"
               alt="Barbershop Interior"
               width={600}
               height={400}
@@ -92,7 +92,7 @@ export default function ContactPage() {
 
           <div>
             <h2 className="text-3xl md:text-4xl font-bold text-dark-800 mb-8">
-              REAL BARBERSHOP
+              PRO BARBER SHOP ZA
             </h2>
 
             <div className="mb-6">

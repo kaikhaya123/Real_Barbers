@@ -98,7 +98,7 @@ export default function FullScreenNav({ isOpen, onClose, navigation, bg = '/imag
                 <X className="h-6 w-6 md:h-8 md:w-8" />
               </button>
 
-              <span className="sr-only">Real Barbershop</span>
+              <span className="sr-only">Pro Barber Shop ZA</span>
             </div>
 
             {/* Main Navigation */}

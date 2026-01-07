@@ -50,8 +50,8 @@ export default function Header() {
               <div className="flex items-center flex-shrink-0">
                 <Link href="/">
                   <Image
-                    src="/logo/Real_barbersho_logo.png"
-                    alt="Real Barbershop Logo"
+                    src="/logo/Pro_barbershop_logo.png"
+                    alt="Pro Barber Shop ZA Logo"
                     width={220}
                     height={75}
                     className={`w-auto transition-all duration-300 ${

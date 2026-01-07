@@ -1,4 +1,4 @@
-# Real Barbershop Website - Setup & Development Guide
+# Pro Barber Shop ZA Website - Setup & Development Guide
 
 ## 🚀 Quick Start
 
@@ -257,8 +257,8 @@ For questions about this codebase:
 3. Check Next.js documentation
 
 For business inquiries:
-- Email: info@realbarbershop.co.za
-- Phone: [Update with real number]
+- Email: goodhopengcobo5@gmail.com
+- Phone: +27 68 218 8679
 
 ---
 

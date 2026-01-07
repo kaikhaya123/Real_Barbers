@@ -14,7 +14,7 @@ export default function Hero() {
         <div className="relative w-full md:w-1/2 h-1/2 md:h-full">
           <Image
             src={encodeURI("/Images/daniel-mitchel.jpg")}
-            alt="Real Barbershop"
+            alt="Pro Barber Shop ZA"
             fill
             className="object-cover object-center brightness-90 contrast-110"
             priority

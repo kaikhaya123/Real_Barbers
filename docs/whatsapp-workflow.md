@@ -1,4 +1,4 @@
-# WhatsApp Booking Workflow for Real Barbershop
+# WhatsApp Booking Workflow for Pro Barber Shop ZA
 
 This document describes the recommended workflow for running a professional WhatsApp-based booking system.
 
@@ -11,7 +11,7 @@ This document describes the recommended workflow for running a professional What
 Pre-filled message (site-wide floating CTA):
 
 ```
-Hi, welcome to Real Barbershop 👋. Which haircut or service would you like to book today?
+Hi, welcome to Pro Barber Shop ZA 👋. Which haircut or service would you like to book today?
 Name:
 Preferred Date & Time:
 Any special requests:
@@ -31,20 +31,20 @@ If the client goes through the in-site booking flow, the message is pre-filled w
 ```
 Thank you for your booking request! 💈
 We have received your details and will confirm your appointment shortly.
-Looking forward to welcoming you at Real Barbershop.
+Looking forward to welcoming you at Pro Barber Shop ZA.
 ```
 
 - Confirmation message (sent by admin):
 
 ```
 Your appointment for [SERVICE] on [DATE] at [TIME] is confirmed ✅
-Thank you for choosing Real Barbershop. We look forward to seeing you!
+Thank you for choosing Pro Barber Shop ZA. We look forward to seeing you!
 ```
 
 - Reminder message (sent 24 hours before):
 
 ```
-Hi [NAME], just a reminder of your appointment at Real Barbershop tomorrow at [TIME] 💈
+Hi [NAME], just a reminder of your appointment at Pro Barber Shop ZA tomorrow at [TIME] 💈
 See you soon!
 ```
 
