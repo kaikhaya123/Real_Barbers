@@ -39,7 +39,7 @@ export default function Services() {
     {
       id: 4,
       name: 'KIDDIES CUT & STYLE',
-      price: 80,
+      price: 150,
       duration: '30 min',
       image: '/Images/1767771103496.jpeg',
       description: 'Professional beard shaping and grooming'

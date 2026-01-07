@@ -62,7 +62,7 @@ export default function FullScreenNav({ isOpen, onClose, navigation, bg = '/imag
       case 'about':
         return 'Our Story'
       case 'barbers':
-        return 'Meet The Team'
+        return 'Your Barber'
       case 'contact':
         return 'Get In Touch'
       default:

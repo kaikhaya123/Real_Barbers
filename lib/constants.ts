@@ -95,7 +95,7 @@ export const BARBERS = [
     experience: '7+ years',
     specialties: ['Professional Haircuts', 'Modern Fades', 'Beard Grooming'],
     bio: 'Fuze is the professional barber at Pro Barber Shop ZA, dedicated to delivering sharp, clean cuts with professional precision. With over 7 years of experience, he specializes in modern fades, traditional cuts, and expert beard sculpting. Every client receives personalized attention and consistent quality service.',
-    image: '/Images/1767460998971.jpeg',
+    image: '/Images/Fuze Ngcobo.jpeg',
   },
 ]
 

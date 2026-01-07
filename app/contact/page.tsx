@@ -44,7 +44,7 @@ export default function ContactPage() {
       <Section background="white" padding="lg">
         <div className="max-w-6xl mx-auto text-center">
           <Image
-            src="/logo/Real_barbersho_logo.png"
+            src="/logo/Pro_barbershop_logo.png"
             alt="Pro Barber Shop ZA Logo"
             width={200}
             height={80}

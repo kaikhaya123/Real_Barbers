@@ -12,7 +12,7 @@ export default function Footer() {
           <div className="col-span-1 md:col-span-2">
             <div className="mb-6">
               <Image
-                src="/logo/Real_barbersho_logo.png"
+                src="/logo/Pro_barbershop_logo.png"
                 alt="Pro Barber Shop ZA Logo"
                 width={400}
                 height={160}

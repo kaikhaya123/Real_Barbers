@@ -12,7 +12,6 @@ export default function HeroBarbers() {
               <p className="mt-4 text-gray-200">Modern styles, friendly service. Meet our team of expert barbers ready to craft your next look.</p>
               <div className="mt-6 flex items-center gap-4">
                 <a href="/book" className="inline-flex items-center gap-2 bg-yellow-400 text-black px-4 py-2 rounded-md font-semibold shadow hover:bg-yellow-500">Book Now</a>
-                <a href="#barbers" className="inline-flex items-center gap-2 text-white/90 px-4 py-2 rounded-md border border-white/10 hover:bg-white/5">Meet the Team</a>
               </div>
             </div>
           </div>
