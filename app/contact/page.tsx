@@ -63,7 +63,7 @@ export default function ContactPage() {
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link href="/book">
-              <Button className="bg-gray-500 hover:bg-gray-600 text-white px-8 py-4 text-lg rounded-full">
+              <Button className="bg-black hover:bg-black text-white px-8 py-4 text-lg rounded-full">
                 BOOK APPOINTMENT
               </Button>
             </Link>
@@ -82,7 +82,7 @@ export default function ContactPage() {
         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <div className="rounded-2xl overflow-hidden shadow-xl">
             <Image
-              src="/Images/1767771728086.jpeg"
+              src="/Images/1239.jpg"
               alt="Barbershop Interior"
               width={600}
               height={400}
@@ -168,9 +168,9 @@ export default function ContactPage() {
       </Section>
 
       {/* FAQ Accordion */}
-      <Section background="gray" padding="lg">
+      <Section background="primary" padding="lg">
         <div className="max-w-4xl mx-auto">
-          <h2 className="text-3xl md:text-4xl font-bold text-dark-800 mb-12 text-center">
+          <h2 className="text-3xl md:text-4xl font-bold text-white mb-12 text-center">
             FREQUENTLY ASKED QUESTIONS
           </h2>
 
