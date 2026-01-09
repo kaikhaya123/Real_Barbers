@@ -34,7 +34,7 @@ module.exports = {
         },
       },
       fontFamily: {
-        sans: ['var(--font-chromate-serif)', 'system-ui', 'serif'],
+        sans: ['var(--font-rethink-sans)', 'system-ui', 'sans-ns-serif'],
       },
     },
   },
