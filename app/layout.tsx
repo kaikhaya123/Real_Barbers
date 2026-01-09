@@ -5,20 +5,15 @@ import Header from '@/components/layout/Header'
 import Footer from '@/components/layout/Footer'
 import WhatsAppFloatingButton from '@/components/ui/WhatsAppFloatingButton'
 
-const rethinkSans = localFont({
+const chromateSerif = localFont({
   src: [
     {
-      path: '../public/Font/rethink-sans/RethinkSans[wght].ttf',
-      weight: '100 900',
+      path: '../public/Font/Chromate-Serif-Typeface/Chromate-Regular.ttf',
+      weight: '400',
       style: 'normal',
     },
-    {
-      path: '../public/Font/rethink-sans/RethinkSans-Italic[wght].ttf',
-      weight: '100 900',
-      style: 'italic',
-    },
   ],
-  variable: '--font-rethink-sans',
+  variable: '--font-chromate-serif',
   display: 'swap',
 })
 
@@ -39,7 +34,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className={rethinkSans.variable}>
+    <html lang="en" className={chromateSerif.variable}>
       <body className="font-sans antialiased">
         <Header />
         <main className="pt-16 md:pt-20">

@@ -63,7 +63,7 @@ export default function ContactPage() {
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link href="/book">
-              <Button className="bg-black hover:bg-black text-white px-8 py-4 text-lg rounded-full">
+              <Button className="bg-black hover:bg-black text-black px-8 py-4 text-lg rounded-full">
                 BOOK APPOINTMENT
               </Button>
             </Link>
