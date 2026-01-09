@@ -18,11 +18,6 @@ const rethinkSans = localFont({
       style: 'italic',
     },
   ],
-  variable: '--font-rethink-sansk-sans/RethinkSans-Italic[wght].ttf',
-      weight: '100 900',
-      style: 'italic',
-    },
-  ],
   variable: '--font-rethink-sans',
   display: 'swap',
 })
@@ -39,7 +34,7 @@ export const metadata: Metadata = {
 } 
 
 export default function RootLayout({
-  children,rethinkSans
+  children,
 }: {
   children: React.ReactNode
 }) {
