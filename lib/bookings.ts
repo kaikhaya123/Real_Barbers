@@ -1,32 +1,31 @@
-import fs from 'fs'
-import path from 'path'
+/**
+ * Bookings API - Uses Supabase for production, SQLite for local development
+ * Automatically detects which to use based on environment variables
+ */
 
-const DATA_DIR = path.join(process.cwd(), 'data')
-const FILE = path.join(DATA_DIR, 'bookings.json')
+// Use Supabase if configured, otherwise fall back to SQLite
+const USE_SUPABASE = !!process.env.SUPABASE_URL && !!process.env.SUPABASE_SERVICE_ROLE_KEY
 
-async function ensureFile() {
-  if (!fs.existsSync(DATA_DIR)) fs.mkdirSync(DATA_DIR, { recursive: true })
-  if (!fs.existsSync(FILE)) fs.writeFileSync(FILE, '[]')
+let bookingsModule: any
+
+if (USE_SUPABASE) {
+  // Production: Use Supabase
+  console.log('📊 Using Supabase for bookings storage')
+  bookingsModule = require('./supabase-bookings')
+} else {
+  // Development: Use SQLite (fallback)
+  console.log('📊 Using SQLite for bookings storage (local)')
+  bookingsModule = require('./sqlite-bookings')
 }
 
-export async function loadBookings() {
-  await ensureFile()
-  const raw = fs.readFileSync(FILE, 'utf8')
-  try {
-    return JSON.parse(raw)
-  } catch (e) {
-    return []
-  }
-}
+export const { 
+  loadBookings, 
+  saveBooking, 
+  findPendingBookingByPhone, 
+  updateBookingStatus, 
+  isBarberAvailable 
+} = bookingsModule
 
-export async function saveBooking(input: Record<string, any>) {
-  await ensureFile()
-  const bookings = await loadBookings()
-  const id = `RB-${Date.now().toString(36)}-${Math.random().toString(36).slice(2,8)}`
-  const booking = { id, createdAt: new Date().toISOString(), ...input }
-  bookings.push(booking)
-  fs.writeFileSync(FILE, JSON.stringify(bookings, null, 2))
-  return booking
-}
+export default bookingsModule
 
-export default { loadBookings, saveBooking }
+

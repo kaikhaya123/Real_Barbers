@@ -35,7 +35,7 @@ export default function FollowRealBarbershop() {
             {[
               { name: 'Instagram', url: 'https://instagram.com/probarber', icon: '/Images/instagram.png' },
               { name: 'TikTok', url: 'https://tiktok.com/@probarber', icon: '/Images/tiktok.png' },
-              { name: 'WhatsApp', url: 'https://wa.me/27712345678', icon: '/Images/whatsapp.png' },
+              { name: 'WhatsApp', url: 'https://wa.me/27682770367', icon: '/Images/whatsapp.png' },
             ].map((social, idx) => (
               <motion.a
                 key={idx}

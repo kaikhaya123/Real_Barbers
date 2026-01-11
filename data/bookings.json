@@ -1,4 +1,5 @@
-[  {
+[
+  {
     "id": "RB-mk1c7lmj-8nwk7i",
     "createdAt": "2026-01-05T15:50:33.020Z",
     "source": "twilio-dry",
@@ -8,6 +9,418 @@
     "dateTime": "2026-01-10 15:00",
     "barber": null,
     "raw": "Service: PROFESSIONAL HAIRCUT\nName: Thabo\nDate: 2026-01-10 15:00",
+    "status": "pending"
+  },
+  {
+    "id": "RB-mk9uvvvy-51acpy",
+    "createdAt": "2026-01-11T14:55:28.558Z",
+    "source": "twilio",
+    "from": "14155238886",
+    "service": "your selected service",
+    "raw": "",
+    "status": "pending"
+  },
+  {
+    "id": "RB-mk9uw8m9-7e6v29",
+    "createdAt": "2026-01-11T14:55:45.057Z",
+    "source": "twilio",
+    "from": "14155238886",
+    "service": "your selected service",
+    "raw": "",
+    "status": "pending"
+  },
+  {
+    "id": "RB-mk9uwj8w-jwkgck",
+    "createdAt": "2026-01-11T14:55:58.832Z",
+    "source": "twilio",
+    "from": "14155238886",
+    "service": "your selected service",
+    "raw": "",
+    "status": "pending"
+  },
+  {
+    "id": "RB-mk9uwkyj-28dxui",
+    "createdAt": "2026-01-11T14:56:01.051Z",
+    "source": "twilio",
+    "from": "27682770367",
+    "service": "your selected service",
+    "raw": "Confirm",
+    "status": "pending"
+  },
+  {
+    "id": "RB-mk9uwmz1-9qyys3",
+    "createdAt": "2026-01-11T14:56:03.661Z",
+    "source": "twilio",
+    "from": "14155238886",
+    "service": "your selected service",
+    "raw": "",
+    "status": "pending"
+  },
+  {
+    "id": "RB-mk9uwnm0-5q5fm2",
+    "createdAt": "2026-01-11T14:56:04.488Z",
+    "source": "twilio",
+    "from": "14155238886",
+    "service": "your selected service",
+    "raw": "",
+    "status": "pending"
+  },
+  {
+    "id": "RB-mk9uwnww-4on9dh",
+    "createdAt": "2026-01-11T14:56:04.880Z",
+    "source": "twilio",
+    "from": "14155238886",
+    "service": "your selected service",
+    "raw": "",
+    "status": "pending"
+  },
+  {
+    "id": "RB-mk9uwnz4-4fb3a6",
+    "createdAt": "2026-01-11T14:56:04.960Z",
+    "source": "twilio",
+    "from": "14155238886",
+    "service": "your selected service",
+    "raw": "",
+    "status": "pending"
+  },
+  {
+    "id": "RB-mk9uwov0-6uba1y",
+    "createdAt": "2026-01-11T14:56:06.108Z",
+    "source": "twilio",
+    "from": "14155238886",
+    "service": "your selected service",
+    "raw": "",
+    "status": "pending"
+  },
+  {
+    "id": "RB-mk9uwp15-3me5n3",
+    "createdAt": "2026-01-11T14:56:06.329Z",
+    "source": "twilio",
+    "from": "14155238886",
+    "service": "your selected service",
+    "raw": "",
+    "status": "pending"
+  },
+  {
+    "id": "RB-mk9uxqfk-nl3zvq",
+    "createdAt": "2026-01-11T14:56:54.801Z",
+    "source": "twilio",
+    "from": "27682770367",
+    "service": "your selected service",
+    "raw": "1",
+    "status": "pending"
+  },
+  {
+    "id": "RB-mk9uxtfs-07rwij",
+    "createdAt": "2026-01-11T14:56:58.696Z",
+    "source": "twilio",
+    "from": "14155238886",
+    "service": "your selected service",
+    "raw": "",
+    "status": "pending"
+  },
+  {
+    "id": "RB-mk9uxtkh-i7p22w",
+    "createdAt": "2026-01-11T14:56:58.865Z",
+    "source": "twilio",
+    "from": "14155238886",
+    "service": "your selected service",
+    "raw": "",
+    "status": "pending"
+  },
+  {
+    "id": "RB-mk9uxtl2-08bhv1",
+    "createdAt": "2026-01-11T14:56:58.886Z",
+    "source": "twilio",
+    "from": "14155238886",
+    "service": "your selected service",
+    "raw": "",
+    "status": "pending"
+  },
+  {
+    "id": "RB-mk9uxtuq-83yowz",
+    "createdAt": "2026-01-11T14:56:59.234Z",
+    "source": "twilio",
+    "from": "14155238886",
+    "service": "your selected service",
+    "raw": "",
+    "status": "pending"
+  },
+  {
+    "id": "RB-mk9uxtvc-zq2ju9",
+    "createdAt": "2026-01-11T14:56:59.256Z",
+    "source": "twilio",
+    "from": "14155238886",
+    "service": "your selected service",
+    "raw": "",
+    "status": "pending"
+  },
+  {
+    "id": "RB-mk9uxu0g-xiocgr",
+    "createdAt": "2026-01-11T14:56:59.440Z",
+    "source": "twilio",
+    "from": "14155238886",
+    "service": "your selected service",
+    "raw": "",
+    "status": "pending"
+  },
+  {
+    "id": "RB-mk9uz3y2-f0bl3l",
+    "createdAt": "2026-01-11T14:57:58.971Z",
+    "source": "twilio",
+    "from": "27682770367",
+    "service": "your selected service",
+    "raw": "2",
+    "status": "pending"
+  },
+  {
+    "id": "RB-mk9uz756-ct6oi3",
+    "createdAt": "2026-01-11T14:58:03.114Z",
+    "source": "twilio",
+    "from": "14155238886",
+    "service": "your selected service",
+    "raw": "",
+    "status": "pending"
+  },
+  {
+    "id": "RB-mk9uz7g8-jeirsj",
+    "createdAt": "2026-01-11T14:58:03.512Z",
+    "source": "twilio",
+    "from": "14155238886",
+    "service": "your selected service",
+    "raw": "",
+    "status": "pending"
+  },
+  {
+    "id": "RB-mk9uz7q0-g8k5e6",
+    "createdAt": "2026-01-11T14:58:03.864Z",
+    "source": "twilio",
+    "from": "14155238886",
+    "service": "your selected service",
+    "raw": "",
+    "status": "pending"
+  },
+  {
+    "id": "RB-mk9uz7qn-7r9q6e",
+    "createdAt": "2026-01-11T14:58:03.887Z",
+    "source": "twilio",
+    "from": "14155238886",
+    "service": "your selected service",
+    "raw": "",
+    "status": "pending"
+  },
+  {
+    "id": "RB-mk9uz7rh-zy8ida",
+    "createdAt": "2026-01-11T14:58:03.917Z",
+    "source": "twilio",
+    "from": "14155238886",
+    "service": "your selected service",
+    "raw": "",
+    "status": "pending"
+  },
+  {
+    "id": "RB-mk9uz90y-ji6q23",
+    "createdAt": "2026-01-11T14:58:05.554Z",
+    "source": "twilio",
+    "from": "14155238886",
+    "service": "your selected service",
+    "raw": "",
+    "status": "pending"
+  },
+  {
+    "id": "RB-mk9yij5f-vrfni0",
+    "createdAt": "2026-01-11T16:37:03.988Z",
+    "source": "twilio",
+    "from": "27682770367",
+    "service": "DROP FADE & DYE",
+    "dateTime": "Mo",
+    "barber": "Fuze",
+    "raw": "Hi Khayalami — I'd like to book an appointment for DROP FADE & DYE.\nPreferred barber: Fuze Ngcobo\nPreferred time: Monday, January 12, 2026 at 11:30",
+    "status": "pending"
+  },
+  {
+    "id": "RB-mk9ymso9-kzrrq5",
+    "createdAt": "2026-01-11T16:40:22.954Z",
+    "source": "twilio",
+    "from": "27682770367",
+    "service": "DROP FADE & DYE",
+    "dateTime": "Tuesday, Ja",
+    "barber": "Fuze",
+    "raw": "Hi khayalami — I'd like to book an appointment for DROP FADE & DYE.\nPreferred barber: Fuze Ngcobo\nPreferred time: Tuesday, January 13, 2026 at 09:00\n\nNotes:\nNone \n\nPlease let me know available slots. Thanks!",
+    "status": "confirmed",
+    "updatedAt": "2026-01-11T16:40:48.978Z"
+  },
+  {
+    "id": "RB-mk9ymv2i-scrlpl",
+    "createdAt": "2026-01-11T16:40:26.058Z",
+    "source": "twilio",
+    "from": "14155238886",
+    "service": "your selected service",
+    "raw": "",
+    "status": "pending"
+  },
+  {
+    "id": "RB-mk9ymvkm-sgi7v8",
+    "createdAt": "2026-01-11T16:40:26.710Z",
+    "source": "twilio",
+    "from": "14155238886",
+    "service": "your selected service",
+    "raw": "",
+    "status": "pending"
+  },
+  {
+    "id": "RB-mk9ymvq5-kathrv",
+    "createdAt": "2026-01-11T16:40:26.909Z",
+    "source": "twilio",
+    "from": "14155238886",
+    "service": "your selected service",
+    "raw": "",
+    "status": "pending"
+  },
+  {
+    "id": "RB-mk9ymvv4-2zrvlk",
+    "createdAt": "2026-01-11T16:40:27.088Z",
+    "source": "twilio",
+    "from": "14155238886",
+    "service": "your selected service",
+    "raw": "",
+    "status": "pending"
+  },
+  {
+    "id": "RB-mk9ymvw3-h9b7l6",
+    "createdAt": "2026-01-11T16:40:27.123Z",
+    "source": "twilio",
+    "from": "14155238886",
+    "service": "your selected service",
+    "raw": "",
+    "status": "pending"
+  },
+  {
+    "id": "RB-mk9ymw5d-uihs1j",
+    "createdAt": "2026-01-11T16:40:27.457Z",
+    "source": "twilio",
+    "from": "14155238886",
+    "service": "your selected service",
+    "raw": "",
+    "status": "pending"
+  },
+  {
+    "id": "RB-mk9ynej7-0be8zd",
+    "createdAt": "2026-01-11T16:40:51.283Z",
+    "source": "twilio",
+    "from": "14155238886",
+    "service": "your selected service",
+    "raw": "",
+    "status": "pending"
+  },
+  {
+    "id": "RB-mk9ynfgo-upuwv5",
+    "createdAt": "2026-01-11T16:40:52.488Z",
+    "source": "twilio",
+    "from": "14155238886",
+    "service": "your selected service",
+    "raw": "",
+    "status": "pending"
+  },
+  {
+    "id": "RB-mk9ynfmg-3m4qyv",
+    "createdAt": "2026-01-11T16:40:52.696Z",
+    "source": "twilio",
+    "from": "14155238886",
+    "service": "your selected service",
+    "raw": "",
+    "status": "pending"
+  },
+  {
+    "id": "RB-mk9ynfui-38ygbq",
+    "createdAt": "2026-01-11T16:40:52.986Z",
+    "source": "twilio",
+    "from": "14155238886",
+    "service": "your selected service",
+    "raw": "",
+    "status": "pending"
+  },
+  {
+    "id": "RB-mk9ynfz8-gc1kge",
+    "createdAt": "2026-01-11T16:40:53.156Z",
+    "source": "twilio",
+    "from": "14155238886",
+    "service": "your selected service",
+    "raw": "",
+    "status": "pending"
+  },
+  {
+    "id": "RB-mk9yng55-76trlh",
+    "createdAt": "2026-01-11T16:40:53.369Z",
+    "source": "twilio",
+    "from": "14155238886",
+    "service": "your selected service",
+    "raw": "",
+    "status": "pending"
+  },
+  {
+    "id": "RB-mk9z18ra-b6a2vj",
+    "createdAt": "2026-01-11T16:51:36.982Z",
+    "source": "twilio",
+    "from": "27682770367",
+    "service": "DROP FADE & DYE",
+    "dateTime": "Mo",
+    "barber": "Fuze",
+    "raw": "Hi khayalami — I'd like to book an appointment for DROP FADE & DYE.\nPreferred barber: Fuze Ngcobo\nPreferred time: Monday, January 12, 2026 at 09:00\n\nNotes:\nNone\n\nPlease let me know available slots. Thanks!",
+    "status": "pending"
+  },
+  {
+    "id": "RB-mk9z1csm-vjg0z4",
+    "createdAt": "2026-01-11T16:51:42.214Z",
+    "source": "twilio",
+    "from": "14155238886",
+    "service": "your selected service",
+    "raw": "",
+    "status": "pending"
+  },
+  {
+    "id": "RB-mk9z1cuf-8d8vgf",
+    "createdAt": "2026-01-11T16:51:42.279Z",
+    "source": "twilio",
+    "from": "14155238886",
+    "service": "your selected service",
+    "raw": "",
+    "status": "pending"
+  },
+  {
+    "id": "RB-mk9z1de0-jrsh42",
+    "createdAt": "2026-01-11T16:51:42.984Z",
+    "source": "twilio",
+    "from": "14155238886",
+    "service": "your selected service",
+    "raw": "",
+    "status": "pending"
+  },
+  {
+    "id": "RB-mk9z1djd-wxacn3",
+    "createdAt": "2026-01-11T16:51:43.177Z",
+    "source": "twilio",
+    "from": "14155238886",
+    "service": "your selected service",
+    "raw": "",
+    "status": "pending"
+  },
+  {
+    "id": "RB-mk9z1dkb-pui1ax",
+    "createdAt": "2026-01-11T16:51:43.211Z",
+    "source": "twilio",
+    "from": "14155238886",
+    "service": "your selected service",
+    "raw": "",
+    "status": "pending"
+  },
+  {
+    "id": "RB-mk9z1dou-a167r9",
+    "createdAt": "2026-01-11T16:51:43.374Z",
+    "source": "twilio",
+    "from": "14155238886",
+    "service": "your selected service",
+    "raw": "",
     "status": "pending"
   }
 ]

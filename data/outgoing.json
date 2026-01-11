@@ -1,8 +1,44 @@
 [
   {
     "provider": "twilio-dry",
-    "to": "27682188679",
+    "to": "27682770367",
     "body": "Thanks Thabo — we received your request for PROFESSIONAL HAIRCUT.\nWhen: 2026-01-10 15:00\nBooking ref: RB-mk1c7lmj-8nwk7i\n\nReply 1 to Confirm, 2 to Change, 3 to Cancel.",
     "createdAt": "2026-01-05T15:50:33.029Z"
+  },
+  {
+    "provider": "twilio",
+    "to": "27682770367",
+    "body": "Thanks — we received your request for your selected service.\nBooking ref: RB-mk9uwkyj-28dxui\n\nReply 1 to Confirm, 2 to Change, 3 to Cancel.",
+    "createdAt": "2026-01-11T14:56:01.619Z"
+  },
+  {
+    "provider": "twilio",
+    "to": "27682770367",
+    "body": "Thanks — we received your request for your selected service.\nBooking ref: RB-mk9uxqfk-nl3zvq\n\nReply 1 to Confirm, 2 to Change, 3 to Cancel.",
+    "createdAt": "2026-01-11T14:56:55.784Z"
+  },
+  {
+    "provider": "twilio",
+    "to": "27682770367",
+    "body": "Thanks — we received your request for your selected service.\nBooking ref: RB-mk9uz3y2-f0bl3l\n\nReply 1 to Confirm, 2 to Change, 3 to Cancel.",
+    "createdAt": "2026-01-11T14:58:00.205Z"
+  },
+  {
+    "provider": "twilio",
+    "to": "27682770367",
+    "body": "Thanks — we received your request for DROP FADE & DYE.\nWhen: Tuesday, Ja\nBarber: Fuze\nBooking ref: RB-mk9ymso9-kzrrq5\n\nReply 1 to Confirm, 2 to Change, 3 to Cancel.",
+    "createdAt": "2026-01-11T16:40:24.050Z"
+  },
+  {
+    "provider": "twilio",
+    "to": "27682770367",
+    "body": "Great! Your appointment has been confirmed.\n\nService: DROP FADE & DYE\nDate & Time: Tuesday, Ja\nBarber: Fuze\nReference: RB-mk9ymso9-kzrrq5\n\nSee you soon! 💈",
+    "createdAt": "2026-01-11T16:40:49.513Z"
+  },
+  {
+    "provider": "twilio",
+    "to": "27682770367",
+    "body": "Thanks — we received your request for DROP FADE & DYE.\nWhen: Mo\nBarber: Fuze\nBooking ref: RB-mk9z18ra-b6a2vj\n\nReply 1 to Confirm, 2 to Change, 3 to Cancel.",
+    "createdAt": "2026-01-11T16:51:40.137Z"
   }
 ]
