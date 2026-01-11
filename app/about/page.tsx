@@ -21,7 +21,7 @@ export default function AboutPage() {
         {/* TODO: Add your hero image to: /public/Images/about-hero.jpg */}
         <Image
           src="/Images/male-customer-with-beard-near-hairdresser-holding-shaving-brush.jpg"
-          alt="Pro Barber Shop ZA - Hero"
+          alt="Pro Barber Shop - Hero"
           fill
           className="object-cover"
           priority
@@ -238,27 +238,43 @@ export default function AboutPage() {
         </motion.div>
       </Section>
 
-      {/* Team CTA */}
-      <Section className="text-center">
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          animate="visible"
-          custom={4}
-          className="bg-gradient-to-r from-gray-900 to-gray-800 text-white p-12 rounded-lg"
-        >
-          <h2 className="text-3xl font-bold mb-4">Meet Our Barbers</h2>
-          <p className="text-gray-300 mb-8 max-w-2xl mx-auto">
-            Get to know our talented team of barbers. Each one brings their own unique style and expertise.
-          </p>
-          <a
-            href="/barbers"
-            className="inline-block px-8 py-3 bg-white text-gray-900 font-semibold rounded-lg hover:bg-gray-100 transition-colors"
+      {/* Ready to Look Fresh CTA Banner */}
+      <div className="relative w-full h-96 mb-16 rounded-lg overflow-hidden shadow-lg bg-gray-100">
+        {/* TODO: Add banner image to: /public/Images/cta-banner.jpg or .png */}
+        <Image
+          src="/Images/mid-section-view-barber-shaking-hand-with-male-client.jpg"
+          alt="Ready to Look Fresh Banner"
+          fill
+          className="object-cover"
+          onError={(e) => {
+            e.currentTarget.style.display = 'none'
+          }}
+        />
+        {/* Dark overlay for text readability */}
+        <div className="absolute inset-0 bg-black/50"></div>
+        
+        {/* Banner Content */}
+        <div className="relative h-full flex items-center justify-center text-center px-4">
+          <motion.div
+            variants={containerVariants}
+            initial="hidden"
+            animate="visible"
+            custom={4}
+            className="max-w-2xl"
           >
-            View Our Team
-          </a>
-        </motion.div>
-      </Section>
+            <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">Ready to Look Fresh?</h2>
+            <p className="text-lg md:text-xl text-gray-100 mb-8">
+              Get the sharp, professional look you deserve. Book your appointment today and experience Pro Barber Shop excellence.
+            </p>
+            <a
+              href="/book"
+              className="inline-block px-8 py-3 bg-white text-gray-900 font-semibold rounded-lg hover:bg-gray-100 transition-colors shadow-lg"
+            >
+              Book Now
+            </a>
+          </motion.div>
+        </div>
+      </div>
       </div>
     </div>
   )
