@@ -6,6 +6,7 @@ import HowItWorks from '@/components/home/HowItWorks'
 import Services from '@/components/home/Services'
 import BarberSection from '@/components/home/BarbersSection'
 import SocialProof from '@/components/home/SocialProof'
+import FollowRealCuts from '@/components/home/FollowRealCuts'
 import LocationHours from '@/components/home/LocationHours'
 
 export default function HomePage() {
@@ -18,6 +19,7 @@ export default function HomePage() {
       <Services />
       <BarberSection />
       <SocialProof />
+      <FollowRealCuts />
       <LocationHours />
       <Header />
     </>

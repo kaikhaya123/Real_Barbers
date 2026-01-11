@@ -248,7 +248,7 @@ export default function AboutPage() {
             variants={containerVariants}
             initial="hidden"
             animate="visible"
-            custom={4}
+            custom={5}
             className="max-w-2xl"
           >
             <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Ready to Look Fresh?</h2>
