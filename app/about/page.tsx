@@ -20,7 +20,7 @@ export default function AboutPage() {
       <div className="relative w-full h-screen -mt-24 pt-24 bg-gray-900 overflow-hidden">
         {/* TODO: Add your hero image to: /public/Images/about-hero.jpg */}
         <Image
-          src="/Images/male-customer-with-beard-near-hairdresser-holding-shaving-brush.jpg"
+          src="/Images/luis-quintero-ia5aE4JL8_A-unsplash.jpg"
           alt="Pro Barber Shop - Hero"
           fill
           className="object-cover"
@@ -42,11 +42,8 @@ export default function AboutPage() {
             className="max-w-3xl"
           >
             <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-6">
-              About Pro Barber Shop ZA
+              About Pro Barber Shop
             </h1>
-            <p className="text-xl md:text-2xl text-gray-100">
-              Delivering sharp cuts, fresh looks, and professional service to Durban since day one.
-            </p>
           </motion.div>
         </div>
       </div>
@@ -93,15 +90,7 @@ export default function AboutPage() {
                 e.currentTarget.style.display = 'none'
               }}
             />
-            {/* Fallback placeholder when image is not available */}
-            <div className="absolute inset-0 bg-gradient-to-br from-gray-900 to-gray-800 flex items-center justify-center">
-              <div className="text-center">
-                <p className="text-white text-lg font-semibold mb-2">Pro Barber Shop ZA</p>
-                <p className="text-gray-300 text-sm px-4">
-                  Durban&apos;s Premier Barbering Destination
-                </p>
-              </div>
-            </div>
+
           </div>
         </motion.div>
       </Section>
