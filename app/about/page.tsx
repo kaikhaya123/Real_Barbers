@@ -63,7 +63,7 @@ export default function AboutPage() {
             {/* Hero Image Placeholder - Replace with your shop image */}
             {/* TODO: Add hero image path to: /public/Images/about-hero.jpg or .png */}
             <Image
-              src="public/Images/male-customer-with-beard-near-hairdresser-holding-shaving-brush.jpg"
+              src="/Images/male-customer-with-beard-near-hairdresser-holding-shaving-brush.jpg"
               alt="Pro Barber Shop  - Our Story"
               fill
               className="object-cover"
@@ -146,13 +146,13 @@ export default function AboutPage() {
                 title: 'Specialized Services',
                 description: 'Specialized services for all hair types and styles',
                 // TODO: Add icon image path - icon_specialized_services.svg or .png
-                icon: '/Icons/icon_specialized_services.svg',
+                icon: '/Icons/haircut.png',
               },
               {
                 title: 'Flexible Booking',
                 description: 'Flexible booking system—appointments or walk-ins welcome',
                 // TODO: Add icon image path - icon_flexible_booking.svg or .png
-                icon: '/Icons/icon_flexible_booking.svg',
+                icon: '/Icons/online-booking.png',
               },
               {
                 title: 'Digital Queue',
@@ -176,13 +176,13 @@ export default function AboutPage() {
                 title: 'Convenient Location',
                 description: 'Convenient Chatsworth location in Durban',
                 // TODO: Add icon image path - icon_location.svg or .png
-                icon: '/Icons/icon_location.svg',
+                icon: '/Icons/location (2).png',
               },
               {
                 title: 'Welcoming Atmosphere',
                 description: 'Friendly, welcoming atmosphere for all clients',
                 // TODO: Add icon image path - icon_atmosphere.svg or .png
-                icon: '/Icons/icon_atmosphere.svg',
+                icon: '/Icons/agreement.png',
               },
             ].map((item, idx) => (
               <motion.div
