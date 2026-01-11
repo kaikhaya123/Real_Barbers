@@ -41,7 +41,7 @@ export default function AboutPage() {
             custom={0}
             className="max-w-3xl"
           >
-            <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-6">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
               About Pro Barber Shop
             </h1>
           </motion.div>
@@ -61,7 +61,7 @@ export default function AboutPage() {
           className="grid md:grid-cols-2 gap-8 items-center"
         >
           <div>
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">Our Story</h2>
+            <h2 className="text-2xl font-bold text-gray-900 mb-4">Our Story</h2>
             <p className="text-gray-600 mb-4 leading-relaxed">
               Pro Barber Shop ZA was founded with a simple mission: to bring world-class barbering 
               services to Durban. We believe that a fresh haircut is more than just grooming&mdash;it&apos;s 
@@ -103,7 +103,7 @@ export default function AboutPage() {
           animate="visible"
           custom={2}
         >
-          <h2 className="text-3xl font-bold text-gray-900 mb-12 text-center">Our Values</h2>
+          <h2 className="text-2xl font-bold text-gray-900 mb-12 text-center">Our Values</h2>
           <div className="grid md:grid-cols-3 gap-8">
             {[
               {
@@ -127,7 +127,7 @@ export default function AboutPage() {
                 custom={2.3 + idx * 0.1}
                 className="bg-gradient-to-br from-gray-50 to-white p-8 rounded-lg border border-gray-200 hover:border-gray-400 transition-colors"
               >
-                <h3 className="text-xl font-bold text-gray-900 mb-3">{value.title}</h3>
+                <h3 className="text-lg font-bold text-gray-900 mb-3">{value.title}</h3>
                 <p className="text-gray-600 leading-relaxed">{value.description}</p>
               </motion.div>
             ))}
@@ -143,7 +143,7 @@ export default function AboutPage() {
           animate="visible"
           custom={3}
         >
-          <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">Why Choose Pro Barber Shop ZA?</h2>
+          <h2 className="text-2xl font-bold text-gray-900 mb-8 text-center">Why Choose Pro Barber Shop ZA?</h2>
           <div className="grid md:grid-cols-2 gap-6">
             {[
               {
@@ -218,8 +218,8 @@ export default function AboutPage() {
                   </div>
                 )}
                 <div className="flex-1">
-                  <h3 className="text-lg font-semibold text-gray-900 mb-1">{item.title}</h3>
-                  <p className="text-gray-600">{item.description}</p>
+                  <h3 className="text-base font-semibold text-gray-900 mb-1">{item.title}</h3>
+                  <p className="text-sm text-gray-600">{item.description}</p>
                 </div>
               </motion.div>
             ))}
@@ -251,8 +251,8 @@ export default function AboutPage() {
             custom={4}
             className="max-w-2xl"
           >
-            <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">Ready to Look Fresh?</h2>
-            <p className="text-lg md:text-xl text-gray-100 mb-8">
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Ready to Look Fresh?</h2>
+            <p className="text-base md:text-lg text-gray-100 mb-8">
               Get the sharp, professional look you deserve. Book your appointment today and experience Pro Barber Shop excellence.
             </p>
             <a
