@@ -60,7 +60,7 @@ export default function FollowRealBarbershop() {
 
           {/* MICRO TRUST */}
           <p className="text-sm text-dark-600 font-medium">
-            Updated daily. Real clients. No stock photos.
+            Stay Updated daily
           </p>
         </motion.div>
 
