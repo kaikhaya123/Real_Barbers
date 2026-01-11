@@ -43,10 +43,12 @@ export interface Booking {
 }
 
 export function isSlotAvailable(barber: string, date: string, time: string) {
+  // Allow up to 40 bookings per time slot (25 slots × 40 = 1000 per day)
+  const MAX_BOOKINGS_PER_SLOT = 40
   const row = db.prepare(
     `SELECT COUNT(1) as cnt FROM bookings WHERE barber = ? AND date = ? AND time = ? AND status IN ('pending','confirmed')`
   ).get(barber, date, time)
-  return row.cnt === 0
+  return row.cnt < MAX_BOOKINGS_PER_SLOT
 }
 
 export function createBooking(b: Booking) {

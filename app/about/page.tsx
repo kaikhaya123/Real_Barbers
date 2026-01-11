@@ -1,0 +1,243 @@
+'use client'
+
+import Section from '@/components/ui/Section'
+import { motion } from 'framer-motion'
+import Image from 'next/image'
+
+export default function AboutPage() {
+  const containerVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: (custom: number) => ({
+      opacity: 1,
+      y: 0,
+      transition: { delay: custom * 0.2, duration: 0.6 },
+    }),
+  }
+
+  return (
+    <div className="pt-24 pb-16">
+      {/* Hero Section */}
+      <Section className="text-center mb-16">
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+          custom={0}
+        >
+          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+            About Pro Barber Shop 
+          </h1>
+          <p className="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">
+            Delivering sharp cuts, fresh looks, and professional service to Durban since day one.
+          </p>
+        </motion.div>
+      </Section>
+
+      {/* Our Story */}
+      <Section className="mb-16">
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+          custom={1}
+          className="grid md:grid-cols-2 gap-8 items-center"
+        >
+          <div>
+            <h2 className="text-3xl font-bold text-gray-900 mb-4">Our Story</h2>
+            <p className="text-gray-600 mb-4 leading-relaxed">
+              Pro Barber Shop ZA was founded with a simple mission: to bring world-class barbering 
+              services to Durban. We believe that a fresh haircut is more than just grooming&mdash;it&apos;s 
+              about confidence, style, and self-expression.
+            </p>
+            <p className="text-gray-600 mb-4 leading-relaxed">
+              From our establishment in Chatsworth, we&apos;ve built a loyal community of clients who 
+              appreciate quality craftsmanship, attention to detail, and genuine customer care. 
+              Every barber on our team is hand-picked for their skill and passion for the craft.
+            </p>
+            <p className="text-gray-600 leading-relaxed">
+              Today, we&apos;re proud to offer both traditional walk-in services and modern digital 
+              booking solutions, making it easier than ever to get the cut you deserve.
+            </p>
+          </div>
+          <div className="relative h-80 rounded-lg overflow-hidden shadow-lg bg-gray-100">
+            {/* Hero Image Placeholder - Replace with your shop image */}
+            {/* TODO: Add hero image path to: /public/Images/about-hero.jpg or .png */}
+            <Image
+              src="public/Images/male-customer-with-beard-near-hairdresser-holding-shaving-brush.jpg"
+              alt="Pro Barber Shop  - Our Story"
+              fill
+              className="object-cover"
+              onError={(e) => {
+                // Fallback to placeholder if image not found
+                e.currentTarget.style.display = 'none'
+              }}
+            />
+            {/* Fallback placeholder when image is not available */}
+            <div className="absolute inset-0 bg-gradient-to-br from-gray-900 to-gray-800 flex items-center justify-center">
+              <div className="text-center">
+                <p className="text-white text-lg font-semibold mb-2">Pro Barber Shop ZA</p>
+                <p className="text-gray-300 text-sm px-4">
+                  Durban&apos;s Premier Barbering Destination
+                </p>
+              </div>
+            </div>
+          </div>
+        </motion.div>
+      </Section>
+
+      {/* Our Values */}
+      <Section className="mb-16">
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+          custom={2}
+        >
+          <h2 className="text-3xl font-bold text-gray-900 mb-12 text-center">Our Values</h2>
+          <div className="grid md:grid-cols-3 gap-8">
+            {[
+              {
+                title: 'Excellence',
+                description: 'We deliver exceptional results with every cut, fade, and trim. Quality is non-negotiable.',
+              },
+              {
+                title: 'Professionalism',
+                description: 'Our team maintains the highest standards of hygiene, punctuality, and customer service.',
+              },
+              {
+                title: 'Innovation',
+                description: 'We blend traditional barbering techniques with modern technology and digital convenience.',
+              },
+            ].map((value, idx) => (
+              <motion.div
+                key={idx}
+                variants={containerVariants}
+                initial="hidden"
+                animate="visible"
+                custom={2.3 + idx * 0.1}
+                className="bg-gradient-to-br from-gray-50 to-white p-8 rounded-lg border border-gray-200 hover:border-gray-400 transition-colors"
+              >
+                <h3 className="text-xl font-bold text-gray-900 mb-3">{value.title}</h3>
+                <p className="text-gray-600 leading-relaxed">{value.description}</p>
+              </motion.div>
+            ))}
+          </div>
+        </motion.div>
+      </Section>
+
+      {/* Why Choose Us */}
+      <Section className="mb-16">
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+          custom={3}
+        >
+          <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">Why Choose Pro Barber Shop ZA?</h2>
+          <div className="grid md:grid-cols-2 gap-6">
+            {[
+              {
+                title: 'Expert Barbers',
+                description: 'Expert barbers with years of experience and proven track records',
+                // TODO: Add icon image path - icon_expert_barbers.svg or .png
+                icon: '/Icons/man.png',
+              },
+              {
+                title: 'Specialized Services',
+                description: 'Specialized services for all hair types and styles',
+                // TODO: Add icon image path - icon_specialized_services.svg or .png
+                icon: '/Icons/icon_specialized_services.svg',
+              },
+              {
+                title: 'Flexible Booking',
+                description: 'Flexible booking system—appointments or walk-ins welcome',
+                // TODO: Add icon image path - icon_flexible_booking.svg or .png
+                icon: '/Icons/icon_flexible_booking.svg',
+              },
+              {
+                title: 'Digital Queue',
+                description: 'Digital queue system for reduced wait times',
+                // TODO: Add icon image path - icon_digital_queue.svg or .png
+                icon: '/Icons/line.png',
+              },
+              {
+                title: 'Hygiene Standards',
+                description: 'Strict hygiene protocols and sanitization standards',
+                // TODO: Add icon image path - icon_hygiene.svg or .png
+                icon: '/Icons/hygiene.png',
+              },
+              {
+                title: 'Competitive Pricing',
+                description: 'Competitive pricing for premium quality services',
+                // TODO: Add icon image path - icon_pricing.svg or .png
+                icon: '/Icons/money.png',
+              },
+              {
+                title: 'Convenient Location',
+                description: 'Convenient Chatsworth location in Durban',
+                // TODO: Add icon image path - icon_location.svg or .png
+                icon: '/Icons/icon_location.svg',
+              },
+              {
+                title: 'Welcoming Atmosphere',
+                description: 'Friendly, welcoming atmosphere for all clients',
+                // TODO: Add icon image path - icon_atmosphere.svg or .png
+                icon: '/Icons/icon_atmosphere.svg',
+              },
+            ].map((item, idx) => (
+              <motion.div
+                key={idx}
+                variants={containerVariants}
+                initial="hidden"
+                animate="visible"
+                custom={3.2 + idx * 0.05}
+                className="flex items-start space-x-4 p-4 bg-white rounded-lg border border-gray-100 hover:border-gray-300 transition-colors"
+              >
+                {/* Icon/Image Placeholder - Replace with your icon */}
+                {item.icon ? (
+                  <Image
+                    src={item.icon}
+                    alt={item.title}
+                    width={64}
+                    height={64}
+                    className="flex-shrink-0 w-16 h-16 object-contain"
+                  />
+                ) : (
+                  <div className="flex-shrink-0 w-16 h-16 bg-gray-200 rounded-lg flex items-center justify-center text-gray-400 text-xs font-semibold text-center">
+                    {item.title.split(' ')[0]}
+                  </div>
+                )}
+                <div className="flex-1">
+                  <h3 className="text-lg font-semibold text-gray-900 mb-1">{item.title}</h3>
+                  <p className="text-gray-600">{item.description}</p>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </motion.div>
+      </Section>
+
+      {/* Team CTA */}
+      <Section className="text-center">
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+          custom={4}
+          className="bg-gradient-to-r from-gray-900 to-gray-800 text-white p-12 rounded-lg"
+        >
+          <h2 className="text-3xl font-bold mb-4">Meet Our Barbers</h2>
+          <p className="text-gray-300 mb-8 max-w-2xl mx-auto">
+            Get to know our talented team of barbers. Each one brings their own unique style and expertise.
+          </p>
+          <a
+            href="/barbers"
+            className="inline-block px-8 py-3 bg-white text-gray-900 font-semibold rounded-lg hover:bg-gray-100 transition-colors"
+          >
+            View Our Team
+          </a>
+        </motion.div>
+      </Section>
+    </div>
+  )
+}

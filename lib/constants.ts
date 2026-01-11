@@ -106,6 +106,9 @@ export const TIME_SLOTS = [
   '15:00', '15:30', '16:00', '16:30', '17:00', '17:30', '18:00','18:30','19:00','19:30','20:00'
 ]
 
+// Maximum bookings per time slot (25 slots × 40 bookings = 1000 total per day)
+export const MAX_BOOKINGS_PER_SLOT = 40
+
 // Operating hours by day
 export const OPERATING_HOURS = {
   0: { open: '00:00', close: '00:00' }, // Sunday - closed / by arrangement
