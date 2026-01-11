@@ -231,7 +231,7 @@ export default function AboutPage() {
       <div className="relative w-full h-96 mb-16 rounded-lg overflow-hidden shadow-lg bg-gray-100">
         {/* TODO: Add banner image to: /public/Images/cta-banner.jpg or .png */}
         <Image
-          src="/Images/mid-section-view-barber-shaking-hand-with-male-client.jpg"
+          src="/Images/nathon-oski-EW_rqoSdDes-unsplash.jpg"
           alt="Ready to Look Fresh Banner"
           fill
           className="object-cover"
