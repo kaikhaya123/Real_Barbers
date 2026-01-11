@@ -15,23 +15,44 @@ export default function AboutPage() {
   }
 
   return (
-    <div className="pt-24 pb-16">
-      {/* Hero Section */}
-      <Section className="text-center mb-16">
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          animate="visible"
-          custom={0}
-        >
-          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-            About Pro Barber Shop 
-          </h1>
-          <p className="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">
-            Delivering sharp cuts, fresh looks, and professional service to Durban since day one.
-          </p>
-        </motion.div>
-      </Section>
+    <div>
+      {/* Full Screen Hero Image Section */}
+      <div className="relative w-full h-screen -mt-24 pt-24 bg-gray-900 overflow-hidden">
+        {/* TODO: Add your hero image to: /public/Images/about-hero.jpg */}
+        <Image
+          src="/Images/male-customer-with-beard-near-hairdresser-holding-shaving-brush.jpg"
+          alt="Pro Barber Shop ZA - Hero"
+          fill
+          className="object-cover"
+          priority
+          onError={(e) => {
+            e.currentTarget.style.display = 'none'
+          }}
+        />
+        {/* Dark overlay for text readability */}
+        <div className="absolute inset-0 bg-black/40"></div>
+        
+        {/* Hero Content */}
+        <div className="relative h-full flex items-center justify-center text-center px-4">
+          <motion.div
+            variants={containerVariants}
+            initial="hidden"
+            animate="visible"
+            custom={0}
+            className="max-w-3xl"
+          >
+            <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-6">
+              About Pro Barber Shop ZA
+            </h1>
+            <p className="text-xl md:text-2xl text-gray-100">
+              Delivering sharp cuts, fresh looks, and professional service to Durban since day one.
+            </p>
+          </motion.div>
+        </div>
+      </div>
+
+      {/* Page Content */}
+      <div className="pt-0 pb-16">
 
       {/* Our Story */}
       <Section className="mb-16">
@@ -238,6 +259,7 @@ export default function AboutPage() {
           </a>
         </motion.div>
       </Section>
+      </div>
     </div>
   )
 }
