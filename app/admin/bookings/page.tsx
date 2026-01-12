@@ -20,13 +20,69 @@ export default function AdminBookings() {
   const [filter, setFilter] = useState<'all' | 'pending' | 'confirmed' | 'completed'>('pending')
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
+  const [isConnected, setIsConnected] = useState(false)
+  const [newNotification, setNewNotification] = useState('')
 
   useEffect(() => {
     fetchBookings()
-    // Refresh every 30 seconds
-    const interval = setInterval(fetchBookings, 30000)
+    subscribeToRealtimeUpdates()
+    
+    // Also poll every 10 seconds as backup
+    const interval = setInterval(fetchBookings, 10000)
     return () => clearInterval(interval)
   }, [])
+
+  const subscribeToRealtimeUpdates = async () => {
+    try {
+      const { createClient } = await import('@supabase/supabase-js')
+      const supabase = createClient(
+        process.env.NEXT_PUBLIC_SUPABASE_URL || '',
+        process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || ''
+      )
+
+      if (!supabase) {
+        console.log('Supabase not configured, using polling only')
+        return
+      }
+
+      setIsConnected(true)
+
+      // Subscribe to all changes on bookings table
+      const subscription = supabase
+        .channel('bookings-updates')
+        .on(
+          'postgres_changes',
+          { event: '*', schema: 'public', table: 'bookings' },
+          (payload) => {
+            console.log('[Real-time Update]', payload)
+            
+            if (payload.eventType === 'INSERT') {
+              showNotification(`New booking from ${payload.new.from}!`)
+            } else if (payload.eventType === 'UPDATE') {
+              showNotification(`Booking ${payload.new.id} updated to ${payload.new.status}`)
+            }
+            
+            fetchBookings()
+          }
+        )
+        .subscribe((status) => {
+          console.log('[Supabase Subscription]', status)
+          setIsConnected(status === 'SUBSCRIBED')
+        })
+
+      return () => {
+        subscription.unsubscribe()
+      }
+    } catch (err) {
+      console.log('Real-time subscriptions not available, using polling')
+      setIsConnected(false)
+    }
+  }
+
+  const showNotification = (message: string) => {
+    setNewNotification(message)
+    setTimeout(() => setNewNotification(''), 3000)
+  }
 
   const fetchBookings = async () => {
     try {
@@ -61,10 +117,25 @@ export default function AdminBookings() {
   return (
     <div className="min-h-screen bg-gray-50 p-6">
       <div className="max-w-6xl mx-auto">
-        <div className="mb-8">
-          <h1 className="text-4xl font-bold text-gray-900 mb-2">Bookings Dashboard</h1>
-          <p className="text-gray-600">Manage customer appointments</p>
+        <div className="mb-8 flex items-center justify-between">
+          <div>
+            <h1 className="text-4xl font-bold text-gray-900 mb-2">Bookings Dashboard</h1>
+            <p className="text-gray-600">Manage customer appointments in real-time</p>
+          </div>
+          <div className="flex items-center gap-2">
+            <div className={`w-3 h-3 rounded-full ${isConnected ? 'bg-green-500 animate-pulse' : 'bg-red-500'}`}></div>
+            <span className="text-sm font-medium text-gray-700">
+              {isConnected ? 'Live' : 'Polling'}
+            </span>
+          </div>
         </div>
+
+        {/* Real-time Notification */}
+        {newNotification && (
+          <div className="mb-6 animate-in bg-blue-50 border-l-4 border-blue-500 p-4 rounded">
+            <p className="text-blue-700 font-medium">🔔 {newNotification}</p>
+          </div>
+        )}
 
         {/* Filter Tabs */}
         <div className="flex gap-2 mb-6 border-b">

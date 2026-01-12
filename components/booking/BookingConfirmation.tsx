@@ -13,6 +13,7 @@ import { trackEvent } from '@/lib/analytics'
 
 interface BookingConfirmationProps {
   bookingId: string
+  queueNumber?: string | null
   service: Service
   barber: Barber
   date: Date
@@ -23,6 +24,7 @@ interface BookingConfirmationProps {
 
 export default function BookingConfirmation({
   bookingId,
+  queueNumber,
   service,
   barber,
   date,
@@ -102,21 +104,32 @@ export default function BookingConfirmation({
           <div ref={lottieRef} className="h-12 w-12" />
         </div>
         <h2 className="text-3xl font-bold text-primary-900 mb-2">
-          WhatsApp Request Sent!
+          Booking Confirmed!
         </h2>
         <p className="text-gray-600">
-          We&apos;ve opened WhatsApp with your request — please continue the chat to confirm your appointment.
+          Your appointment has been saved. We&apos;ll contact you shortly via WhatsApp to confirm.
         </p>
       </div>
 
-      {/* Booking ID / WhatsApp */}
+      {/* Booking ID */}
       <div className="bg-accent-50 rounded-lg p-4 mb-6">
-        <p className="text-sm text-gray-600 mb-1">Status</p>
-        <p className="text-2xl font-bold text-accent-600">{bookingId === 'WHATSAPP' ? 'Sent via WhatsApp' : bookingId}</p>
+        <p className="text-sm text-gray-600 mb-1">Booking Reference</p>
+        <p className="text-2xl font-bold text-accent-600 font-mono">{bookingId}</p>
         <p className="text-xs text-gray-500 mt-2">
-          We didn&apos;t store an in-app booking — please keep the WhatsApp chat for confirmation.
+          Keep this reference for your records
         </p>
       </div>
+
+      {/* Queue Number - PROMINENT */}
+      {queueNumber && (
+        <div className="bg-yellow-100 border-2 border-yellow-400 rounded-lg p-6 mb-6 text-center">
+          <p className="text-sm text-yellow-800 mb-2 font-semibold">YOUR QUEUE NUMBER</p>
+          <p className="text-5xl font-bold text-yellow-700 font-mono">{queueNumber}</p>
+          <p className="text-xs text-yellow-700 mt-3">
+            This is your position in the queue. Arrive on time and mention this number!
+          </p>
+        </div>
+      )}
 
       {/* Appointment Details */}
       <div className="bg-white border-2 border-primary-200 rounded-lg p-6 mb-6 text-left">
@@ -166,13 +179,15 @@ export default function BookingConfirmation({
       <div className="bg-white-50 border border-white-200 rounded-lg p-4 mb-6 text-left">
         <h4 className="font-semibold text-black-900 mb-2 flex items-center gap-2">
           <Image src="/Icons/chatting.png" alt="Phone" width={20} height={20} className="h-5 w-5 object-contain" />
-          What&apos;s Next?
+          What Happens Next?
         </h4>
         <ul className="text-sm text-blue-800 space-y-1">
-          <li>• We&apos;ll reply via WhatsApp to confirm availability</li>
-          <li>• We may send a reminder 24 hours before your appointment via WhatsApp</li>
+          <li>✓ Your booking has been saved to our system</li>
+          <li>• Our staff will review and contact you via WhatsApp</li>
+          <li>• We&apos;ll confirm your appointment details</li>
+          <li>• You&apos;ll receive a reminder 24 hours before your appointment</li>
           <li>• Please arrive 5 minutes early</li>
-          <li>• Need to reschedule? Call us at {BUSINESS_INFO.phone}</li>
+          <li>• Questions? Call us at {BUSINESS_INFO.phone}</li>
         </ul>
       </div>
 

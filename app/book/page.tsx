@@ -20,6 +20,7 @@ export default function BookPage() {
   const [selectedDate, setSelectedDate] = useState<Date | null>(null)
   const [selectedTime, setSelectedTime] = useState<string | null>(null)
   const [bookingId, setBookingId] = useState<string | null>(null)
+  const [queueNumber, setQueueNumber] = useState<string | null>(null)
   const [whatsappLink, setWhatsappLink] = useState<string | null>(null)
 
   const handleServiceSelect = (service: Service) => {
@@ -38,48 +39,73 @@ export default function BookPage() {
     setStep(4)
   }
 
-  const handleBookingSubmit = (formData: any) => {
-    // Build a WhatsApp message instead of creating an in-app booking
+  const handleBookingSubmit = async (formData: any) => {
+    // Save booking to database first
     if (!selectedService || !selectedBarber || !selectedDate || !selectedTime) return
 
     const { name, phone, email, notes } = formData
     const prettyDate = format(selectedDate, 'EEEE, MMMM d, yyyy')
+    const dateTimeStr = `${selectedDate.toISOString().split('T')[0]} ${selectedTime}`
 
-    const message = buildBookingMessage({
-      serviceName: selectedService.name,
-      barberName: selectedBarber.name,
-      name,
-      dateTime: `${prettyDate} at ${selectedTime}`,
-      notes,
-    })
-
-    const link = buildWhatsAppLink(BUSINESS_INFO.whatsapp, message)
-
-    // Track booking request source
     try {
-      trackEvent('whatsapp_booking_request', {
-        source: 'booking_form',
-        serviceId: selectedService.id,
-        barberId: selectedBarber.id,
+      // Save to database
+      const res = await fetch('/api/bookings/create', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name,
+          service: selectedService.name,
+          datetime: dateTimeStr,
+          barber: selectedBarber.name,
+          phone,
+          email,
+          notes,
+        }),
       })
-    } catch (e) {}
 
-    // Open WhatsApp in a new tab (web) or app (mobile)
-    try {
-      window.open(link, '_blank')
-    } catch (e) {
-      // Fallback: set the link and show confirmation so user can click
+      if (!res.ok) {
+        const error = await res.json()
+        alert('Error saving booking: ' + error.error)
+        return
+      }
+
+      const { booking } = await res.json()
+      console.log('Booking saved:', booking)
+
+      // Store queue number if provided
+      if (booking.queueNumber) {
+        setQueueNumber(booking.queueNumber)
+      }
+
+      // Track booking request source
+      try {
+        trackEvent('booking_completed', {
+          source: 'booking_form',
+          serviceId: selectedService.id,
+          barberId: selectedBarber.id,
+          bookingId: booking.id,
+        })
+      } catch (e) {}
+
+      // Build WhatsApp message
+      const message = buildBookingMessage({
+        serviceName: selectedService.name,
+        barberName: selectedBarber.name,
+        name,
+        dateTime: `${prettyDate} at ${selectedTime}`,
+        notes,
+      })
+
+      const link = buildWhatsAppLink(BUSINESS_INFO.whatsapp, message)
+
+      // Show confirmation UI with option to send WhatsApp
+      setWhatsappLink(link)
+      setBookingId(booking.id)
+      setStep(5)
+    } catch (err) {
+      console.error('Booking error:', err)
+      alert('Error creating booking: ' + (err instanceof Error ? err.message : 'Unknown error'))
     }
-
-    // Save link in state and on window so the confirmation can re-open it
-    setWhatsappLink(link)
-    try {
-      ;(window as any).__WHATSAPP_LINK = link
-    } catch (e) {}
-
-    // Show confirmation UI (we don't store bookings server-side while using WhatsApp)
-    setBookingId('WHATSAPP')
-    setStep(5)
   }
 
   const handleStartOver = () => {
@@ -89,6 +115,7 @@ export default function BookPage() {
     setSelectedDate(null)
     setSelectedTime(null)
     setBookingId(null)
+    setQueueNumber(null)
   }
 
   return (
@@ -172,6 +199,7 @@ export default function BookPage() {
           {step === 5 && bookingId && selectedService && selectedBarber && selectedDate && selectedTime && (
             <BookingConfirmation
               bookingId={bookingId}
+              queueNumber={queueNumber}
               service={selectedService}
               barber={selectedBarber}
               date={selectedDate}
