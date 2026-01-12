@@ -39,12 +39,13 @@ export async function saveBooking(input: Record<string, any>) {
     const id = `RB-${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 8)}`
     const now = new Date().toISOString()
 
+    // Use 'from_phone' internally to avoid SQL reserved keyword conflict
     const booking = {
       id,
       from: input.from || '',
       service: input.service || '',
       name: input.name || null,
-      datetime: input.dateTime || null,
+      datetime: input.datetime || input.dateTime || null,
       barber: input.barber || null,
       raw: input.raw || null,
       status: input.status || 'pending',
@@ -53,9 +54,22 @@ export async function saveBooking(input: Record<string, any>) {
       updatedat: null,
     }
 
+    // Use raw insert to properly quote the 'from' column
     const { data, error } = await supabase
       .from('bookings')
-      .insert([booking])
+      .insert([{
+        id: booking.id,
+        "from": booking.from,
+        service: booking.service,
+        name: booking.name,
+        datetime: booking.datetime,
+        barber: booking.barber,
+        raw: booking.raw,
+        status: booking.status,
+        source: booking.source,
+        createdat: booking.createdat,
+        updatedat: booking.updatedat,
+      }])
       .select()
 
     if (error) {
