@@ -39,39 +39,39 @@ export async function saveBooking(input: Record<string, any>) {
     const id = `RB-${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 8)}`
     const now = new Date().toISOString()
 
-    // Map input to Supabase column names
-    const phone = input.from || input.phone || ''
+    // Map input to match Supabase schema exactly
+    const from = input.from || input.phone || ''
     const dateTime = input.datetime || input.dateTime || null
     
     const booking = {
       id,
-      phone, // customer phone number
+      from,
       service: input.service || '',
       name: input.name || null,
-      datetime: dateTime,
+      dateTime,
       barber: input.barber || null,
       raw: input.raw || null,
       status: input.status || 'pending',
       source: input.source || 'twilio',
-      createdat: now,
-      updatedat: null,
+      createdAt: now,
+      updatedAt: null,
     }
 
-    // Map to actual Supabase columns
+    // Insert with exact column names matching Supabase schema
     const { data, error } = await supabase
       .from('bookings')
       .insert([{
         id: booking.id,
-        phone: booking.phone,
+        from: booking.from,
         service: booking.service,
         name: booking.name,
-        datetime: booking.datetime,
+        dateTime: booking.dateTime,
         barber: booking.barber,
         raw: booking.raw,
         status: booking.status,
         source: booking.source,
-        createdat: booking.createdat,
-        updatedat: booking.updatedat,
+        createdAt: booking.createdAt,
+        updatedAt: booking.updatedAt,
       }])
       .select()
 
@@ -95,9 +95,9 @@ export async function findPendingBookingByPhone(phone: string) {
     const { data, error } = await supabase
       .from('bookings')
       .select('*')
-      .eq('phone', phone)
+      .eq('from', phone)
       .eq('status', 'pending')
-      .order('createdat', { ascending: false })
+      .order('createdAt', { ascending: false })
       .limit(1)
       .single()
 
@@ -130,7 +130,7 @@ export async function updateBookingStatus(
 
     const { data, error } = await supabase
       .from('bookings')
-      .update({ status, updatedat: now })
+      .update({ status, updatedAt: now })
       .eq('id', bookingId)
       .select()
 
@@ -162,7 +162,7 @@ export async function isBarberAvailable(
       .select('*')
       .eq('barber', barberId)
       .in('status', ['confirmed', 'completed'])
-      .not('datetime', 'is', null)
+      .not('dateTime', 'is', null)
 
     if (error) {
       console.error('Error checking availability:', error)
@@ -176,7 +176,7 @@ export async function isBarberAvailable(
     const requestedEnd = new Date(requestedStart.getTime() + duration * 60000)
 
     const hasConflict = bookings.some((b: any) => {
-      const existingStart = new Date(`${b.datetime}:00`)
+      const existingStart = new Date(`${b.dateTime}:00`)
       const existingService = SERVICES.find((s: any) => s.name === b.service)
       const existingDuration = existingService?.duration || 60
       const existingEnd = new Date(existingStart.getTime() + existingDuration * 60000)
