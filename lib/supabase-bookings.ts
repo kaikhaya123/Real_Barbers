@@ -39,13 +39,16 @@ export async function saveBooking(input: Record<string, any>) {
     const id = `RB-${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 8)}`
     const now = new Date().toISOString()
 
-    // Use 'from_phone' internally to avoid SQL reserved keyword conflict
+    // Map input to Supabase column names
+    const phone = input.from || input.phone || ''
+    const dateTime = input.datetime || input.dateTime || null
+    
     const booking = {
       id,
-      from: input.from || '',
+      phone, // customer phone number
       service: input.service || '',
       name: input.name || null,
-      datetime: input.datetime || input.dateTime || null,
+      datetime: dateTime,
       barber: input.barber || null,
       raw: input.raw || null,
       status: input.status || 'pending',
@@ -54,12 +57,12 @@ export async function saveBooking(input: Record<string, any>) {
       updatedat: null,
     }
 
-    // Use raw insert to properly quote the 'from' column
+    // Map to actual Supabase columns
     const { data, error } = await supabase
       .from('bookings')
       .insert([{
         id: booking.id,
-        "from": booking.from,
+        phone: booking.phone,
         service: booking.service,
         name: booking.name,
         datetime: booking.datetime,
@@ -92,7 +95,7 @@ export async function findPendingBookingByPhone(phone: string) {
     const { data, error } = await supabase
       .from('bookings')
       .select('*')
-      .eq('from', phone)
+      .eq('phone', phone)
       .eq('status', 'pending')
       .order('createdat', { ascending: false })
       .limit(1)
