@@ -1,4 +1,5 @@
--- SQLite schema for Pro Barber Shop ZA bookings
+-- -*- sql-dialect: sqlite -*-
+-- SQLite schema for Pro Barber Shop ZA
 
 PRAGMA foreign_keys = ON;
 
@@ -12,12 +13,11 @@ CREATE TABLE IF NOT EXISTS bookings (
   id TEXT PRIMARY KEY,
   name TEXT NOT NULL,
   service TEXT NOT NULL,
-  date TEXT NOT NULL,       -- ISO date YYYY-MM-DD
-  time TEXT NOT NULL,       -- HH:MM (24h)
+  date TEXT NOT NULL,
+  time TEXT NOT NULL,
   barber TEXT NOT NULL,
-  status TEXT NOT NULL DEFAULT 'pending', -- pending / confirmed / cancelled
+  status TEXT DEFAULT 'pending',
   created_at TEXT NOT NULL
 );
 
--- Index for quick slot lookups
 CREATE INDEX IF NOT EXISTS idx_bookings_slot ON bookings(barber, date, time);

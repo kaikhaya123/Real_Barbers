@@ -1,0 +1,7 @@
+{
+  "[sql]": {
+    "editor.defaultFormatter": "ms-mssql.mssql"
+  },
+  "mssql.lintingEnabled": false,
+  "sql.linting.enabled": false
+}

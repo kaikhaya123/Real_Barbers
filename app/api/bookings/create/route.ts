@@ -47,6 +47,7 @@ export async function POST(req: NextRequest) {
           datetime: datetime || 'To be scheduled',
           barber: barber || 'Any available',
           queueNumber: queueDisplay,
+          location: '35 Nyakata St, Chatsworth, KwaZulu-Natal',
         })
         if (emailSent) {
           console.log('[Web Booking] Email confirmation sent to:', email, 'Queue:', queueDisplay)

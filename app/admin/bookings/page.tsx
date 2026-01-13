@@ -2,17 +2,18 @@
 
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 
 interface Booking {
   id: string
   from: string
   service: string
   name: string | null
-  datetime: string | null
+  dateTime: string | null
   barber: string | null
   status: string
   source: string
-  createdat: string
+  createdAt: string
 }
 
 export default function AdminBookings() {
@@ -132,8 +133,14 @@ export default function AdminBookings() {
 
         {/* Real-time Notification */}
         {newNotification && (
-          <div className="mb-6 animate-in bg-blue-50 border-l-4 border-blue-500 p-4 rounded">
-            <p className="text-blue-700 font-medium">🔔 {newNotification}</p>
+          <div className="mb-6 animate-in bg-blue-50 border-l-4 border-blue-500 p-4 rounded flex items-center gap-3">
+            <Image
+              src="/Icons/notification.png"
+              alt="Notification"
+              width={20}
+              height={20}
+            />
+            <p className="text-blue-700 font-medium">{newNotification}</p>
           </div>
         )}
 
@@ -192,20 +199,50 @@ export default function AdminBookings() {
                     <h3 className="font-semibold text-gray-900 mb-2">Customer</h3>
                     <p className="text-gray-700">{booking.name || 'Not provided'}</p>
                     <p className="text-blue-600 font-mono text-sm">{booking.from}</p>
-                    <p className="text-gray-500 text-sm mt-1">
-                      📱 {booking.source === 'twilio' ? 'WhatsApp (Twilio)' : booking.source === 'meta' ? 'WhatsApp (Meta)' : 'Web Form'}
+                    <p className="text-gray-500 text-sm mt-1 flex items-center gap-2">
+                      <Image
+                        src="/Icons/touch.png"
+                        alt="Phone"
+                        width={16}
+                        height={16}
+                      />
+                      {booking.source === 'twilio' ? 'WhatsApp (Twilio)' : booking.source === 'meta' ? 'WhatsApp (Meta)' : 'Web Form'}
                     </p>
                   </div>
 
                   {/* Service Info */}
                   <div>
                     <h3 className="font-semibold text-gray-900 mb-2">Service</h3>
-                    <p className="text-gray-700 text-lg font-medium mb-2">💈 {booking.service}</p>
-                    {booking.datetime && (
-                      <p className="text-gray-600">📅 {new Date(booking.datetime).toLocaleString()}</p>
+                    <p className="text-gray-700 text-lg font-medium mb-2 flex items-center gap-2">
+                      <Image
+                        src="/logo/Pro_barbershop_logo.png"
+                        alt="Barber"
+                        width={20}
+                        height={20}
+                      />
+                      {booking.service}
+                    </p>
+                    {booking.dateTime && (
+                      <p className="text-gray-600 flex items-center gap-2">
+                        <Image
+                          src="/Icons/calendar-icon.svg"
+                          alt="Date"
+                          width={16}
+                          height={16}
+                        />
+                        {new Date(booking.dateTime).toLocaleString()}
+                      </p>
                     )}
                     {booking.barber && (
-                      <p className="text-gray-600">👨‍💼 Preferred: {booking.barber}</p>
+                      <p className="text-gray-600 flex items-center gap-2 mt-1">
+                        <Image
+                          src="/Icons/user.png"
+                          alt="Barber"
+                          width={16}
+                          height={16}
+                        />
+                        Preferred: {booking.barber}
+                      </p>
                     )}
                   </div>
 
@@ -228,7 +265,7 @@ export default function AdminBookings() {
                       </span>
                     </div>
                     <p className="text-gray-500 text-xs">
-                      {new Date(booking.createdat).toLocaleDateString()}
+                      {new Date(booking.createdAt).toLocaleDateString()}
                     </p>
                   </div>
                 </div>
@@ -275,9 +312,14 @@ export default function AdminBookings() {
                     href={`https://wa.me/${booking.from.replace('+', '')}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="bg-green-500 hover:bg-green-600 text-white font-medium py-2 px-4 rounded transition"
+                    className="bg-green-500 hover:bg-green-600 text-white font-medium py-2 px-4 rounded transition flex items-center justify-center"
                   >
-                    💬 WhatsApp
+                    <Image
+                      src="/Icons/whatsapp.png"
+                      alt="WhatsApp"
+                      width={20}
+                      height={20}
+                    />
                   </a>
                 </div>
               </div>

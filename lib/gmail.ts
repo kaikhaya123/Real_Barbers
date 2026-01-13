@@ -3,7 +3,6 @@ import nodemailer from 'nodemailer'
 const GMAIL_USER = process.env.GMAIL_USER
 const GMAIL_APP_PASSWORD = process.env.GMAIL_APP_PASSWORD
 
-// Create transporter for Gmail
 const transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
@@ -19,90 +18,215 @@ export interface BookingEmailData {
   datetime: string
   barber: string
   queueNumber: string
+  location?: string
 }
 
-export async function sendBookingConfirmationEmail(data: BookingEmailData): Promise<boolean> {
-  if (!GMAIL_USER || !GMAIL_APP_PASSWORD) {
-    console.warn('[Email] Gmail credentials not configured')
-    return false
-  }
+export async function sendBookingConfirmationEmail(
+  data: BookingEmailData
+): Promise<boolean> {
+  if (!GMAIL_USER || !GMAIL_APP_PASSWORD) return false
 
   try {
     const { name, email, service, datetime, barber, queueNumber } = data
-    const prettyDate = datetime?.split(' ')[0] || 'TBD'
-    const prettyTime = datetime?.split(' ')[1] || 'TBD'
+    const [prettyDate = 'TBD', prettyTime = 'TBD'] = datetime?.split(' ') || []
 
-    const htmlContent = `
-      <!DOCTYPE html>
-      <html>
-        <head>
-          <meta charset="utf-8">
-          <style>
-            body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; line-height: 1.6; color: #333; }
-            .container { max-width: 600px; margin: 0 auto; padding: 0; }
-            .header { background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); color: white; padding: 30px; text-align: center; border-radius: 10px 10px 0 0; }
-            .header h1 { margin: 0; font-size: 28px; }
-            .header p { margin: 10px 0 0 0; opacity: 0.9; }
-            .content { background: #f5f5f5; padding: 30px; border-radius: 0 0 10px 10px; }
-            .queue-box { background: #fbbf24; color: #1a1a2e; padding: 20px; border-radius: 8px; margin: 20px 0; text-align: center; }
-            .queue-label { font-size: 12px; margin: 0 0 8px 0; text-transform: uppercase; font-weight: bold; }
-            .queue-number { font-size: 48px; margin: 0; font-weight: bold; font-family: 'Courier New', monospace; }
-            .booking-box { background: white; padding: 20px; border-left: 4px solid #fbbf24; margin: 20px 0; border-radius: 4px; }
-            .booking-item { margin: 8px 0; }
-            .booking-label { font-weight: bold; }
-            .footer { text-align: center; padding: 20px; color: #999; font-size: 12px; }
-          </style>
-        </head>
-        <body>
-          <div class="container">
-            <div class="header">
-              <h1>✓ Booking Confirmed</h1>
-              <p>Your appointment is all set!</p>
-            </div>
-            
-            <div class="content">
-              <p style="font-size: 16px; margin-bottom: 20px;">Hi ${name},</p>
-              
-              <div class="queue-box">
-                <p class="queue-label">Your Queue Number</p>
-                <p class="queue-number">${queueNumber}</p>
-                <p style="font-size: 12px; margin: 8px 0 0 0; opacity: 0.8;">Keep this for reference</p>
-              </div>
-              
-              <p style="font-size: 14px; color: #666; margin-bottom: 20px;">Your booking has been saved and confirmed. Here are your appointment details:</p>
-              
-              <div class="booking-box">
-                <div class="booking-item"><span class="booking-label">Service:</span> ${service}</div>
-                <div class="booking-item"><span class="booking-label">Date:</span> ${prettyDate}</div>
-                <div class="booking-item"><span class="booking-label">Time:</span> ${prettyTime}</div>
-                <div class="booking-item"><span class="booking-label">Barber:</span> ${barber}</div>
-              </div>
-              
-              <p style="font-size: 14px; color: #666; margin: 20px 0;">Our team will reach out shortly to confirm these details. If you need to make any changes, please contact us.</p>
-              
-              <p style="font-size: 12px; color: #999; margin-top: 30px;">Thanks for choosing Pro Barber Shop! 💈</p>
-            </div>
-            
-            <div class="footer">
-              <p>This is an automated confirmation email. Please do not reply directly.</p>
-            </div>
-          </div>
-        </body>
-      </html>
-    `
+    const html = `
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+body {
+  margin: 0;
+  background: #f4f4f5;
+  font-family: Poppins, Arial, sans-serif;
+  color: #111;
+}
+.container {
+  max-width: 600px;
+  margin: 24px auto;
+  background: #ffffff;
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+}
+.header {
+  background: #ffffff;
+  color: #111;
+  text-align: center;
+  padding: 36px 24px;
+}
+.header img {
+  width: 90px;
+  margin-bottom: 12px;
+}
+.header h1 {
+  font-size: 22px;
+  margin: 0;
+}
+.header p {
+  font-size: 13px;
+  color: #666;
+  margin-top: 6px;
+}
+.content {
+  padding: 32px 26px;
+}
+.greeting {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+.text {
+  font-size: 14px;
+  color: #444;
+  line-height: 1.6;
+  margin-bottom: 22px;
+}
+.queue {
+  text-align: center;
+  background: #f1f5f9;
+  border-radius: 12px;
+  padding: 28px;
+  margin-bottom: 28px;
+}
+.queue span {
+  font-size: 11px;
+  letter-spacing: 1px;
+  font-weight: 700;
+  color: #555;
+}
+.queue h2 {
+  font-size: 52px;
+  margin: 10px 0 4px;
+  letter-spacing: 3px;
+}
+.queue p {
+  font-size: 12px;
+  color: #555;
+}
+.details {
+  border-top: 1px solid #eee;
+  padding-top: 20px;
+  margin-bottom: 28px;
+}
+.detail {
+  margin-bottom: 14px;
+}
+.label {
+  font-size: 11px;
+  text-transform: uppercase;
+  color: #777;
+}
+.value {
+  font-size: 15px;
+  font-weight: 600;
+}
+.next {
+  background: #f9fafb;
+  border-radius: 12px;
+  padding: 22px;
+}
+.next h3 {
+  margin: 0 0 14px;
+  font-size: 16px;
+}
+.next li {
+  font-size: 13px;
+  color: #444;
+  margin-bottom: 10px;
+}
+.footer {
+  background: #111;
+  color: #ffffff;
+  text-align: center;
+  padding: 22px;
+  font-size: 11px;
+}
+.footer a {
+  color: #ffffff;
+  text-decoration: none;
+  margin: 0 6px;
+  font-weight: 600;
+}
+</style>
+</head>
 
-    const mailOptions = {
+<body>
+<div class="container">
+
+  <div class="header">
+    <img src="https://pro-barbershop.vercel.app/logo/Pro_barbershop_logo.png" alt="Pro Barber Shop">
+    <h1>BOOKING CONFIRMED</h1>
+    <p>Your spot is secured</p>
+  </div>
+
+  <div class="content">
+    <div class="greeting">Hi ${name},</div>
+    <div class="text">
+      Your haircut is booked. Keep your queue number ready when you arrive.
+    </div>
+
+    <div class="queue">
+      <span>QUEUE NUMBER</span>
+      <h2>${queueNumber}</h2>
+      <p>Show this on arrival</p>
+    </div>
+
+    <div class="details">
+      <div class="detail">
+        <div class="label">Service</div>
+        <div class="value">${service}</div>
+      </div>
+      <div class="detail">
+        <div class="label">Date</div>
+        <div class="value">${prettyDate}</div>
+      </div>
+      <div class="detail">
+        <div class="label">Time</div>
+        <div class="value">${prettyTime}</div>
+      </div>
+      <div class="detail">
+        <div class="label">Barber</div>
+        <div class="value">${barber}</div>
+      </div>
+    </div>
+
+    <div class="next">
+      <h3>What to do next</h3>
+      <ul>
+        <li>Arrive 5 to 10 minutes early</li>
+        <li>Keep your queue number saved</li>
+        <li>Message us on WhatsApp if needed</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="footer">
+    <a href="https://pro-barbershop.vercel.app">Website</a> |
+    <a href="https://wa.me/27682770367">WhatsApp</a> |
+    <a href="tel:+27682188679">Call</a>
+    <div style="margin-top:10px">
+      © 2026 Pro Barber Shop 
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
+`
+
+    await transporter.sendMail({
       from: GMAIL_USER,
       to: email,
-      subject: `✓ Booking Confirmed - Your Queue #${queueNumber}`,
-      html: htmlContent,
-    }
+      subject: `Booking Confirmed | Queue #${queueNumber}`,
+      html,
+    })
 
-    const result = await transporter.sendMail(mailOptions)
-    console.log('[Email] Gmail confirmation sent to:', email, 'Queue #' + queueNumber, 'Message ID:', result.messageId)
     return true
-  } catch (err) {
-    console.error('[Email] Gmail SMTP error:', err)
+  } catch {
     return false
   }
 }
