@@ -64,7 +64,7 @@ export default function AboutPage() {
             <h2 className="text-2xl font-bold text-gray-900 mb-4">Our Story</h2>
             <p className="text-gray-600 mb-4 leading-relaxed">
               Pro Barber Shop was founded with a simple mission: to bring world-class barbering 
-              services to Durban. We believe that a fresh haircut is more than just grooming&mdash;it&apos;s 
+              services to Durban, in the township of lamontiville. We believe that a fresh haircut is more than just clean fade&mdash;it&apos;s 
               about confidence, style, and self-expression.
             </p>
             <p className="text-gray-600 mb-4 leading-relaxed">
