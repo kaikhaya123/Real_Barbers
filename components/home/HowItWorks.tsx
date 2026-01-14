@@ -8,20 +8,20 @@ const steps = [
   {
     number: "01",
     iconImage: "/Icons/booking.png",
-    title: "Tap Book Now",
-    description: "WhatsApp opens instantly with an automated greeting to start your booking.",
+    title: "Pick Your Service",
+    description: "Browse our services and select the one you need — from classic cuts to premium trims.",
   },
   {
     number: "02",
     iconImage: "/Icons/calendar (2).png",
-    title: "Choose service & time",
-    description: "Reply with your service and preferred time (or follow guided prompts).",
+    title: "Choose Barber & Time",
+    description: "Select your preferred barber and pick an available date and time that works for you.",
   },
   {
     number: "03",
     iconImage: "/Icons/check-mark.png",
-    title: "Confirm & secure",
-    description: "We confirm your slot or offer the next available time — reply to lock your booking.",
+    title: "Confirm Booking",
+    description: "Enter your details and confirm — your appointment is instantly locked in.",
   },
 ]
 
@@ -34,7 +34,7 @@ export default function HowItWorks() {
           HOW IT WORKS
         </h2>
         <p className="text-lg md:text-xl text-dark-600 leading-relaxed font-sans">
-          Book quickly via WhatsApp — tap &quot;Book Now&quot;, choose your service and time, and get a confirmed slot in moments.
+          Book your cut in 3 simple steps — select your service, pick your barber and time, and confirm instantly. No hassle, all convenience.
         </p>
       </div>
 
