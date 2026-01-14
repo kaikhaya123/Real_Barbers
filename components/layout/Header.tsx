@@ -4,15 +4,11 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import Image from 'next/image'
 import { useState, useEffect } from 'react'
-import { Menu, X } from 'lucide-react'
-import FullScreenNav from './FullScreenNav'
 import StaggeredMenu from '@/components/ui/StaggeredMenu'
 
 export default function Header() {
   const pathname = usePathname()
   const [isScrolled, setIsScrolled] = useState(false)
-  const [isMenuOpen, setIsMenuOpen] = useState(false)
-  const [useStaggeredMenu, setUseStaggeredMenu] = useState(true)
 
   const navigation = [
     { name: 'ABOUT', href: '/about' },
@@ -118,62 +114,30 @@ export default function Header() {
               </svg>
             </Link>
 
-            {/* Mobile Menu Button - Enhanced 3-line hamburger */}
-            <button
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className={`lg:hidden p-3 rounded-lg transition-all duration-300 hover:scale-105 ${
-                isScrolled || !isHomePage
-                  ? 'text-gray-900 hover:bg-gray-100'
-                  : 'text-white hover:bg-white/10'
-              }`}
-              aria-label="Toggle menu"
-            >
-              {isMenuOpen ? (
-                <X className="h-6 w-6" />
-              ) : (
-                <div className="flex flex-col space-y-1.5">
-                  <span className={`block h-0.5 w-6 rounded ${
-                    isScrolled || !isHomePage ? 'bg-gray-900' : 'bg-white'
-                  }`}></span>
-                  <span className={`block h-0.5 w-6 rounded ${
-                    isScrolled || !isHomePage ? 'bg-gray-900' : 'bg-white'
-                  }`}></span>
-                  <span className={`block h-0.5 w-6 rounded ${
-                    isScrolled || !isHomePage ? 'bg-gray-900' : 'bg-white'
-                  }`}></span>
-                </div>
-              )}
-            </button>
+
           </div>
         </nav>
       </div>
 
-      {/* Full Screen Navigation */}
-      {useStaggeredMenu ? (
-        <div className="fixed inset-0 z-40">
-          <StaggeredMenu
-            position="right"
-            items={menuItems}
-            socialItems={socialItems}
-            displaySocials={true}
-            displayItemNumbering={true}
-            menuButtonColor={isScrolled || pathname !== '/' ? '#000' : '#fff'}
-            openMenuButtonColor="#fff"
-            changeMenuColorOnOpen={true}
-            colors={['#B19EEF', '#5227FF', '#ff6b6b']}
-            logoUrl="/logo/Pro_barbershop_logo.png"
-            accentColor="#ff6b6b"
-            onMenuOpen={() => console.log('Menu opened')}
-            onMenuClose={() => setIsMenuOpen(false)}
-          />
-        </div>
-      ) : (
-        <FullScreenNav 
-          isOpen={isMenuOpen} 
-          onClose={() => setIsMenuOpen(false)} 
-          navigation={navigation} 
+      {/* Staggered Menu Navigation */}
+      <div className="fixed inset-0 z-40 lg:hidden">
+        <StaggeredMenu
+          position="right"
+          items={menuItems}
+          socialItems={socialItems}
+          displaySocials={true}
+          displayItemNumbering={true}
+          menuButtonColor={isScrolled || pathname !== '/' ? '#000' : '#fff'}
+          openMenuButtonColor="#fff"
+          changeMenuColorOnOpen={true}
+          colors={['#B19EEF', '#5227FF', '#ff6b6b']}
+          logoUrl="/logo/Pro_barbershop_logo.png"
+          accentColor="#ff6b6b"
+          isFixed={true}
+          onMenuOpen={() => console.log('Menu opened')}
+          onMenuClose={() => console.log('Menu closed')}
         />
-      )}
+      </div>
     </header>
   )
 }
