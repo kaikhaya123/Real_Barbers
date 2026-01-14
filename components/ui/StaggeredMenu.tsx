@@ -381,27 +381,37 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
           aria-hidden={!open}
         >
           {/* Header inside panel */}
-          <div className="sticky top-0 w-full flex items-center justify-between p-6 bg-white border-b border-gray-100 z-30">
+          <div className="sticky top-0 w-full flex items-center justify-between p-4 bg-white border-b border-gray-100 z-30">
             <div className="flex items-center">
               <Image
                 src={logoUrl || '/logo/Pro_barbershop_logo.png'}
                 alt="Logo"
-                className="h-8 w-auto object-contain"
+                className="h-7 w-auto object-contain"
                 draggable={false}
                 width={110}
                 height={24}
                 priority
               />
             </div>
-            <div className="w-5 h-5" />
+            <button
+              className="inline-flex items-center gap-1 bg-transparent border-0 cursor-pointer text-black font-medium text-xs leading-none pointer-events-auto hover:opacity-70 transition-opacity"
+              aria-label="Close menu"
+              onClick={toggleMenu}
+              type="button"
+            >
+              <span>Close</span>
+              <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+              </svg>
+            </button>
           </div>
 
           {/* Menu content */}
-          <div className="flex-1 flex flex-col p-6 gap-8">
+          <div className="flex-1 flex flex-col p-4 gap-6">
             {/* Navigation items */}
             <nav>
               <ul
-                className="list-none m-0 p-0 flex flex-col gap-6"
+                className="list-none m-0 p-0 flex flex-col gap-4"
                 role="list"
               >
                 {items && items.length > 0 ? (
@@ -409,7 +419,7 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
                     <li key={`${it.label}-${idx}`} className="overflow-hidden">
                       <a
                         href={it.link}
-                        className="block text-3xl font-bold text-black uppercase tracking-tight hover:text-[var(--sm-accent,#ff6b6b)] transition-colors"
+                        className="block text-2xl font-bold text-black uppercase tracking-tight hover:text-[var(--sm-accent,#ff6b6b)] transition-colors"
                         aria-label={it.ariaLabel}
                         onClick={handleLinkClick}
                       >
@@ -432,7 +442,7 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
 
             {/* Social links */}
             {displaySocials && socialItems && socialItems.length > 0 && (
-              <div className="mt-auto pt-8 border-t border-gray-200">
+              <div className="mt-6 pt-4 border-t border-gray-200">
                 <h3 className="text-sm font-semibold text-[var(--sm-accent,#ff6b6b)] mb-4 uppercase tracking-wider">
                   Connect
                 </h3>
