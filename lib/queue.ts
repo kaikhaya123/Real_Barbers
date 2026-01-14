@@ -29,10 +29,39 @@ export async function generateQueueNumber(bookingDate: string, barberName: strin
   try {
     const bookings = await loadBookings() as DbBooking[]
     
+    console.log('[Queue] All bookings:', bookings.length, 'bookings loaded')
+    console.log('[Queue] First booking sample:', bookings[0])
+    
     // Get bookings for the same date and barber
     const sameDay = bookings.filter((b: DbBooking) => {
-      const bookingDateOnly = b.datetime?.split(' ')[0] // Get YYYY-MM-DD part
-      return bookingDateOnly === bookingDate && b.barber === barberName
+      if (!b.datetime) return false
+      
+      const bookingDateOnly = b.datetime.split(' ')[0] // Get YYYY-MM-DD part
+      const isSameDate = bookingDateOnly === bookingDate
+      
+      // More flexible barber matching - handle null, empty, and case-insensitive
+      const normalizeBarber = (str: string | undefined | null) => 
+        str?.trim().toLowerCase() || ''
+      
+      const isSameBarber = normalizeBarber(b.barber) === normalizeBarber(barberName)
+      
+      if (isSameDate && !isSameBarber) {
+        console.log('[Queue] Date matched but barber mismatch:', {
+          expectedBarber: barberName,
+          actualBarber: b.barber,
+          bookingDateTime: b.datetime,
+        })
+      }
+      
+      return isSameDate && isSameBarber
+    })
+    
+    console.log('[Queue] Generated queue number:', {
+      bookingDate,
+      barberName,
+      totalBookingsThatDay: sameDay.length,
+      nextQueueNumber: sameDay.length + 1,
+      matchedBookings: sameDay.map(b => ({ barber: b.barber, datetime: b.datetime }))
     })
     
     // Queue number is count + 1, padded to 3 digits

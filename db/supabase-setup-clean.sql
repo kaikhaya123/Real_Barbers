@@ -2,17 +2,6 @@
 -- PostgreSQL/Supabase SQL - Pro Barber Shop Database Schema
 -- Run this SQL in your Supabase SQL Editor: https://app.supabase.com/project/YOUR_PROJECT/sql/new
 
--- DROP old tables if they exist (CAUTION: this deletes all data)
--- DROP TABLE IF EXISTS public.loyalty_points CASCADE;
--- DROP TABLE IF EXISTS public.promotions CASCADE;
--- DROP TABLE IF EXISTS public.customers CASCADE;
--- DROP TABLE IF EXISTS public.reviews CASCADE;
--- DROP TABLE IF EXISTS public.unavailable_slots CASCADE;
--- DROP TABLE IF EXISTS public.working_hours CASCADE;
--- DROP TABLE IF EXISTS public.bookings CASCADE;
--- DROP TABLE IF EXISTS public.services CASCADE;
--- DROP TABLE IF EXISTS public.barbers CASCADE;
-
 -- ============================================================================
 -- BARBERS TABLE
 -- ============================================================================
@@ -160,6 +149,7 @@ CREATE TABLE IF NOT EXISTS public.promotions (
 -- ============================================================================
 CREATE INDEX IF NOT EXISTS idx_bookings_barber_date_time ON public.bookings(barberId, date, time);
 CREATE INDEX IF NOT EXISTS idx_bookings_email ON public.bookings(email);
+CREATE INDEX IF NOT EXISTS idx_bookings_phone ON public.bookings(phone);
 CREATE INDEX IF NOT EXISTS idx_bookings_status ON public.bookings(status);
 CREATE INDEX IF NOT EXISTS idx_bookings_date ON public.bookings(date);
 CREATE INDEX IF NOT EXISTS idx_bookings_queue ON public.bookings(queueNumber);
@@ -170,7 +160,7 @@ CREATE INDEX IF NOT EXISTS idx_customers_email ON public.customers(email);
 CREATE INDEX IF NOT EXISTS idx_promotions_active ON public.promotions(isActive);
 
 -- ============================================================================
--- ROW LEVEL SECURITY (RLS) - DROP OLD POLICIES FIRST
+-- ROW LEVEL SECURITY (RLS)
 -- ============================================================================
 DROP POLICY IF EXISTS "Allow public insert bookings" ON public.bookings;
 DROP POLICY IF EXISTS "Allow public select bookings" ON public.bookings;
