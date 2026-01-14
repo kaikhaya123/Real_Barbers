@@ -21,12 +21,12 @@ export default function Button({
   href,
   ...props
 }: ButtonProps) {
-  const baseStyles = 'inline-flex items-center justify-center font-semibold rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2'
+  const baseStyles = 'inline-flex items-center justify-center font-semibold rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 cursor-pointer active:scale-95 touch-manipulation'
   
   const variants = {
-    primary: 'bg-dark-900 text-cream-50 hover:bg-dark-800 focus:ring-dark-700',
-    secondary: 'bg-cream-200 text-dark-900 hover:bg-cream-300 focus:ring-cream-400',
-    outline: 'border-2 border-dark-900 text-dark-900 hover:bg-dark-50 focus:ring-dark-700',
+    primary: 'bg-dark-900 text-cream-50 hover:bg-dark-800 focus:ring-dark-700 active:bg-dark-950',
+    secondary: 'bg-cream-200 text-dark-900 hover:bg-cream-300 focus:ring-cream-400 active:bg-cream-400',
+    outline: 'border-2 border-dark-900 text-dark-900 hover:bg-dark-50 focus:ring-dark-700 active:bg-dark-100',
   }
   
   const sizes = {
@@ -41,7 +41,7 @@ export default function Button({
 
   if (asLink && href) {
     return (
-      <Link href={href} className={classes}>
+      <Link href={href} className={`${classes} inline-block`}>
         {children}
       </Link>
     )
@@ -49,14 +49,18 @@ export default function Button({
 
   if (href && !asLink) {
     return (
-      <Link href={href} className={classes}>
+      <Link href={href} className={`${classes} inline-block`}>
         {children}
       </Link>
     )
   }
 
   return (
-    <button className={classes} {...props}>
+    <button 
+      className={classes} 
+      {...props}
+      type={props.type || 'button'}
+    >
       {children}
     </button>
   )
