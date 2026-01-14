@@ -314,6 +314,34 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
       }`}
       style={{ pointerEvents: open ? 'auto' : 'none' }}
     >
+      {/* Toggle Button - Always Visible */}
+      <button
+        ref={toggleBtnRef}
+        className={`fixed top-6 right-6 z-50 inline-flex items-center gap-2 bg-transparent border-0 cursor-pointer font-medium text-sm leading-none pointer-events-auto transition-all duration-300 ${
+          open ? 'text-black' : 'text-white'
+        }`}
+        aria-label={open ? 'Close menu' : 'Open menu'}
+        aria-expanded={open}
+        onClick={toggleMenu}
+        type="button"
+      >
+        <span className="hidden sm:inline">{open ? 'Close' : 'Menu'}</span>
+        <span
+          ref={iconRef}
+          className="relative w-5 h-5 flex items-center justify-center"
+          aria-hidden="true"
+        >
+          <span
+            ref={plusHRef}
+            className="absolute w-full h-0.5 bg-current rounded"
+          />
+          <span
+            ref={plusVRef}
+            className="absolute w-0.5 h-full bg-current rounded"
+          />
+        </span>
+      </button>
+
       <div
         className={
           (className ? className + ' ' : '') + 'staggered-menu-wrapper pointer-events-none relative w-full h-full'
@@ -365,30 +393,7 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
                 priority
               />
             </div>
-            <button
-              ref={toggleBtnRef}
-              className="inline-flex items-center gap-2 bg-transparent border-0 cursor-pointer text-black font-medium text-sm leading-none pointer-events-auto"
-              aria-label="Close menu"
-              aria-expanded={open}
-              onClick={toggleMenu}
-              type="button"
-            >
-              <span>Close</span>
-              <span
-                ref={iconRef}
-                className="relative w-5 h-5 flex items-center justify-center"
-                aria-hidden="true"
-              >
-                <span
-                  ref={plusHRef}
-                  className="absolute w-full h-0.5 bg-black rounded"
-                />
-                <span
-                  ref={plusVRef}
-                  className="absolute w-0.5 h-full bg-black rounded"
-                />
-              </span>
-            </button>
+            <div className="w-5 h-5" />
           </div>
 
           {/* Menu content */}
