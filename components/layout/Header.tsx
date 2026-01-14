@@ -12,7 +12,7 @@ export default function Header() {
   const pathname = usePathname()
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMenuOpen, setIsMenuOpen] = useState(false)
-  const [useStaggeredMenu, setUseStaggeredMenu] = useState(false)
+  const [useStaggeredMenu, setUseStaggeredMenu] = useState(true)
 
   const navigation = [
     { name: 'ABOUT', href: '/about' },
