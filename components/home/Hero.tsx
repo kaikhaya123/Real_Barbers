@@ -25,7 +25,7 @@ export default function Hero() {
         {/* Right Image */}
         <div className="relative w-full md:w-1/2 h-1/2 md:h-full">
           <Image
-            src={encodeURI("/Images/From KlickPin CF Pin by Charita Jones on MY STYLE ♥ _ Shaved hair cuts Short shaved hairstyles Short hair undercut.jpg")}
+            src={encodeURI("/Images/short-hair-queenk.jpg")}
             alt="Short Haircut for Women"
             fill
             className="object-cover object-center md:object-left brightness-90 contrast-110"
