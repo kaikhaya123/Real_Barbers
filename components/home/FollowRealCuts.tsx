@@ -33,18 +33,15 @@ export default function FollowRealBarbershop() {
           {/* SOCIAL CTA */}
           <div className="mt-10 flex items-center gap-6">
             {[
-              { name: 'Instagram', url: 'https://instagram.com/probarber', icon: '/Images/instagram.png' },
-              { name: 'TikTok', url: 'https://tiktok.com/@probarber', icon: '/Images/tiktok.png' },
-              { name: 'WhatsApp', url: 'https://wa.me/27682770367', icon: '/Images/whatsapp.png' },
+              { name: 'Instagram', url: 'https://www.instagram.com/pro_barber_shop.za/', icon: '/Images/instagram.png' },
+              { name: 'WhatsApp', url: 'https://wa.me/27682188679', icon: '/Images/whatsapp.png' },
             ].map((social, idx) => (
-              <motion.a
+              <a
                 key={idx}
                 href={social.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                whileHover={{ scale: 1.08 }}
-                whileTap={{ scale: 0.96 }}
-                className="w-16 h-16 flex items-center justify-center rounded-full bg-dark-900 hover:bg-dark-800 transition shadow-lg"
+                className="w-16 h-16 flex items-center justify-center rounded-full bg-dark-900 hover:bg-dark-800 active:scale-95 transition shadow-lg transform duration-200 hover:scale-108"
                 aria-label={social.name}
               >
                 <Image
@@ -54,7 +51,7 @@ export default function FollowRealBarbershop() {
                   height={28}
                   className="invert"
                 />
-              </motion.a>
+              </a>
             ))}
           </div>
 
