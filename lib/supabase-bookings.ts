@@ -12,12 +12,22 @@ if (!SUPABASE_URL || !SUPABASE_SERVICE_ROLE_KEY) {
   console.warn('⚠️  Supabase credentials not found, some features may not work')
 }
 
-// Initialize Supabase client
-const supabase = createClient(SUPABASE_URL || '', SUPABASE_SERVICE_ROLE_KEY || '')
+// Initialize Supabase client - only if credentials are available
+let supabase: any = null
+
+function getSupabase() {
+  if (!supabase && SUPABASE_URL && SUPABASE_SERVICE_ROLE_KEY) {
+    supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY)
+  }
+  return supabase
+}
 
 export async function loadBookings() {
   try {
-    const { data, error } = await supabase
+    const sb = getSupabase()
+    if (!sb) return []
+    
+    const { data, error } = await sb
       .from('bookings')
       .select('*')
       .order('createdat', { ascending: false })
@@ -58,7 +68,13 @@ export async function saveBooking(input: Record<string, any>) {
     }
 
     // Insert with exact column names matching Supabase schema
-    const { data, error } = await supabase
+    const sb = getSupabase()
+    if (!sb) {
+      console.error('Error saving booking: Supabase not configured')
+      return booking
+    }
+    
+    const { data, error } = await sb
       .from('bookings')
       .insert([{
         id: booking.id,
@@ -92,7 +108,10 @@ export async function saveBooking(input: Record<string, any>) {
  */
 export async function findPendingBookingByPhone(phone: string) {
   try {
-    const { data, error } = await supabase
+    const sb = getSupabase()
+    if (!sb) return null
+    
+    const { data, error } = await sb
       .from('bookings')
       .select('*')
       .eq('phone', phone)
@@ -127,8 +146,10 @@ export async function updateBookingStatus(
 ) {
   try {
     const now = new Date().toISOString()
+    const sb = getSupabase()
+    if (!sb) return null
 
-    const { data, error } = await supabase
+    const { data, error } = await sb
       .from('bookings')
       .update({ status, updatedat: now })
       .eq('id', bookingId)
@@ -157,7 +178,10 @@ export async function isBarberAvailable(
   if (!barberId) return true // If no barber preference, always available
 
   try {
-    const { data, error } = await supabase
+    const sb = getSupabase()
+    if (!sb) return true
+    
+    const { data, error } = await sb
       .from('bookings')
       .select('*')
       .eq('barber', barberId)
