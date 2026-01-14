@@ -312,6 +312,7 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
       className={`sm-scope z-40 ${
         isFixed ? 'fixed top-0 left-0 w-screen h-screen overflow-hidden' : 'w-full h-full'
       }`}
+      style={{ pointerEvents: open ? 'auto' : 'none' }}
     >
       <div
         className={
@@ -454,10 +455,13 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
 .sm-scope { position: relative; width: 100%; height: 100%; z-index: 40; pointer-events: none; }
 .sm-scope.fixed { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; overflow: hidden; }
 .sm-scope .staggered-menu-wrapper { position: relative; width: 100%; height: 100%; pointer-events: none; }
-.sm-scope .sm-prelayers { position: absolute; top: 0; right: 0; bottom: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; }
+.sm-scope .staggered-menu-wrapper[data-open] { pointer-events: auto; }
+.sm-scope .sm-prelayers { position: absolute; top: 0; right: 0; bottom: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; visibility: hidden; }
+.sm-scope .staggered-menu-wrapper[data-open] .sm-prelayers { visibility: visible; }
 .sm-scope .sm-prelayer { position: absolute; top: 0; right: 0; width: 100%; height: 100%; }
 .sm-scope [data-position="left"] .sm-prelayer { left: 0; right: auto; }
-.sm-scope .staggered-menu-panel { position: absolute; top: 0; right: 0; width: 100%; height: 100%; background: white; overflow-y: auto; overscroll-behavior: contain; z-index: 10; pointer-events: auto; }
+.sm-scope .staggered-menu-panel { position: fixed; top: 0; right: 0; width: 100%; height: 100vh; background: white; overflow-y: auto; overscroll-behavior: contain; z-index: 50; pointer-events: auto; visibility: hidden; opacity: 0; }
+.sm-scope .staggered-menu-wrapper[data-open] .staggered-menu-panel { visibility: visible; opacity: 1; }
 .sm-scope [data-position="left"] .staggered-menu-panel { left: 0; right: auto; }
 .sm-scope .staggered-menu-panel header { position: sticky; top: 0; width: 100%; background: white; z-index: 40; }
 .sm-scope a { color: inherit; text-decoration: none; }
