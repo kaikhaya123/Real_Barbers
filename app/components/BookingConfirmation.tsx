@@ -1,15 +1,16 @@
-'use client';
+'use client'
 
-import { useEffect, useState } from 'react';
-import Lottie from 'lottie-react';
-import loadingAnimation from '@/public/lottie/loading.lottie';
-import successAnimation from '@/public/lottie/success-tick.lottie';
+import { useEffect, useState } from 'react'
+import dynamic from 'next/dynamic'
+
+// Lottie must be client-only
+const Lottie = dynamic(() => import('lottie-react'), { ssr: false })
 
 interface BookingConfirmationProps {
-  bookingId: string;
-  queueNumber: string;
-  serviceName: string;
-  customerName: string;
+  bookingId: string
+  queueNumber: string
+  serviceName: string
+  customerName: string
 }
 
 export default function BookingConfirmation({
@@ -18,77 +19,98 @@ export default function BookingConfirmation({
   serviceName,
   customerName,
 }: BookingConfirmationProps) {
-  const [showConfirmation, setShowConfirmation] = useState(true);
-  const [isLoading, setIsLoading] = useState(true);
+  const [visible, setVisible] = useState(true)
+  const [stage, setStage] = useState<'loading' | 'success'>('loading')
+  const [loadingAnimation, setLoadingAnimation] = useState<any>(null)
+  const [successAnimation, setSuccessAnimation] = useState<any>(null)
 
+  // Load animations once
   useEffect(() => {
-    console.log('BookingConfirmation mounted, isLoading:', isLoading);
+    const loadAnimations = async () => {
+      const loading = await import('@/public/animations/loading.json')
+      const success = await import('@/public/animations/success.json')
 
-    // Show loading for 2 seconds, then show success
+      setLoadingAnimation(loading.default)
+      setSuccessAnimation(success.default)
+    }
+
+    loadAnimations()
+  }, [])
+
+  // Control flow timing
+  useEffect(() => {
+    if (!loadingAnimation || !successAnimation) return
+
     const loadingTimer = setTimeout(() => {
-      console.log('Switching to success state');
-      setIsLoading(false);
-    }, 2000);
+      setStage('success')
+    }, 2000)
 
-    // Hide confirmation after 7 seconds total
-    const confirmationTimer = setTimeout(() => {
-      console.log('Hiding confirmation');
-      setShowConfirmation(false);
-    }, 7000);
+    const hideTimer = setTimeout(() => {
+      setVisible(false)
+    }, 7000)
 
     return () => {
-      clearTimeout(loadingTimer);
-      clearTimeout(confirmationTimer);
-    };
-  }, []);
+      clearTimeout(loadingTimer)
+      clearTimeout(hideTimer)
+    }
+  }, [loadingAnimation, successAnimation])
 
-  console.log('Rendering - showConfirmation:', showConfirmation, 'isLoading:', isLoading);
-
-  if (!showConfirmation) return null;
+  if (!visible) return null
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
-      <div className="bg-white rounded-lg p-8 max-w-md w-full text-center">
-        {/* Loading Animation */}
-        {isLoading && (
-          <>
-            <div style={{ height: 150, width: 150, margin: '0 auto', backgroundColor: '#f0f0f0' }}>
-              <Lottie
-                animationData={loadingAnimation}
-                loop={true}
-                autoplay={true}
-                style={{ height: '100%', width: '100%' }}
-              />
-            </div>
-            <p className="text-gray-600 font-semibold mt-4">Processing your booking...</p>
-          </>
-        )}
-
-        {/* Success Animation */}
-        {!isLoading && (
-          <>
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+      <div className="bg-white rounded-xl p-8 text-center max-w-md w-full mx-4 shadow-2xl">
+        <div className="w-32 h-32 mx-auto mb-6 flex items-center justify-center">
+          {stage === 'loading' && loadingAnimation && (
             <Lottie
+              key="loading"
+              animationData={loadingAnimation}
+              loop
+              autoplay
+              style={{ width: 128, height: 128 }}
+            />
+          )}
+
+          {stage === 'success' && successAnimation && (
+            <Lottie
+              key="success"
               animationData={successAnimation}
               loop={false}
-              autoplay={true}
-              style={{ height: 150, width: 150, margin: '0 auto' }}
+              autoplay
+              style={{ width: 128, height: 128 }}
             />
+          )}
+        </div>
 
-            <h2 className="text-2xl font-bold text-green-600 mt-6">Booking Confirmed!</h2>
-            <p className="text-gray-700 mt-2">
-              Thank you, <strong>{customerName}</strong>
+        {stage === 'loading' ? (
+          <>
+            <h2 className="text-2xl font-bold text-gray-800 mb-2">
+              Processing your booking
+            </h2>
+            <p className="text-gray-600">
+              Please wait while we confirm your appointment
             </p>
-
-            <div className="mt-6 space-y-3 text-left bg-gray-50 p-4 rounded">
-              <p><strong>Service:</strong> {serviceName}</p>
-              <p><strong>Queue Number:</strong> <span className="text-xl font-bold text-blue-600">{queueNumber}</span></p>
-              <p><strong>Booking ID:</strong> {bookingId}</p>
-            </div>
-
-            <p className="text-sm text-gray-500 mt-4">Redirecting in a few seconds...</p>
+          </>
+        ) : (
+          <>
+            <h2 className="text-2xl font-bold text-green-600 mb-2">
+              Booking confirmed
+            </h2>
+            <p className="text-gray-600 mb-2">
+              Booking ID: <span className="font-semibold">{bookingId}</span>
+            </p>
+            <p className="text-gray-600 mb-2">
+              Service: <span className="font-semibold">{serviceName}</span>
+            </p>
+            <p className="text-gray-600 mb-4">
+              Queue number: <span className="font-semibold">{queueNumber}</span>
+            </p>
+            <p className="text-sm text-gray-500">
+              Redirecting to queue
+            </p>
           </>
         )}
       </div>
     </div>
-  );
+  )
 }

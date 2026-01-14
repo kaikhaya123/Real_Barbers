@@ -117,7 +117,7 @@ export default function Footer() {
 
         <div className="mt-8 pt-8 border-t border-gray-200">
           <p className="text-center text-dark-500 text-sm">
-            © {new Date().getFullYear()} Pro Barber Shop ZA. All rights reserved.
+            © {new Date().getFullYear()} Pro Barber Shop. All rights reserved.
           </p>
         </div>
       </div>

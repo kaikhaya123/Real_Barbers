@@ -4,7 +4,7 @@ export const BUSINESS_INFO = {
   tagline: 'Sharp Cuts. Fresh Looks. Professional Service.',
   address: '35 Nyakata St, Chatsworth, KwaZulu-Natal',
   phone: '+27 68 218 8679',
-  whatsapp: '27682770367',
+  whatsapp: '27682188679',
   email: 'goodhopengcobo5@gmail.com',
   instagram: '@pro_barber_shop.za',
   instagramStats: { posts: 42, followers: 217 },

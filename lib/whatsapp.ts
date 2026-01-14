@@ -7,7 +7,7 @@ export function sanitizePhone(phone: string) {
   if (digits.length > 12 && digits.startsWith('2727')) {
     digits = digits.replace(/^27+/, '27')
   }
-  // If a local number like 0682770367 is given, convert to E.164 for South Africa
+  // If a local number like 0682188679 is given, convert to E.164 for South Africa
   if (digits.length === 10 && digits.startsWith('0')) {
     digits = '27' + digits.slice(1)
   }
