@@ -1,6 +1,6 @@
-# Pro Barber Shop ZA - Official Website
+# Pro Barber Shop  - Official Website
 
-A premium, production-ready barbershop website built for Pro Barber Shop ZA in Durban, KwaZulu Natal, South Africa.
+A premium, production-ready barbershop website built for Pro Barber Shop in Durban, KwaZulu Natal, South Africa.
 
 ## 🎯 Purpose
 

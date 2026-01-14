@@ -6,17 +6,32 @@ import Image from 'next/image'
 import { useState, useEffect } from 'react'
 import { Menu, X } from 'lucide-react'
 import FullScreenNav from './FullScreenNav'
+import StaggeredMenu from '@/components/ui/StaggeredMenu'
 
 export default function Header() {
   const pathname = usePathname()
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [useStaggeredMenu, setUseStaggeredMenu] = useState(false)
 
   const navigation = [
     { name: 'ABOUT', href: '/about' },
     { name: 'SERVICES', href: '/services' },
     { name: 'BARBERS', href: '/barbers' },
     { name: 'CONTACT', href: '/contact' },
+  ]
+
+  const menuItems = [
+    { label: 'Home', ariaLabel: 'Go to home page', link: '/' },
+    { label: 'About', ariaLabel: 'Learn about us', link: '/about' },
+    { label: 'Services', ariaLabel: 'View our services', link: '/services' },
+    { label: 'Barbers', ariaLabel: 'Meet our barbers', link: '/barbers' },
+    { label: 'Contact', ariaLabel: 'Get in touch', link: '/contact' },
+  ]
+
+  const socialItems = [
+    { label: 'Instagram', link: 'https://instagram.com/pro_barber_shop.za' },
+    { label: 'WhatsApp', link: 'https://wa.me/27682188679' },
   ]
 
   useEffect(() => {
@@ -134,11 +149,31 @@ export default function Header() {
       </div>
 
       {/* Full Screen Navigation */}
-      <FullScreenNav 
-        isOpen={isMenuOpen} 
-        onClose={() => setIsMenuOpen(false)} 
-        navigation={navigation} 
-      />
+      {useStaggeredMenu ? (
+        <div className="fixed inset-0 z-40">
+          <StaggeredMenu
+            position="right"
+            items={menuItems}
+            socialItems={socialItems}
+            displaySocials={true}
+            displayItemNumbering={true}
+            menuButtonColor={isScrolled || pathname !== '/' ? '#000' : '#fff'}
+            openMenuButtonColor="#fff"
+            changeMenuColorOnOpen={true}
+            colors={['#B19EEF', '#5227FF', '#ff6b6b']}
+            logoUrl="/logo/Pro_barbershop_logo.png"
+            accentColor="#ff6b6b"
+            onMenuOpen={() => console.log('Menu opened')}
+            onMenuClose={() => setIsMenuOpen(false)}
+          />
+        </div>
+      ) : (
+        <FullScreenNav 
+          isOpen={isMenuOpen} 
+          onClose={() => setIsMenuOpen(false)} 
+          navigation={navigation} 
+        />
+      )}
     </header>
   )
 }
