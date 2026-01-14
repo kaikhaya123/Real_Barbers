@@ -2,6 +2,7 @@
 
 import React, { useCallback, useLayoutEffect, useRef, useState } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import gsap from 'gsap';
 
 interface MenuItem {
@@ -380,17 +381,17 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
         >
           {/* Header inside panel */}
           <div className="sticky top-0 w-full flex items-center justify-between p-4 bg-white border-b border-gray-100 z-30">
-            <div className="flex items-center">
+            <Link href="/" className="flex items-center" onClick={handleLinkClick}>
               <Image
                 src={logoUrl || '/logo/Pro_barbershop_logo.png'}
                 alt="Logo"
-                className="h-7 w-auto object-contain"
+                className="h-7 w-auto object-contain hover:opacity-80 transition-opacity"
                 draggable={false}
                 width={110}
                 height={24}
                 priority
               />
-            </div>
+            </Link>
             <button
               className="inline-flex items-center gap-1 bg-transparent border-0 cursor-pointer text-black font-medium text-xs leading-none pointer-events-auto hover:opacity-70 transition-opacity"
               aria-label="Close menu"
