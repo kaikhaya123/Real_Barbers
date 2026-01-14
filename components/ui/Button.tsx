@@ -21,7 +21,7 @@ export default function Button({
   href,
   ...props
 }: ButtonProps) {
-  const baseStyles = 'inline-flex items-center justify-center font-semibold rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 cursor-pointer active:scale-95 touch-manipulation'
+  const baseStyles = 'inline-flex items-center justify-center font-semibold rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 cursor-pointer active:scale-95 touch-manipulation pointer-events-auto'
   
   const variants = {
     primary: 'bg-dark-900 text-cream-50 hover:bg-dark-800 focus:ring-dark-700 active:bg-dark-950',

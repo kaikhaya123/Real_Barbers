@@ -20,7 +20,7 @@ export async function loadBookings() {
     const { data, error } = await supabase
       .from('bookings')
       .select('*')
-      .order('createdat', { ascending: false })
+      .order('createdAt', { ascending: false })
 
     if (error) {
       console.error('Error loading bookings:', error)
@@ -40,12 +40,12 @@ export async function saveBooking(input: Record<string, any>) {
     const now = new Date().toISOString()
 
     // Map input to match Supabase schema exactly
-    const from = input.from || input.phone || ''
+    const phone = input.from || input.phone || ''
     const dateTime = input.datetime || input.dateTime || null
     
     const booking = {
       id,
-      from,
+      phone,
       service: input.service || '',
       name: input.name || null,
       dateTime,
@@ -62,7 +62,7 @@ export async function saveBooking(input: Record<string, any>) {
       .from('bookings')
       .insert([{
         id: booking.id,
-        from: booking.from,
+        phone: booking.phone,
         service: booking.service,
         name: booking.name,
         dateTime: booking.dateTime,
@@ -95,7 +95,7 @@ export async function findPendingBookingByPhone(phone: string) {
     const { data, error } = await supabase
       .from('bookings')
       .select('*')
-      .eq('from', phone)
+      .eq('phone', phone)
       .eq('status', 'pending')
       .order('createdAt', { ascending: false })
       .limit(1)

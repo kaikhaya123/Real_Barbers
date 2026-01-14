@@ -78,7 +78,7 @@ export default function DateTimeSelector({ service, barber, onSelect, onBack }: 
   return (
     <div>
       <div className="mb-6">
-        <button onClick={onBack} className="text-accent-600 hover:text-accent-700 mb-3">
+        <button onClick={onBack} className="text-accent-600 hover:text-accent-700 mb-3 pointer-events-auto">
           ← Back to barbers
         </button>
         <h2 className="text-2xl font-bold text-primary-900 mb-2">

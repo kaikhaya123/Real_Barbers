@@ -19,7 +19,7 @@ function getDb() {
   db.exec(`
     CREATE TABLE IF NOT EXISTS bookings (
       id TEXT PRIMARY KEY,
-      "from" TEXT NOT NULL,
+      phone TEXT NOT NULL,
       service TEXT NOT NULL,
       name TEXT,
       datetime TEXT,
@@ -31,7 +31,7 @@ function getDb() {
       updatedat TEXT
     );
     
-    CREATE INDEX IF NOT EXISTS idx_bookings_from ON bookings("from");
+    CREATE INDEX IF NOT EXISTS idx_bookings_phone ON bookings(phone);
     CREATE INDEX IF NOT EXISTS idx_bookings_status ON bookings(status);
     CREATE INDEX IF NOT EXISTS idx_bookings_created ON bookings(createdat);
   `)
@@ -62,13 +62,13 @@ export async function saveBooking(input: Record<string, any>) {
     }
 
     const stmt = db.prepare(`
-      INSERT INTO bookings (id, "from", service, name, datetime, barber, raw, status, source, createdat, updatedat)
+      INSERT INTO bookings (id, phone, service, name, datetime, barber, raw, status, source, createdat, updatedat)
       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     `)
 
     stmt.run(
       booking.id,
-      booking.from || '',
+      booking.phone || booking.from || '',
       booking.service || '',
       booking.name || null,
       booking.datetime || null,
@@ -94,7 +94,7 @@ export async function findPendingBookingByPhone(phone: string) {
   try {
     const booking = db.prepare(`
       SELECT * FROM bookings 
-      WHERE "from" = ? AND status = 'pending' 
+      WHERE phone = ? AND status = 'pending' 
       ORDER BY createdAt DESC 
       LIMIT 1
     `).get(phone)

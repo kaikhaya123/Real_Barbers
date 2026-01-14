@@ -67,7 +67,7 @@ export default function BookingForm({ service, barber, date, time, onSubmit, onB
   return (
     <div>
       <div className="mb-6">
-        <button onClick={onBack} className="text-accent-600 hover:text-accent-700 mb-3">
+        <button onClick={onBack} className="text-accent-600 hover:text-accent-700 mb-3 pointer-events-auto">
           ← Back to date & time
         </button>
         <h2 className="text-2xl font-bold text-primary-900 mb-2">

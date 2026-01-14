@@ -23,7 +23,7 @@ export default function ServiceSelector({ onSelect }: ServiceSelectorProps) {
           >
             <button
               onClick={() => onSelect(service)}
-              className="w-full text-left"
+              className="w-full text-left pointer-events-auto"
             >
               <h3 className="text-xl font-bold text-primary-900 mb-2">
                 {service.name}
