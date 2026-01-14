@@ -1,22 +1,9 @@
 /**
- * Bookings API - Uses Supabase for production, SQLite for local development
- * Automatically detects which to use based on environment variables
+ * Bookings API - Uses Supabase for production
  */
 
-// Use Supabase if configured, otherwise fall back to SQLite
-const USE_SUPABASE = !!process.env.SUPABASE_URL && !!process.env.SUPABASE_SERVICE_ROLE_KEY
-
-let bookingsModule: any
-
-if (USE_SUPABASE) {
-  // Production: Use Supabase
-  console.log('📊 Using Supabase for bookings storage')
-  bookingsModule = require('./supabase-bookings')
-} else {
-  // Development: Use SQLite (fallback)
-  console.log('📊 Using SQLite for bookings storage (local)')
-  bookingsModule = require('./sqlite-bookings')
-}
+// Import Supabase bookings module
+const bookingsModule = require('./supabase-bookings')
 
 export const { 
   loadBookings, 
