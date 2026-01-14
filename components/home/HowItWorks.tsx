@@ -7,7 +7,7 @@ import Section from "@/components/ui/Section"
 const steps = [
   {
     number: "01",
-    iconImage: "/Icons/booking.png",
+    iconImage: "/Icons/barber.png",
     title: "Pick Your Service",
     description: "Browse our services and select the one you need — from classic cuts to premium trims.",
   },
