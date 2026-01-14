@@ -120,7 +120,7 @@ export default function Header() {
       </div>
 
       {/* Staggered Menu Navigation */}
-      <div className="fixed inset-0 z-40 lg:hidden">
+      <div className="lg:hidden">
         <StaggeredMenu
           position="right"
           items={menuItems}
