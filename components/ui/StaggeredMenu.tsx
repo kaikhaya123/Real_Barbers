@@ -317,9 +317,7 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
       {/* Toggle Button - Always Visible */}
       <button
         ref={toggleBtnRef}
-        className={`fixed top-6 right-6 z-50 inline-flex items-center gap-2 bg-transparent border-0 cursor-pointer font-medium text-sm leading-none pointer-events-auto transition-all duration-300 ${
-          open ? 'text-black' : 'text-white'
-        }`}
+        className={`fixed top-6 right-6 z-50 inline-flex items-center gap-2 bg-transparent border-0 cursor-pointer font-medium text-sm leading-none pointer-events-auto transition-all duration-300 text-black`}
         aria-label={open ? 'Close menu' : 'Open menu'}
         aria-expanded={open}
         onClick={toggleMenu}
