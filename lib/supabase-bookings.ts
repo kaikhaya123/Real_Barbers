@@ -20,7 +20,7 @@ export async function loadBookings() {
     const { data, error } = await supabase
       .from('bookings')
       .select('*')
-      .order('createdAt', { ascending: false })
+      .order('createdat', { ascending: false })
 
     if (error) {
       console.error('Error loading bookings:', error)
@@ -41,20 +41,20 @@ export async function saveBooking(input: Record<string, any>) {
 
     // Map input to match Supabase schema exactly
     const phone = input.from || input.phone || ''
-    const dateTime = input.datetime || input.dateTime || null
+    const datetime = input.datetime || input.dateTime || null
     
     const booking = {
       id,
       phone,
       service: input.service || '',
       name: input.name || null,
-      dateTime,
+      datetime,
       barber: input.barber || null,
       raw: input.raw || null,
       status: input.status || 'pending',
       source: input.source || 'twilio',
-      createdAt: now,
-      updatedAt: null,
+      createdat: now,
+      updatedat: null,
     }
 
     // Insert with exact column names matching Supabase schema
@@ -65,13 +65,13 @@ export async function saveBooking(input: Record<string, any>) {
         phone: booking.phone,
         service: booking.service,
         name: booking.name,
-        dateTime: booking.dateTime,
+        datetime: booking.datetime,
         barber: booking.barber,
         raw: booking.raw,
         status: booking.status,
         source: booking.source,
-        createdAt: booking.createdAt,
-        updatedAt: booking.updatedAt,
+        createdat: booking.createdat,
+        updatedat: booking.updatedat,
       }])
       .select()
 
@@ -97,7 +97,7 @@ export async function findPendingBookingByPhone(phone: string) {
       .select('*')
       .eq('phone', phone)
       .eq('status', 'pending')
-      .order('createdAt', { ascending: false })
+      .order('createdat', { ascending: false })
       .limit(1)
       .single()
 
@@ -130,7 +130,7 @@ export async function updateBookingStatus(
 
     const { data, error } = await supabase
       .from('bookings')
-      .update({ status, updatedAt: now })
+      .update({ status, updatedat: now })
       .eq('id', bookingId)
       .select()
 
@@ -162,7 +162,7 @@ export async function isBarberAvailable(
       .select('*')
       .eq('barber', barberId)
       .in('status', ['confirmed', 'completed'])
-      .not('dateTime', 'is', null)
+      .not('datetime', 'is', null)
 
     if (error) {
       console.error('Error checking availability:', error)
@@ -176,7 +176,7 @@ export async function isBarberAvailable(
     const requestedEnd = new Date(requestedStart.getTime() + duration * 60000)
 
     const hasConflict = bookings.some((b: any) => {
-      const existingStart = new Date(`${b.dateTime}:00`)
+      const existingStart = new Date(`${b.datetime}:00`)
       const existingService = SERVICES.find((s: any) => s.name === b.service)
       const existingDuration = existingService?.duration || 60
       const existingEnd = new Date(existingStart.getTime() + existingDuration * 60000)
