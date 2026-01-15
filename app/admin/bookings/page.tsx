@@ -231,13 +231,22 @@ export default function AdminBookings() {
                 <button
                   key={date}
                   onClick={() => setDateFilter(date)}
-                  className={`px-2.5 sm:px-3 py-1.5 sm:py-2 capitalize font-medium text-xs sm:text-sm transition rounded whitespace-nowrap ${
+                  className={`px-2.5 sm:px-3 py-1.5 sm:py-2 capitalize font-medium text-xs sm:text-sm transition rounded whitespace-nowrap flex items-center gap-1 ${
                     dateFilter === date
                       ? 'bg-green-600 text-white'
                       : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                   }`}
                 >
-                  {date === 'today' ? '📅 Today' : date === 'yesterday' ? 'Yesterday' : date === 'week' ? 'Week' : date === 'month' ? 'Month' : 'All'}
+                  {date === 'today' && (
+                    <Image
+                      src="/Icons/calendar (2).png"
+                      alt="Calendar"
+                      width={16}
+                      height={16}
+                      className="w-4 h-4"
+                    />
+                  )}
+                  {date === 'today' ? 'Today' : date === 'yesterday' ? 'Yesterday' : date === 'week' ? 'Week' : date === 'month' ? 'Month' : 'All'}
                 </button>
               ))}
             </div>
@@ -295,13 +304,27 @@ export default function AdminBookings() {
                     <h3 className="font-semibold text-gray-900 mb-1 text-sm">Service</h3>
                     <p className="text-gray-700 text-sm font-medium">{booking.service}</p>
                     {booking.date && booking.time && (
-                      <p className="text-gray-600 text-xs mt-1">
-                        📅 {booking.date} at {booking.time}
+                      <p className="text-gray-600 text-xs mt-1 flex items-center gap-1">
+                        <Image
+                          src="/Icons/calendar (2).png"
+                          alt="Date"
+                          width={14}
+                          height={14}
+                          className="w-3.5 h-3.5"
+                        />
+                        {booking.date} at {booking.time}
                       </p>
                     )}
                     {booking.barber && (
-                      <p className="text-gray-600 text-xs mt-1">
-                        💈 {booking.barber}
+                      <p className="text-gray-600 text-xs mt-1 flex items-center gap-1">
+                        <Image
+                          src="/Icons/user.png"
+                          alt="Barber"
+                          width={14}
+                          height={14}
+                          className="w-3.5 h-3.5"
+                        />
+                        {booking.barber}
                       </p>
                     )}
                   </div>
@@ -334,34 +357,69 @@ export default function AdminBookings() {
                     <>
                       <button
                         onClick={() => updateStatus(booking.bookingid, 'confirmed')}
-                        className="flex-1 min-w-[100px] bg-green-600 hover:bg-green-700 text-white font-medium py-2 sm:py-2.5 px-3 sm:px-4 rounded transition text-sm sm:text-base"
+                        className="flex-1 min-w-[100px] bg-green-600 hover:bg-green-700 text-white font-medium py-2 sm:py-2.5 px-3 sm:px-4 rounded transition text-sm sm:text-base flex items-center justify-center gap-1"
                       >
-                        ✓ Confirm
+                        <Image
+                          src="/Icons/approval-symbol-in-badge.png"
+                          alt="Confirm"
+                          width={16}
+                          height={16}
+                          className="w-4 h-4"
+                        />
+                        Confirm
                       </button>
                       <button
                         onClick={() => updateStatus(booking.bookingid, 'cancelled')}
-                        className="flex-1 min-w-[100px] bg-red-600 hover:bg-red-700 text-white font-medium py-2 sm:py-2.5 px-3 sm:px-4 rounded transition text-sm sm:text-base"
+                        className="flex-1 min-w-[100px] bg-red-600 hover:bg-red-700 text-white font-medium py-2 sm:py-2.5 px-3 sm:px-4 rounded transition text-sm sm:text-base flex items-center justify-center gap-1"
                       >
-                        ✕ Cancel
+                        <Image
+                          src="/Icons/delete.png"
+                          alt="Cancel"
+                          width={16}
+                          height={16}
+                          className="w-4 h-4"
+                        />
+                        Cancel
                       </button>
                     </>
                   )}
                   {booking.status === 'confirmed' && (
                     <button
                       onClick={() => updateStatus(booking.bookingid, 'completed')}
-                      className="flex-1 min-w-[100px] bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 sm:py-2.5 px-3 sm:px-4 rounded transition text-sm sm:text-base"
+                      className="flex-1 min-w-[100px] bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 sm:py-2.5 px-3 sm:px-4 rounded transition text-sm sm:text-base flex items-center justify-center gap-1"
                     >
-                      ✓ Done
+                      <Image
+                        src="/Icons/checked.png"
+                        alt="Done"
+                        width={16}
+                        height={16}
+                        className="w-4 h-4"
+                      />
+                      Done
                     </button>
                   )}
                   {booking.status === 'completed' && (
-                    <div className="flex-1 text-center py-2 text-green-600 font-medium text-sm">
-                      ✅ Completed
+                    <div className="flex-1 text-center py-2 text-green-600 font-medium text-sm flex items-center justify-center gap-1">
+                      <Image
+                        src="/Icons/check.png"
+                        alt="Completed"
+                        width={16}
+                        height={16}
+                        className="w-4 h-4"
+                      />
+                      Completed
                     </div>
                   )}
                   {booking.status === 'cancelled' && (
-                    <div className="flex-1 text-center py-2 text-red-600 font-medium text-sm">
-                      ❌ Cancelled
+                    <div className="flex-1 text-center py-2 text-red-600 font-medium text-sm flex items-center justify-center gap-1">
+                      <Image
+                        src="/Icons/multiply.png"
+                        alt="Cancelled"
+                        width={16}
+                        height={16}
+                        className="w-4 h-4"
+                      />
+                      Cancelled
                     </div>
                   )}
 
@@ -373,7 +431,13 @@ export default function AdminBookings() {
                     className="bg-green-500 hover:bg-green-600 text-white font-medium py-2 sm:py-2.5 px-3 sm:px-4 rounded transition flex items-center justify-center min-w-[44px] h-[44px] sm:h-auto"
                     title="Contact via WhatsApp"
                   >
-                    💬
+                    <Image
+                      src="/Icons/whatsapp (1).png"
+                      alt="WhatsApp"
+                      width={20}
+                      height={20}
+                      className="w-5 h-5"
+                    />
                   </a>
                 </div>
               </div>
