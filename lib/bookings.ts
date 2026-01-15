@@ -10,7 +10,8 @@ export const {
   saveBooking, 
   findPendingBookingByPhone, 
   updateBookingStatus, 
-  isBarberAvailable 
+  isBarberAvailable,
+  updateBookingQueueNumber
 } = bookingsModule
 
 export default bookingsModule

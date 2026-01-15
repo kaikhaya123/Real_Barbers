@@ -46,28 +46,35 @@ export async function loadBookings() {
 
 export async function saveBooking(input: Record<string, any>) {
   try {
-    const id = `RB-${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 8)}`
+    // Use text-based booking ID (for reference), let UUID id auto-generate
+    const bookingId = `RB-${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 8)}`
     const now = new Date().toISOString()
 
-    // Map input to match Supabase schema exactly
+    // Map input to match Supabase schema exactly (LOWERCASE columns, NO raw column)
     const phone = input.from || input.phone || ''
-    const datetime = input.datetime || input.dateTime || null
+    const date = input.date || new Date().toISOString().split('T')[0]
+    const time = input.time || new Date().toTimeString().split(' ')[0]
+    const barberid = input.barberId || null
     
     const booking = {
-      id,
+      bookingid: bookingId,
       phone,
       service: input.service || '',
       name: input.name || null,
-      datetime,
+      email: input.email || null,
+      date,
+      time,
       barber: input.barber || null,
-      raw: input.raw || null,
+      barberid,
+      queuenumber: null,
       status: input.status || 'pending',
-      source: input.source || 'twilio',
+      paymentstatus: input.paymentStatus || 'pending',
+      notes: input.notes || null,
       createdat: now,
       updatedat: null,
     }
 
-    // Insert with exact column names matching Supabase schema
+    // Insert with exact column names matching Supabase schema (LOWERCASE, NO raw, NO id)
     const sb = getSupabase()
     if (!sb) {
       console.error('Error saving booking: Supabase not configured')
@@ -77,15 +84,22 @@ export async function saveBooking(input: Record<string, any>) {
     const { data, error } = await sb
       .from('bookings')
       .insert([{
-        id: booking.id,
+        // id: auto-generated UUID by Supabase
+        bookingid: booking.bookingid,
         phone: booking.phone,
         service: booking.service,
+        serviceid: input.serviceId || null,
         name: booking.name,
-        datetime: booking.datetime,
+        email: booking.email,
+        date: booking.date,
+        time: booking.time,
         barber: booking.barber,
-        raw: booking.raw,
+        barberid: booking.barberid,
+        queuenumber: booking.queuenumber,
         status: booking.status,
-        source: booking.source,
+        paymentstatus: booking.paymentstatus,
+        notes: booking.notes,
+        // raw: NOT in your schema, removed
         createdat: booking.createdat,
         updatedat: booking.updatedat,
       }])
@@ -149,10 +163,11 @@ export async function updateBookingStatus(
     const sb = getSupabase()
     if (!sb) return null
 
+    // Match by bookingid (text), not id (UUID)
     const { data, error } = await sb
       .from('bookings')
       .update({ status, updatedat: now })
-      .eq('id', bookingId)
+      .eq('bookingid', bookingId)
       .select()
 
     if (error) {
@@ -216,10 +231,42 @@ export async function isBarberAvailable(
   }
 }
 
+/**
+ * Update booking with queue number
+ */
+export async function updateBookingQueueNumber(
+  bookingId: string,
+  queueNumber: string
+) {
+  try {
+    const now = new Date().toISOString()
+    const sb = getSupabase()
+    if (!sb) return null
+
+    // Match by bookingid (text), not id (UUID)
+    const { data, error } = await sb
+      .from('bookings')
+      .update({ queuenumber: queueNumber, updatedat: now })
+      .eq('bookingid', bookingId)
+      .select()
+
+    if (error) {
+      console.error('[Queue] Error updating queue number:', error)
+      return null
+    }
+
+    return data?.[0] || null
+  } catch (err) {
+    console.error('[Queue] Error updating queue number:', err)
+    return null
+  }
+}
+
 export default {
   loadBookings,
   saveBooking,
   findPendingBookingByPhone,
   updateBookingStatus,
   isBarberAvailable,
+  updateBookingQueueNumber,
 }

@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { saveBooking } from '@/lib/bookings'
+import { saveBooking, updateBookingQueueNumber } from '@/lib/bookings'
 import { sendTwilioMessage } from '@/lib/whatsappClient'
 import { sanitizePhone } from '@/lib/whatsapp'
 import { generateQueueNumber, formatQueueDisplay } from '@/lib/queue'
@@ -8,31 +8,38 @@ import { sendBookingConfirmationEmail } from '@/lib/gmail'
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json()
-    const { name, service, datetime, barber, phone, email } = body
+    const { name, service, date, time, barber, barberId, phone, email } = body
 
     // Validate required fields
     if (!service) {
       return NextResponse.json({ error: 'Service is required' }, { status: 400 })
     }
 
-    // Generate queue number based on date and barber
-    const bookingDate = datetime?.split(' ')[0] || new Date().toISOString().split('T')[0]
-    const queueNumber = await generateQueueNumber(bookingDate, barber || 'General')
-    const queueDisplay = formatQueueDisplay(queueNumber, barber)
-
-    // Save booking to Supabase
+    // STEP 1: Save booking FIRST (without queue number yet)
     const booking = await saveBooking({
       source: 'web',
       from: phone ? sanitizePhone(phone) : '+0000000000',
       service,
       name: name || undefined,
-      datetime: datetime || undefined,
+      date: date || new Date().toISOString().split('T')[0],
+      time: time || new Date().toTimeString().split(' ')[0],
       barber: barber || undefined,
-      raw: JSON.stringify({ name, service, datetime, barber, phone, email, queueNumber: queueDisplay }),
+      barberId: barberId || null,
+      raw: JSON.stringify({ name, service, date, time, barber, phone, email }),
       status: 'pending',
     })
 
-    console.log('[Web Booking] Created:', { bookingId: booking.id, service, name, phone, queueNumber: queueDisplay })
+    console.log('[Web Booking] Booking saved:', { bookingId: booking.bookingid, service, name, barber })
+
+    // STEP 2: Generate queue number NOW that booking exists in database
+    const bookingDate = date || new Date().toISOString().split('T')[0]
+    const queueNumber = await generateQueueNumber(bookingDate, barber || 'General')
+    const queueDisplay = formatQueueDisplay(queueNumber, barber)
+
+    // STEP 3: Update booking with queue number
+    await updateBookingQueueNumber(booking.bookingid, queueDisplay)
+
+    console.log('[Web Booking] Queue assigned:', { bookingId: booking.id, queueNumber: queueDisplay })
     
     let confirmationSent = false
     let confirmationMethod = 'none'
@@ -44,7 +51,7 @@ export async function POST(req: NextRequest) {
           name: name || 'Customer',
           email,
           service,
-          datetime: datetime || 'To be scheduled',
+          datetime: date && time ? `${date} ${time}` : 'To be scheduled',
           barber: barber || 'Any available',
           queueNumber: queueDisplay,
           location: '35 Nyakata St, Chatsworth, KwaZulu-Natal',
@@ -64,6 +71,7 @@ export async function POST(req: NextRequest) {
     if (!confirmationSent && phone) {
       try {
         const cleanPhone = sanitizePhone(phone)
+        const dateTimeDisplay = date && time ? `${date} ${time}` : 'To be scheduled'
         const confirmationMsg = `
 ✓ *Booking Confirmed*
 
@@ -75,10 +83,10 @@ Your booking has been saved!
 
 📋 *Details:*
 • Service: ${service}
-• Date & Time: ${datetime || 'To be scheduled'}
+• Date & Time: ${dateTimeDisplay}
 • Barber: ${barber || 'Any available'}
 
-📌 *Reference: ${booking.id}*
+📌 *Reference: ${booking.bookingid}*
 
 We'll contact you shortly to confirm. Thanks! 💈
         `.trim()
@@ -99,9 +107,10 @@ We'll contact you shortly to confirm. Thanks! 💈
     return NextResponse.json({ 
       success: true,
       booking: {
-        id: booking.id,
+        id: booking.bookingid,
         service,
-        datetime,
+        date,
+        time,
         barber,
         name,
         status: 'pending',

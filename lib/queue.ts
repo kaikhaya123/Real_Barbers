@@ -5,10 +5,12 @@ import { loadBookings } from './bookings'
  */
 interface DbBooking {
   id: string
-  from: string
+  phone: string
   service: string
-  datetime: string
+  date: string
+  time: string
   barber: string
+  barberid: number
   name: string
   raw: string
   status: string
@@ -29,44 +31,51 @@ export async function generateQueueNumber(bookingDate: string, barberName: strin
   try {
     const bookings = await loadBookings() as DbBooking[]
     
-    console.log('[Queue] All bookings:', bookings.length, 'bookings loaded')
-    console.log('[Queue] First booking sample:', bookings[0])
+    console.log('[Queue] Total bookings loaded:', bookings.length)
     
-    // Get bookings for the same date and barber
+    // Normalize barber name for comparison
+    const normalizeBarber = (str: string | undefined | null): string => {
+      if (!str) return ''
+      return str.trim().toLowerCase()
+    }
+    
+    const normalizedSelectedBarber = normalizeBarber(barberName)
+    
+    // Get bookings for the same date and barber (only pending/confirmed)
     const sameDay = bookings.filter((b: DbBooking) => {
-      if (!b.datetime) return false
+      if (!b.date) return false
       
-      const bookingDateOnly = b.datetime.split(' ')[0] // Get YYYY-MM-DD part
-      const isSameDate = bookingDateOnly === bookingDate
+      // Your schema has separate date column (YYYY-MM-DD format)
+      const isSameDate = b.date === bookingDate
       
-      // More flexible barber matching - handle null, empty, and case-insensitive
-      const normalizeBarber = (str: string | undefined | null) => 
-        str?.trim().toLowerCase() || ''
+      const normalizedBookingBarber = normalizeBarber(b.barber)
+      const isSameBarber = normalizedBookingBarber === normalizedSelectedBarber
       
-      const isSameBarber = normalizeBarber(b.barber) === normalizeBarber(barberName)
+      // Only count pending or confirmed bookings
+      const isRelevantStatus = b.status === 'pending' || b.status === 'confirmed' || !b.status
       
-      if (isSameDate && !isSameBarber) {
-        console.log('[Queue] Date matched but barber mismatch:', {
-          expectedBarber: barberName,
-          actualBarber: b.barber,
-          bookingDateTime: b.datetime,
-        })
-      }
-      
-      return isSameDate && isSameBarber
-    })
-    
-    console.log('[Queue] Generated queue number:', {
-      bookingDate,
-      barberName,
-      totalBookingsThatDay: sameDay.length,
-      nextQueueNumber: sameDay.length + 1,
-      matchedBookings: sameDay.map(b => ({ barber: b.barber, datetime: b.datetime }))
+      return isSameDate && isSameBarber && isRelevantStatus
     })
     
     // Queue number is count + 1, padded to 3 digits
     const queueNumber = sameDay.length + 1
-    return String(queueNumber).padStart(3, '0')
+    const queueNumberStr = String(queueNumber).padStart(3, '0')
+    
+    console.log('[Queue] Generated new queue number:', {
+      bookingDate,
+      barberName: normalizedSelectedBarber || '(no barber)',
+      existingBookingsThatDay: sameDay.length,
+      assignedQueueNumber: queueNumberStr,
+      matchedBookings: sameDay.map(b => ({
+        id: b.id,
+        barber: b.barber,
+        date: b.date,
+        time: b.time,
+        status: b.status
+      }))
+    })
+    
+    return queueNumberStr
   } catch (err) {
     console.error('[Queue] Error generating queue number:', err)
     // Fallback to timestamp-based number
