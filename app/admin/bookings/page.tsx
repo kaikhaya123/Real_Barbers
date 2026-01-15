@@ -119,7 +119,7 @@ export default function AdminBookings() {
   const filtered = bookings.filter(b => filter === 'all' || b.status === filter)
 
   return (
-    <div className="min-h-screen bg-gray-50 p-6">
+    <div className="min-h-screen bg-white p-6">
       <div className="max-w-6xl mx-auto">
         <div className="mb-8 flex items-center justify-between">
           <div>
@@ -228,7 +228,7 @@ export default function AdminBookings() {
                     {booking.date && booking.time && (
                       <p className="text-gray-600 flex items-center gap-2">
                         <Image
-                          src="/Icons/calendar-icon.svg"
+                          src="/Icons/calendar (1).png"
                           alt="Date"
                           width={16}
                           height={16}
