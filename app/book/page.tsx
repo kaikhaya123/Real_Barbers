@@ -45,7 +45,7 @@ export default function BookPage() {
 
     const { name, phone, email, notes } = formData
     const prettyDate = format(selectedDate, 'EEEE, MMMM d, yyyy')
-    const dateTimeStr = `${selectedDate.toISOString().split('T')[0]} ${selectedTime}`
+    const dateStr = selectedDate.toISOString().split('T')[0]
 
     try {
       // Save to database
@@ -55,8 +55,10 @@ export default function BookPage() {
         body: JSON.stringify({
           name,
           service: selectedService.name,
-          datetime: dateTimeStr,
+          date: dateStr,
+          time: selectedTime,
           barber: selectedBarber.name,
+          barberId: selectedBarber.id,
           phone,
           email,
           notes,
