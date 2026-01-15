@@ -373,7 +373,7 @@ export default function AdminBookings() {
                         className="flex-1 min-w-[100px] bg-red-600 hover:bg-red-700 text-white font-medium py-2 sm:py-2.5 px-3 sm:px-4 rounded transition text-sm sm:text-base flex items-center justify-center gap-1"
                       >
                         <Image
-                          src="/Icons/delete.png"
+                          src="/Icons/multiply.png"
                           alt="Cancel"
                           width={16}
                           height={16}
@@ -432,7 +432,7 @@ export default function AdminBookings() {
                     title="Contact via WhatsApp"
                   >
                     <Image
-                      src="/Icons/whatsapp (1).png"
+                      src="/Icons/whatsapp.png"
                       alt="WhatsApp"
                       width={20}
                       height={20}
