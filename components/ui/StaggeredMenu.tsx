@@ -40,7 +40,7 @@ export default function StaggeredMenu({
   socialItems = [],
   displaySocials = true,
   displayItemNumbering = true,
-  logoUrl = '/logo/ChatGPT Image Jan 16, 2026, 10_15_31 AM.png',
+  logoUrl = '/logo/logo_2.png',
   accentColor = '#ff6b6b',
   backgroundImageUrl = '/Images/pexels-rdne-7697717.jpg',
   menuButtonColor = '#000',
@@ -154,6 +154,7 @@ export default function StaggeredMenu({
                 width={120}
                 height={28}
                 className="object-contain"
+                style={{ filter: 'brightness(0) invert(1)' }}
               />
             </Link>
           </div>
