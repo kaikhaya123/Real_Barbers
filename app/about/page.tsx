@@ -81,7 +81,7 @@ export default function AboutPage() {
             {/* Hero Image Placeholder - Replace with your shop image */}
             {/* TODO: Add hero image path to: /public/Images/about-hero.jpg or .png */}
             <Image
-              src="/Images/hairdresser-grooming-their-client.jpg"
+              src="/Images/pexels-rdne-7697476.jpg"
               alt="Pro Barber Shop  - Our Story"
               fill
               className="object-cover"
