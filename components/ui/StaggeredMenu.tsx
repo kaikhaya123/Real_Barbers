@@ -40,7 +40,7 @@ export default function StaggeredMenu({
   socialItems = [],
   displaySocials = true,
   displayItemNumbering = true,
-  logoUrl = '/logo/Pro_barbershop_logo.png',
+  logoUrl = '/logo/ChatGPT Image Jan 16, 2026, 10_15_31 AM.png',
   accentColor = '#ff6b6b',
   backgroundImageUrl = '/Images/pexels-rdne-7697717.jpg',
   menuButtonColor = '#000',
@@ -89,7 +89,7 @@ export default function StaggeredMenu({
       {/* Toggle Button */}
       <button
         onClick={toggleMenu}
-        className="fixed top-6 right-6 z-50 flex items-center justify-center w-12 h-12 font-semibold rounded-lg transition-colors duration-300"
+        className="fixed top-5 right-6 z-50 flex items-center justify-center w-12 h-12 font-semibold rounded-lg transition-colors duration-300"
         style={{ 
           color: changeMenuColorOnOpen && open ? openMenuButtonColor : menuButtonColor,
           position: isFixed ? 'fixed' : 'absolute',
