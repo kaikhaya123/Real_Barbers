@@ -40,45 +40,45 @@ CREATE TABLE IF NOT EXISTS public.services (
 );
 
 -- ============================================================================
--- SECTION 3: BOOKINGS TABLE - WITH QUEUENUMBER SUPPORT ✅
+-- SECTION 3: BOOKINGS TABLE - WITH LOWERCASE COLUMNS FOR CODE COMPATIBILITY ✅
 -- ============================================================================
 CREATE TABLE IF NOT EXISTS public.bookings (
   -- Primary identification
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  bookingId TEXT UNIQUE,
+  bookingid TEXT UNIQUE,
   
   -- Customer information
-  name TEXT NOT NULL,
+  name TEXT,
   email TEXT,
   phone TEXT NOT NULL,
   
   -- Service information
   service TEXT NOT NULL,
-  serviceId BIGINT REFERENCES public.services(id) ON DELETE SET NULL,
+  serviceid BIGINT REFERENCES public.services(id) ON DELETE SET NULL,
   
-  -- Booking date and time (SEPARATE COLUMNS - YOUR SCHEMA)
+  -- Booking date and time (SEPARATE COLUMNS - LOWERCASE)
   date DATE NOT NULL,
   time TIME NOT NULL,
   
-  -- Barber assignment
-  barber TEXT NOT NULL,
-  barberId BIGINT REFERENCES public.barbers(id) ON DELETE SET NULL,
+  -- Barber assignment (LOWERCASE - matches code)
+  barber TEXT,
+  barberid BIGINT REFERENCES public.barbers(id) ON DELETE SET NULL,
   
-  -- QUEUE NUMBER - NEW COLUMN FOR FIX ✅
-  queueNumber VARCHAR(10),
+  -- Queue number (LOWERCASE - matches code)
+  queuenumber TEXT,
   
-  -- Status fields
+  -- Status fields (LOWERCASE)
   status TEXT DEFAULT 'pending' CHECK (status IN ('pending', 'confirmed', 'completed', 'cancelled')),
-  paymentStatus TEXT DEFAULT 'pending' CHECK (paymentStatus IN ('pending', 'paid', 'refunded')),
+  paymentstatus TEXT DEFAULT 'pending' CHECK (paymentstatus IN ('pending', 'paid', 'refunded')),
   
   -- Additional fields
   notes TEXT,
   raw TEXT,
   source TEXT DEFAULT 'web',
   
-  -- Timestamps
-  createdAt TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-  updatedAt TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+  -- Timestamps (LOWERCASE - matches code)
+  createdat TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+  updatedat TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
 -- ============================================================================
@@ -171,12 +171,12 @@ CREATE TABLE IF NOT EXISTS public.promotions (
 -- ============================================================================
 -- SECTION 10: INDEXES FOR PERFORMANCE ✅
 -- ============================================================================
--- Bookings indexes (includes queue number support)
+-- Bookings indexes (LOWERCASE columns to match schema)
 CREATE INDEX IF NOT EXISTS idx_bookings_barber_date_time 
-  ON public.bookings(barberId, date, time);
+  ON public.bookings(barberid, date, time);
 
 CREATE INDEX IF NOT EXISTS idx_bookings_queuenumber 
-  ON public.bookings(queueNumber);
+  ON public.bookings(queuenumber);
 
 CREATE INDEX IF NOT EXISTS idx_bookings_email 
   ON public.bookings(email);

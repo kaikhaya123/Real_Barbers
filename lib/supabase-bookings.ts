@@ -54,7 +54,8 @@ export async function saveBooking(input: Record<string, any>) {
     const phone = input.from || input.phone || ''
     const date = input.date || new Date().toISOString().split('T')[0]
     const time = input.time || new Date().toTimeString().split(' ')[0]
-    const barberid = input.barberId || null
+    // Convert barberid to integer if it's a valid number, otherwise null
+    const barberid = input.barberId ? (typeof input.barberId === 'number' ? input.barberId : parseInt(input.barberId, 10) || null) : null
     
     const booking = {
       bookingid: bookingId,
