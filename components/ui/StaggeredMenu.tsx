@@ -89,17 +89,40 @@ export default function StaggeredMenu({
       {/* Toggle Button */}
       <button
         onClick={toggleMenu}
-        className="fixed top-6 right-6 z-50 flex items-center gap-2 font-semibold"
+        className="fixed top-6 right-6 z-50 flex items-center justify-center w-12 h-12 font-semibold rounded-lg transition-colors duration-300"
         style={{ 
           color: changeMenuColorOnOpen && open ? openMenuButtonColor : menuButtonColor,
           position: isFixed ? 'fixed' : 'absolute',
         }}
+        aria-label="Toggle menu"
       >
-        {open ? 'Close' : 'Menu'}
-        <span className="relative w-5 h-5">
-          <span className="absolute inset-x-0 top-1/2 h-0.5 bg-current" />
-          <span className="absolute inset-y-0 left-1/2 w-0.5 bg-current" />
-        </span>
+        <svg
+          className="w-6 h-6 transition-transform duration-300"
+          style={{
+            transform: open ? 'rotate(90deg)' : 'rotate(0deg)',
+          }}
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          {open ? (
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M6 18L18 6M6 6l12 12"
+            />
+          ) : (
+            <>
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M4 6h16M4 12h16M4 18h16"
+              />
+            </>
+          )}
+        </svg>
       </button>
 
       {/* Menu Panel */}
