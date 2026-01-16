@@ -25,6 +25,8 @@ export default function BarberVideoSection() {
         >
           <source src="/Video/7697138-hd_1920_1080_30fps.mp4" type="video/mp4" />
         </video>
+        {/* Dark Overlay */}
+        <div className="absolute inset-0 bg-black/50" />
       </div>
     </Section>
   )
