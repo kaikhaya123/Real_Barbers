@@ -60,37 +60,48 @@ export default function AdminBookings() {
         return () => {}
       }
 
-      setIsConnected(true)
+      // Try to establish connection
+      const channel = supabase
+        .channel('bookings-updates', {
+          config: {
+            broadcast: { self: true },
+            presence: { key: 'admin-dashboard' },
+          },
+        })
 
       // Subscribe to all changes on bookings table
-      const subscription = supabase
-        .channel('bookings-updates')
-        .on(
-          'postgres_changes',
-          { event: '*', schema: 'public', table: 'bookings' },
-          (payload: any) => {
-            console.log('[Real-time Update]', payload)
-            
-            if (payload.eventType === 'INSERT') {
-              showNotification(`New booking from ${payload.new.phone || 'customer'}!`)
-              fetchBookings()
-            } else if (payload.eventType === 'UPDATE') {
-              showNotification(`Booking updated to ${payload.new.status}`)
-              fetchBookings()
-            } else if (payload.eventType === 'DELETE') {
-              console.log('Booking deleted:', payload.old.id)
-              fetchBookings()
-            }
+      channel.on(
+        'postgres_changes',
+        { event: '*', schema: 'public', table: 'bookings' },
+        (payload: any) => {
+          console.log('[Real-time Update]', payload)
+          
+          if (payload.eventType === 'INSERT') {
+            showNotification(`New booking from ${payload.new.phone || 'customer'}!`)
+            fetchBookings()
+          } else if (payload.eventType === 'UPDATE') {
+            showNotification(`Booking updated to ${payload.new.status}`)
+            fetchBookings()
+          } else if (payload.eventType === 'DELETE') {
+            console.log('Booking deleted:', payload.old.id)
+            fetchBookings()
           }
-        )
-        .subscribe((status: string) => {
-          console.log('[Supabase Subscription Status]', status)
-          setIsConnected(status === 'SUBSCRIBED')
-        })
+        }
+      )
+
+      channel.subscribe((status: string) => {
+        console.log('[Supabase Subscription Status]', status)
+        setIsConnected(status === 'SUBSCRIBED')
+        
+        if (status === 'SUBSCRIBED') {
+          console.log('✅ Real-time connection established')
+          fetchBookings() // Initial fetch when connection established
+        }
+      })
 
       // Return cleanup function
       return () => {
-        subscription.unsubscribe()
+        channel.unsubscribe()
         setIsConnected(false)
       }
     } catch (err) {
@@ -113,8 +124,8 @@ export default function AdminBookings() {
     
     setupSubscription()
     
-    // Also poll every 5 seconds as backup
-    const interval = setInterval(fetchBookings, 5000)
+    // Aggressive polling for real-time updates - every 2 seconds
+    const interval = setInterval(fetchBookings, 2000)
     
     return () => {
       clearInterval(interval)
@@ -195,11 +206,22 @@ export default function AdminBookings() {
             <h1 className="text-2xl sm:text-4xl font-bold text-gray-900 mb-1">Bookings</h1>
             <p className="text-xs sm:text-sm text-gray-600">Manage appointments in real-time</p>
           </div>
-          <div className="flex items-center gap-2 text-xs sm:text-sm">
-            <div className={`w-2 sm:w-3 h-2 sm:h-3 rounded-full ${isConnected ? 'bg-green-500 animate-pulse' : 'bg-red-500'}`}></div>
-            <span className="font-medium text-gray-700">
-              {isConnected ? 'Live' : 'Polling'}
-            </span>
+          <div className="flex items-center gap-3 text-xs sm:text-sm">
+            <div className="flex items-center gap-2">
+              <div className={`w-2 sm:w-3 h-2 sm:h-3 rounded-full ${isConnected ? 'bg-green-500 animate-pulse' : 'bg-red-500'}`}></div>
+              <span className="font-medium text-gray-700">
+                {isConnected ? 'Live' : 'Polling'}
+              </span>
+            </div>
+            <button
+              onClick={() => {
+                setLoading(true)
+                fetchBookings()
+              }}
+              className="px-3 py-1.5 bg-blue-600 hover:bg-blue-700 text-white text-xs sm:text-sm font-medium rounded transition"
+            >
+              🔄 Refresh
+            </button>
           </div>
         </div>
 
