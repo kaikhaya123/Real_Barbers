@@ -218,9 +218,16 @@ export default function AdminBookings() {
                 setLoading(true)
                 fetchBookings()
               }}
-              className="px-3 py-1.5 bg-blue-600 hover:bg-blue-700 text-white text-xs sm:text-sm font-medium rounded transition"
+              className="px-3 py-1.5 bg-blue-600 hover:bg-blue-700 text-white text-xs sm:text-sm font-medium rounded transition flex items-center gap-2"
             >
-              🔄 Refresh
+              <Image
+                src="/Icons/refresh-page-option.png"
+                alt="Refresh"
+                width={16}
+                height={16}
+                className="w-4 h-4"
+              />
+              Refresh
             </button>
           </div>
         </div>
