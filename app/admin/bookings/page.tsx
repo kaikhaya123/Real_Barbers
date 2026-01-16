@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useCallback } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 
@@ -28,68 +28,12 @@ export default function AdminBookings() {
   const [isConnected, setIsConnected] = useState(false)
   const [newNotification, setNewNotification] = useState('')
 
-  useEffect(() => {
-    fetchBookings()
-    subscribeToRealtimeUpdates()
-    
-    // Also poll every 10 seconds as backup
-    const interval = setInterval(fetchBookings, 10000)
-    return () => clearInterval(interval)
-  }, [])
-
-  const subscribeToRealtimeUpdates = async () => {
-    try {
-      const { createClient } = await import('@supabase/supabase-js')
-      const supabase = createClient(
-        process.env.NEXT_PUBLIC_SUPABASE_URL || '',
-        process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || ''
-      )
-
-      if (!supabase) {
-        console.log('Supabase not configured, using polling only')
-        return
-      }
-
-      setIsConnected(true)
-
-      // Subscribe to all changes on bookings table
-      const subscription = supabase
-        .channel('bookings-updates')
-        .on(
-          'postgres_changes',
-          { event: '*', schema: 'public', table: 'bookings' },
-          (payload) => {
-            console.log('[Real-time Update]', payload)
-            
-            if (payload.eventType === 'INSERT') {
-              showNotification(`New booking from ${payload.new.from}!`)
-            } else if (payload.eventType === 'UPDATE') {
-              showNotification(`Booking ${payload.new.id} updated to ${payload.new.status}`)
-            }
-            
-            fetchBookings()
-          }
-        )
-        .subscribe((status) => {
-          console.log('[Supabase Subscription]', status)
-          setIsConnected(status === 'SUBSCRIBED')
-        })
-
-      return () => {
-        subscription.unsubscribe()
-      }
-    } catch (err) {
-      console.log('Real-time subscriptions not available, using polling')
-      setIsConnected(false)
-    }
-  }
-
-  const showNotification = (message: string) => {
+  const showNotification = useCallback((message: string) => {
     setNewNotification(message)
     setTimeout(() => setNewNotification(''), 3000)
-  }
+  }, [])
 
-  const fetchBookings = async () => {
+  const fetchBookings = useCallback(async () => {
     try {
       const res = await fetch('/api/admin/bookings')
       if (!res.ok) throw new Error('Failed to fetch bookings')
@@ -101,7 +45,82 @@ export default function AdminBookings() {
     } finally {
       setLoading(false)
     }
-  }
+  }, [])
+
+  const subscribeToRealtimeUpdates = useCallback(async () => {
+    try {
+      const { createClient } = await import('@supabase/supabase-js')
+      const supabase = createClient(
+        process.env.NEXT_PUBLIC_SUPABASE_URL || '',
+        process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || ''
+      )
+
+      if (!supabase || !process.env.NEXT_PUBLIC_SUPABASE_URL) {
+        console.log('Supabase not configured, using polling only')
+        return () => {}
+      }
+
+      setIsConnected(true)
+
+      // Subscribe to all changes on bookings table
+      const subscription = supabase
+        .channel('bookings-updates')
+        .on(
+          'postgres_changes',
+          { event: '*', schema: 'public', table: 'bookings' },
+          (payload: any) => {
+            console.log('[Real-time Update]', payload)
+            
+            if (payload.eventType === 'INSERT') {
+              showNotification(`New booking from ${payload.new.phone || 'customer'}!`)
+              fetchBookings()
+            } else if (payload.eventType === 'UPDATE') {
+              showNotification(`Booking updated to ${payload.new.status}`)
+              fetchBookings()
+            } else if (payload.eventType === 'DELETE') {
+              console.log('Booking deleted:', payload.old.id)
+              fetchBookings()
+            }
+          }
+        )
+        .subscribe((status: string) => {
+          console.log('[Supabase Subscription Status]', status)
+          setIsConnected(status === 'SUBSCRIBED')
+        })
+
+      // Return cleanup function
+      return () => {
+        subscription.unsubscribe()
+        setIsConnected(false)
+      }
+    } catch (err) {
+      console.error('Real-time subscription error:', err)
+      console.log('Using polling mode only')
+      setIsConnected(false)
+      return () => {}
+    }
+  }, [showNotification, fetchBookings])
+
+  useEffect(() => {
+    fetchBookings()
+    
+    let unsubscribe: (() => void) | null = null
+    
+    // Setup real-time subscription
+    const setupSubscription = async () => {
+      unsubscribe = await subscribeToRealtimeUpdates()
+    }
+    
+    setupSubscription()
+    
+    // Also poll every 5 seconds as backup
+    const interval = setInterval(fetchBookings, 5000)
+    
+    return () => {
+      clearInterval(interval)
+      if (unsubscribe) unsubscribe()
+    }
+  }, [fetchBookings, subscribeToRealtimeUpdates])
 
   const updateStatus = async (bookingId: string, newStatus: string) => {
     try {
