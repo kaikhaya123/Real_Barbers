@@ -143,7 +143,7 @@ export default function AboutPage() {
           animate="visible"
           custom={3}
         >
-          <h2 className="text-2xl font-bold text-gray-900 mb-8 text-center">Why Choose Pro Barber Shop ZA?</h2>
+          <h2 className="text-2xl font-bold text-gray-900 mb-8 text-center">Why Choose Pro Barber Shop?</h2>
           <div className="grid md:grid-cols-2 gap-6">
             {[
               {
