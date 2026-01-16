@@ -17,22 +17,18 @@ interface Booking {
   status: 'pending' | 'confirmed' | 'completed' | 'cancelled'
   source: string
   createdat: string
-  note?: string | null
 }
 
 export default function AdminBookings() {
   const [bookings, setBookings] = useState<Booking[]>([])
-  const [filter, setFilter] = useState<'all' | Booking['status']>('pending')
-  const [dateFilter, setDateFilter] = useState<'today' | 'yesterday' | 'week' | 'month' | 'all'>('today')
+  const [statusFilter, setStatusFilter] = useState<'all' | Booking['status']>('all')
+  const [rangeFilter, setRangeFilter] = useState<'today' | 'yesterday' | 'week' | 'month' | 'all'>('today')
+  const [selectedDate, setSelectedDate] = useState<string>('')
+
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
-  const [isConnected, setIsConnected] = useState(false)
-  const [notification, setNotification] = useState('')
 
-  const notify = (msg: string) => {
-    setNotification(msg)
-    setTimeout(() => setNotification(''), 3000)
-  }
+  /* ---------------- FETCH ---------------- */
 
   const fetchBookings = useCallback(async () => {
     try {
@@ -47,39 +43,69 @@ export default function AdminBookings() {
     }
   }, [])
 
-  /* ---------- DATE FILTER ---------- */
+  useEffect(() => {
+    fetchBookings()
+  }, [fetchBookings])
 
-  const dateRange = useMemo(() => {
-    const t = new Date()
-    t.setHours(0, 0, 0, 0)
-    const end = new Date(t)
+  /* ---------------- DATE LOGIC ---------------- */
+
+  const todayISO = new Date().toISOString().split('T')[0]
+
+  const rangeDates = useMemo(() => {
+    const start = new Date()
+    start.setHours(0, 0, 0, 0)
+
+    const end = new Date(start)
     end.setDate(end.getDate() + 1)
 
-    const map: any = {
-      today: [t, end],
-      yesterday: [new Date(t.getTime() - 86400000), t],
-      week: [new Date(t.getTime() - 604800000), end],
-      month: [new Date(t.setMonth(t.getMonth() - 1)), end],
-      all: [new Date(0), new Date(9999, 0, 1)],
+    if (rangeFilter === 'yesterday') {
+      const y = new Date(start)
+      y.setDate(y.getDate() - 1)
+      return { start: y, end: start }
     }
 
-    return map[dateFilter]
-  }, [dateFilter])
+    if (rangeFilter === 'week') {
+      const w = new Date(start)
+      w.setDate(w.getDate() - 7)
+      return { start: w, end }
+    }
 
-  const filtered = bookings.filter(b => {
-    if (filter !== 'all' && b.status !== filter) return false
-    if (b.date) {
+    if (rangeFilter === 'month') {
+      const m = new Date(start)
+      m.setMonth(m.getMonth() - 1)
+      return { start: m, end }
+    }
+
+    if (rangeFilter === 'all') {
+      return { start: new Date(0), end: new Date(9999, 0, 1) }
+    }
+
+    return { start, end }
+  }, [rangeFilter])
+
+  /* ---------------- FILTERED DATA ---------------- */
+
+  const filteredBookings = useMemo(() => {
+    return bookings.filter(b => {
+      if (statusFilter !== 'all' && b.status !== statusFilter) return false
+
+      if (!b.date) return false
+
+      if (selectedDate) {
+        return b.date === selectedDate
+      }
+
       const d = new Date(b.date)
       d.setHours(0, 0, 0, 0)
-      return d >= dateRange[0] && d < dateRange[1]
-    }
-    return true
-  })
 
-  /* ---------- STATS ---------- */
+      return d >= rangeDates.start && d < rangeDates.end
+    })
+  }, [bookings, statusFilter, selectedDate, rangeDates])
 
-  const stats = useMemo(() => {
-    const today = bookings.filter(b => b.date === new Date().toISOString().split('T')[0])
+  /* ---------------- STATS ---------------- */
+
+  const todayStats = useMemo(() => {
+    const today = bookings.filter(b => b.date === todayISO)
     return {
       total: today.length,
       pending: today.filter(b => b.status === 'pending').length,
@@ -87,33 +113,9 @@ export default function AdminBookings() {
       completed: today.filter(b => b.status === 'completed').length,
       cancelled: today.filter(b => b.status === 'cancelled').length,
     }
-  }, [bookings])
+  }, [bookings, todayISO])
 
-  /* ---------- BARBER LOAD ---------- */
-
-  const barberLoad = useMemo(() => {
-    const map: Record<string, number> = {}
-    bookings.forEach(b => {
-      if (!b.barber || b.status === 'cancelled') return
-      map[b.barber] = (map[b.barber] || 0) + 1
-    })
-    return map
-  }, [bookings])
-
-  /* ---------- TIME SLOT LOAD ---------- */
-
-  const timeLoad = useMemo(() => {
-    const map: Record<string, number> = {}
-    bookings.forEach(b => {
-      if (!b.time || b.status === 'cancelled') return
-      map[b.time] = (map[b.time] || 0) + 1
-    })
-    return map
-  }, [bookings])
-
-  useEffect(() => {
-    fetchBookings()
-  }, [fetchBookings])
+  /* ---------------- ACTIONS ---------------- */
 
   const updateStatus = async (bookingId: string, status: Booking['status']) => {
     await fetch('/api/admin/bookings', {
@@ -121,9 +123,10 @@ export default function AdminBookings() {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ bookingId, status }),
     })
-    notify(`Booking marked as ${status}`)
     fetchBookings()
   }
+
+  /* ---------------- UI ---------------- */
 
   return (
     <div className="min-h-screen bg-gray-50 p-4">
@@ -133,14 +136,14 @@ export default function AdminBookings() {
         <header className="flex justify-between items-center">
           <div>
             <h1 className="text-3xl font-bold">Bookings</h1>
-            <p className="text-sm text-gray-600">Today overview and live queue</p>
+            <p className="text-sm text-gray-600">Daily tracking and management</p>
           </div>
           <Link href="/" className="text-blue-600">← Back</Link>
         </header>
 
         {/* STATS */}
         <div className="grid grid-cols-2 sm:grid-cols-5 gap-3">
-          {Object.entries(stats).map(([k, v]) => (
+          {Object.entries(todayStats).map(([k, v]) => (
             <div key={k} className="bg-white border rounded-lg p-3 text-center">
               <p className="text-xs uppercase text-gray-500">{k}</p>
               <p className="text-xl font-bold">{v}</p>
@@ -148,56 +151,85 @@ export default function AdminBookings() {
           ))}
         </div>
 
-        {/* BARBER LOAD */}
-        <div className="bg-white border rounded-lg p-4">
-          <p className="text-sm font-semibold mb-2">Barber Load</p>
+        {/* FILTERS */}
+        <div className="bg-white border rounded-lg p-4 space-y-4">
+
+          {/* STATUS */}
           <div className="flex gap-2 flex-wrap">
-            {Object.entries(barberLoad).map(([b, c]) => (
-              <span key={b} className="px-3 py-1 bg-gray-100 rounded-full text-sm">
-                {b} {c}
-              </span>
+            {(['all', 'pending', 'confirmed', 'completed', 'cancelled'] as const).map(s => (
+              <button
+                key={s}
+                onClick={() => setStatusFilter(s)}
+                className={`px-3 py-1 rounded-full text-sm font-medium ${
+                  statusFilter === s ? 'bg-black text-white' : 'bg-gray-100'
+                }`}
+              >
+                {s}
+              </button>
             ))}
+          </div>
+
+          {/* RANGE */}
+          <div className="flex gap-2 flex-wrap">
+            {(['today', 'yesterday', 'week', 'month', 'all'] as const).map(r => (
+              <button
+                key={r}
+                onClick={() => {
+                  setRangeFilter(r)
+                  setSelectedDate('')
+                }}
+                className={`px-3 py-1 rounded-full text-sm font-medium ${
+                  rangeFilter === r && !selectedDate ? 'bg-blue-600 text-white' : 'bg-gray-100'
+                }`}
+              >
+                {r}
+              </button>
+            ))}
+          </div>
+
+          {/* DATE PICKER */}
+          <div className="flex items-center gap-3">
+            <input
+              type="date"
+              value={selectedDate}
+              onChange={e => setSelectedDate(e.target.value)}
+              className="border rounded px-3 py-2 text-sm"
+            />
+            {selectedDate && (
+              <button
+                onClick={() => setSelectedDate('')}
+                className="text-sm text-red-600"
+              >
+                Clear
+              </button>
+            )}
           </div>
         </div>
 
-        {/* NOTIFICATION */}
-        {notification && (
-          <div className="bg-blue-50 border-l-4 border-blue-600 p-3 text-sm">
-            {notification}
-          </div>
-        )}
-
-        {/* BOOKINGS */}
+        {/* CONTENT */}
         {loading ? (
           <p>Loading...</p>
-        ) : filtered.length === 0 ? (
+        ) : error ? (
+          <p className="text-red-600">{error}</p>
+        ) : filteredBookings.length === 0 ? (
           <div className="bg-white border rounded-lg p-10 text-center text-gray-500">
-            No bookings yet. Walk-ins will appear here once added.
+            No bookings found for this selection
           </div>
         ) : (
           <div className="space-y-4">
-            {filtered.map(b => (
+            {filteredBookings.map(b => (
               <div key={b.id} className="bg-white border rounded-lg p-4 space-y-3">
 
-                {/* QUEUE */}
-                {b.queuenumber && (
-                  <div className="text-sm text-green-700 font-bold">
-                    Queue #{b.queuenumber} · Used on arrival
-                  </div>
-                )}
-
-                {/* MAIN */}
                 <div className="grid sm:grid-cols-3 gap-4">
                   <div>
-                    <p className="font-semibold">{b.name || 'Walk-in'}</p>
+                    <p className="font-semibold">{b.name || 'Customer'}</p>
                     <p className="text-xs text-gray-500">{b.phone}</p>
                   </div>
 
                   <div>
-                    <p className="font-semibold">{b.time || 'No time'} · {b.date}</p>
-                    {timeLoad[b.time || ''] > 3 && (
-                      <p className="text-xs text-red-600">Overbooked slot</p>
-                    )}
+                    <p className="font-semibold">
+                      {b.date} · {b.time}
+                    </p>
                     <p className="text-xs">{b.service}</p>
                     <p className="text-xs text-gray-500">{b.barber}</p>
                   </div>
@@ -218,20 +250,26 @@ export default function AdminBookings() {
                 <div className="flex gap-2 flex-wrap">
                   {b.status === 'pending' && (
                     <>
-                      <button onClick={() => updateStatus(b.bookingid, 'confirmed')} className="btn-green">Confirm</button>
-                      <button onClick={() => updateStatus(b.bookingid, 'cancelled')} className="btn-red">Cancel</button>
+                      <button onClick={() => updateStatus(b.bookingid, 'confirmed')} className="px-4 py-2 bg-black text-white rounded">
+                        Confirm
+                      </button>
+                      <button onClick={() => updateStatus(b.bookingid, 'cancelled')} className="px-4 py-2 bg-black text-white rounded">
+                        Cancel
+                      </button>
                     </>
                   )}
                   {b.status === 'confirmed' && (
-                    <button onClick={() => updateStatus(b.bookingid, 'completed')} className="btn-blue">Complete</button>
+                    <button onClick={() => updateStatus(b.bookingid, 'completed')} className="px-4 py-2 bg-black text-white rounded">
+                      Complete
+                    </button>
                   )}
+
                   <a
-                    href={`https://wa.me/${b.phone.replace('+','')}?text=${encodeURIComponent(
-                      `Hi ${b.name || ''}, your booking at ${b.time} is confirmed.`
-                    )}`}
+                    href={`https://wa.me/${b.phone.replace('+','')}`}
                     target="_blank"
-                    className="btn-whatsapp"
+                    className="px-4 py-2 bg-green-600 text-white rounded flex items-center gap-2"
                   >
+                    <Image src="/Icons/whatsapp.png" alt="WhatsApp" width={18} height={18} />
                     WhatsApp
                   </a>
                 </div>
@@ -239,6 +277,7 @@ export default function AdminBookings() {
             ))}
           </div>
         )}
+
       </div>
     </div>
   )
