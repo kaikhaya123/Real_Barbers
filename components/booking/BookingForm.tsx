@@ -210,7 +210,7 @@ export default function BookingForm({ service, barber, date, time, onSubmit, onB
 
         <div className="pt-4">
           <Button type="submit" variant="primary" size="lg" fullWidth>
-            Contact via WhatsApp
+            Book Now 
           </Button>
         </div>
 
