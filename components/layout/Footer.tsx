@@ -37,7 +37,7 @@ export default function Footer() {
               </a>
               <a href="#" target="_blank" rel="noreferrer" className="hover:opacity-80 transition-opacity" aria-label="Facebook">
                 <Image 
-                  src="/Icons/social-media (1).png" 
+                  src="/Icons/facebook.png" 
                   alt="Facebook" 
                   width={24} 
                   height={24} 
